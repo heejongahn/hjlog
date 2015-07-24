@@ -18,7 +18,10 @@
     margin-right: 1.5em;
   }
   .main.container {
-    margin-top: 7em;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 7em auto 9em;
   }
   .wireframe {
     margin-top: 2em;
@@ -26,6 +29,9 @@
   .ui.footer.segment {
     margin: 10em 0em 0em;
     padding: 5em 5em;
+  }
+  .footer, .push {
+    height: 4em;
   }
   </style>
 </head>
@@ -44,6 +50,7 @@
 
   <div class="ui main text container">
     {% block content %}{% endblock %}
+    <div class="push"></div>
   </div>
 
   <div class="ui inverted vertical footer segment">
@@ -54,7 +61,6 @@
           <p>This is a blog of heejong and hajin.</p>
         </div>
       </div>
-      <div class="ui inverted section divider"></div>
     </div>
   </div>
   <script src="{{ url_for('static', filename = 'js/semantic.min.js') }}" type="text/javascript"></script>
