@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+# 하진과 희종, 희종과 하진의 이야기들
+
+<div class"ui list">
+  {% for post in posts %}
+  <div class="item">
+    <div class="content">
+        <a class="item" href="/post/{{post.id}}"><h2>{{post.title}}</h2></a>
+        <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
+        <div class="ui divider"></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

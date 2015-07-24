@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+# {{post.title}}
+### {{post.datetime.strftime('%Y %m %d %H:%M')}}
+<div class="ui divider"></div>
+{{post.body}}
+{% endblock %}
