@@ -49,7 +49,9 @@
   </div>
 
   <div class="ui main text container">
+    {% filter markdown %}
     {% block content %}{% endblock %}
+    {% endfilter%}
     <div class="push"></div>
   </div>
 
