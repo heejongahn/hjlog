@@ -20,8 +20,8 @@ def post(id):
     post = Post.query.filter_by(id=id).one()
     return render_template('post.html', post=post)
 
-@app.route('/write', methods=['GET', 'POST'])
-def write():
+@app.route('/post/new', methods=['GET', 'POST'])
+def post_new():
     form = PostForm()
     if form.validate_on_submit():
         title, body = request.form.get('title'), request.form.get('body')
@@ -29,6 +29,21 @@ def write():
 
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('posts', id=post.id))
+        return redirect(url_for('post', id=post.id))
 
-    return render_template('write.html', form=form)
+    return render_template('post_new.html', form=form)
+
+@app.route('/post/<id>/edit', methods=['GET', 'POST'])
+def post_edit(id):
+    post = Post.query.filter_by(id=id).one()
+    form = PostForm(title = post.title, body = post.body)
+
+    if form.validate_on_submit():
+        title, body = request.form.get('title'), request.form.get('body')
+        post.title, post.body = title, body
+
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('post', id=post.id))
+
+    return render_template('post_edit.html', form=form, id=post.id)

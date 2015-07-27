@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 # {{post.title}}
-### {{post.datetime.strftime('%Y %m %d %H:%M')}}
+<div class="ui left aligned grid">
+    <div class="left floated four wide column">
+        {{post.datetime.strftime('%Y %m %d%H:%M')}}
+    </div>
+    <div class="right floated right aligned four wide column">
+        <a href="{{post.id}}/edit">수정하기</a>
+    </div>
+</div>
 <div class="ui divider"></div>
 {{post.body}}
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>추억 적기</h1>
-<form method='POST' action='/write' class='ui form'>
+<form method='POST' action='/post/{{id}}/edit' class='ui form'>
     {{ form.hidden_tag() }}
     {{ render_semantic(form.title) }}
     {{ render_semantic(form.body) }}
-    <input type='submit' class='ui button' value='작성'>
+    <input type='submit' class='ui button basic' value='작성'>
 </form>
 {% endblock %}
 
