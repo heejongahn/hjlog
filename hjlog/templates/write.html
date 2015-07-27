@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-# 추억 남기기
-<div class="ui form">
-  <div class="field">
-    <label>글 (Markdown support)</label>
-    <textarea></textarea>
-  </div>
-</div>
+<h1>추억 적기</h1>
+<form method='POST' action='/write' class='ui form'>
+    {{ form.hidden_tag() }}
+    {{ render_semantic(form.title) }}
+    {{ render_semantic(form.body) }}
+    <input type='submit' class='ui button' value='작성'>
+</form>
 {% endblock %}
+
+{% macro render_semantic(field) %}
+<div class='field'>
+    <label>{{ field.label }}</label>
+    {{ field|safe }}
+</div>
+{% endmacro %}

@@ -8,4 +8,4 @@ Markdown(app)
 
 db = SQLAlchemy(app)
 
-from hjlog import views, models
+from hjlog import views, models, forms
