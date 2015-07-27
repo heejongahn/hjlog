@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui grid">
+    <div class="ui eleven wide column">
+        <h1> 하진과 희종, 희종과 하진의 이야기들 </h1>
+    </div>
+    <div class="ui one wide column">
+        <a href="/write" class="ui icon button basic">
+            <i class="write icon"></i>
+        </a>
+    </div>
+</div>
+<div class="ui divider"></div>
+<div class"ui list">
+  {% for post in posts %}
+  <div class="item">
+    <div class="content">
+        <a class="item" href="/post/{{post.id}}"><h2>{{post.title}}</h2></a>
+        <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
+    </div>
+  </div>
+  <br>
+  {% endfor %}
+</div>
+{% endblock %}
