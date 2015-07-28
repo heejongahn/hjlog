@@ -7,5 +7,5 @@ class PostForm(Form):
     body = TextAreaField('추억 내용', validators = [InputRequired()])
 
 class CommentForm(Form):
-    name = StringField('작성자', validators = [InputRequired(), Length(max=30)])
-    body = TextAreaField('댓글 내용', validators = [InputRequired()])
+    name = StringField('누가', validators = [InputRequired(), Length(max=30)])
+    body = TextAreaField('어떤', validators = [InputRequired()])

@@ -14,7 +14,7 @@
 {{post.body}}
 {% endfilter %}
 <br><br>
-<div class="ui horizontal divider">Comments</div>
+<div class="ui horizontal divider">덧생각들</div>
 {% if comments %}
     {% for comment in comments %}
         <b>{{comment.name}}</b>
@@ -33,8 +33,7 @@
 {% else %}
 <p>현재 이 글에 달린 코멘트가 없습니다.</p>
 {% endif %}
-<div class="ui divider"></div>
-<div><b>댓글 남기기</b></div>
+<div class="ui horizontal divider">덧생각 적기</div>
 <br>
 <form method='POST' action='/post/{{post.id}}' class='ui form'>
     {{ form.hidden_tag() }}
