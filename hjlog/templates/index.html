@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
+{% block header %}
+<style type="text/css">
+    img {
+        width: 25%;
+        float: left;
+        margin: 0 5% 0 0;
+    }
+</style>
+{% endblock %}
 {% block content %}
+{% filter markdown %}
+
 # HJLog
 
-hjlog a archive of two HJ - Heejong and Hajin.
+![2013](https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-ash2/t31.0-8/1053079_382379685215029_1994966112_o.jpg)
+**h**ee**j**ong + **h**a**j**in = hjlog!
+이 곳은 하진이와 희종이의 블로그입니다.
 
-This blog is powered by Flask, made by Heejong and the power of love!
+예~~
+{% endfilter %}
 {% endblock %}
