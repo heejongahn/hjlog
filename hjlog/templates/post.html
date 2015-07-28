@@ -1,14 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
-# {{post.title}}
+<h1>{{post.title}}</h1>
 <div class="ui left aligned grid">
     <div class="left floated four wide column">
-        {{post.datetime.strftime('%Y %m %d%H:%M')}}
+        {{post.datetime.strftime('%Y %m %d %H:%M')}}
     </div>
     <div class="right floated right aligned four wide column">
         <a href="{{post.id}}/edit">수정하기</a>
     </div>
 </div>
-<div class="ui divider"></div>
+<br>
+{% filter markdown %}
 {{post.body}}
+{% endfilter %}
+<br><br>
+<div class="ui horizontal divider">Comments</div>
+{% if comments %}
+    {% for comment in comments %}
+        <b>{{comment.name}}</b>
+        <div class="ui left aligned grid">
+            <div class="left floated four wide column">
+                {{comment.datetime.strftime('%Y %m %d %H:%M')}}
+            </div>
+            <div class="right floated right aligned four wide column">
+                <i>{{comment.ip}}</i>
+            </div>
+        </div>
+        <p>{% filter markdown %}
+        {{comment.body}}{% endfilter %}<p>
+        <br>
+    {% endfor %}
+{% else %}
+<p>현재 이 글에 달린 코멘트가 없습니다.</p>
+{% endif %}
+<div class="ui divider"></div>
+<div><b>댓글 남기기</b></div>
+<br>
+<form method='POST' action='/post/{{post.id}}' class='ui form'>
+    {{ form.hidden_tag() }}
+    {{ render_semantic(form.name) }}
+    {{ render_semantic(form.body) }}
+    <input type='submit' class='ui button basic' value='작성'>
+</form>
 {% endblock %}
+
+{% macro render_semantic(field) %}
+<div class='field'>
+    <label>{{ field.label }}</label>
+    {{ field|safe }}
+</div>
+{% endmacro %}

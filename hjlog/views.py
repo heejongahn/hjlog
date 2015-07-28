@@ -1,8 +1,8 @@
 from hjlog import app, db
 from flask import render_template, redirect, request, url_for
 from sqlalchemy import desc
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 
 # About
 @app.route('/')
@@ -15,10 +15,26 @@ def posts():
     posts = Post.query.order_by(desc(Post.datetime)).all()
     return render_template('posts.html', posts = posts)
 
-@app.route('/post/<id>')
+@app.route('/post/<id>', methods=['GET', 'POST'])
 def post(id):
+    form = CommentForm()
     post = Post.query.filter_by(id=id).one()
-    return render_template('post.html', post=post)
+    comments = []
+    try:
+        comments = Comment.query.filter_by(original=post).all()
+    except:
+        pass
+
+    if form.validate_on_submit():
+        name, ip, body, o_id = (request.form.get('name'), request.remote_addr,
+                request.form.get('body'), post.id)
+        comment = Comment(name, ip, body, o_id)
+
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('post', id=post.id, comments=comments, form=form))
+
+    return render_template('post.html', post=post, comments=comments, form=form)
 
 @app.route('/post/new', methods=['GET', 'POST'])
 def post_new():
