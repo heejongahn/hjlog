@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>사진 올리기</h1>
+<form method='POST' action='/photo/add' class='ui form' enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ render_semantic(form.title) }}
+    {{ render_semantic(form.description) }}
+    {{ render_semantic_file(form.photo) }}
+    <input type='submit' class='ui button basic' value='올리기'>
+</form>
+{% endblock %}
+
+{% macro render_semantic(field) %}
+<div class='field'>
+    <label>{{ field.label }}</label>
+    {{ field|safe }}
+</div>
+{% endmacro %}
+
+{% macro render_semantic_file(field) %}
+<div class='field'>
+    <label>{{ field.label }}</label>
+    {{ field|safe }}
+</div>
+{% endmacro %}

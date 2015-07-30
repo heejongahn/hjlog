@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="ui grid">
+    <div class="ui column fifteen wide">
+        <h1>사진에 담은 추억들</h1>
+    </div>
+    <div class="ui one wide column">
+        <a href="/photo/add" class="ui icon button basic">
+            <i class="plus icon"></i>
+        </a>
+    </div>
+</div>
+<br><br>
+{% for photo in photos %}
+<div class="ui grid">
+    <div class="ui column twelve wide">
+        <b>{{photo.title}}</b>
+    </div>
+    <div class="right aligned ui column four wide">
+        <p>{{photo.datetime.strftime('%Y %m %d %H:%M')}}</p>
+    </div>
+</div>
+<img class="ui fluid rounded image" src="/static/image/{{photo.filename}}"}
+<p>{{photo.description}}</p>
+<div class="ui horizontal divider"><i class="ui heart icon"></i></div>
+{% endfor %}
+{% endblock %}

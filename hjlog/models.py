@@ -28,3 +28,17 @@ class Comment(db.Model):
         self.body = body
         self.datetime = datetime.now()
         self.original_id = original_id
+
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(30))
+    description = db.Column(db.Text)
+    filename = db.Column(db.String(100))
+    datetime = db.Column(db.DateTime)
+
+    def __init__(self, title, description, filename):
+        self.title = title
+        self.description = description
+        self.filename = filename
+
+        self.datetime = datetime.now()
