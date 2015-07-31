@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% block header %}
+<style type='text/css'>
+h2 {
+  display: inline;
+}
+</style>
+{% endblock %}
 {% block content %}
 <div class="ui grid">
     <div class="ui fifteen wide column">
@@ -15,8 +22,10 @@
   {% for post in posts %}
   <div class="item">
     <div class="content">
-        <a class="item" href="/post/{{post.id}}"><h2>{{post.title}}</h2></a>
-        <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
+      <a class="item" href="/post/{{post.id}}">
+        <h2 id='title'>{{post.title}}</h2>&nbsp;&nbsp;[{{post.comments|length}}]
+      </a>
+      <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
     </div>
   </div>
   <br>
