@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Form
 SECRET_KEY = 'I cannot forget may eighth'
-UPLOAD_FOLDER = 'hjlog/static/image'
+UPLOAD_FOLDER = 'hjlog/static/image/photo'
 ALLOWED_EXTENSIONS = set(['gif', 'jpg', 'jpeg', 'png'])
 
 # SQLAlchemy

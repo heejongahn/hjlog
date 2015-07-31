@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block header %}
 <style type='text/css'>
-h2 {
+h2.title, div.content {
   display: inline;
+  vertical-align: middle;
 }
 </style>
 {% endblock %}
@@ -18,15 +19,16 @@ h2 {
     </div>
 </div>
 <div class="ui divider"></div>
-<div class"ui list">
+<div class"ui middle aligned relaxed selection list">
   {% for post in posts %}
   <div class="item">
+    <img class="ui avatar image" src="/static/image/icon/hj-08.png">
     <div class="content">
-      <a class="item" href="/post/{{post.id}}">
-        <h2 id='title'>{{post.title}}</h2>&nbsp;&nbsp;[{{post.comments|length}}]
+      <a href="/post/{{post.id}}">
+        <h2 class="title">{{post.title}}</h2>&nbsp;&nbsp;[{{post.comments|length}}]
       </a>
-      <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
     </div>
+    <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
   </div>
   <br>
   {% endfor %}

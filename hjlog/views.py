@@ -8,8 +8,8 @@ import os
 
 # About
 @app.route('/')
-def index():
-    return render_template('index.html')
+def about():
+    return render_template('about.html')
 
 # Helper functions
 def allowed_file(filename):
