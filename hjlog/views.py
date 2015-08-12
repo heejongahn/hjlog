@@ -22,6 +22,12 @@ def posts():
     posts = Post.query.order_by(desc(Post.datetime)).all()
     return render_template('posts.html', posts = posts)
 
+@app.route('/posts/<category>')
+def posts_with_category(category):
+    posts = Post.query.filter_by(category=category).order_by(desc(Post.datetime)).all()
+    return render_template('posts.html', posts = posts, c=category)
+
+
 @app.route('/post/<id>', methods=['GET', 'POST'])
 def post(id):
     form = CommentForm()
@@ -47,8 +53,9 @@ def post(id):
 def post_new():
     form = PostForm()
     if form.validate_on_submit():
-        title, body = request.form.get('title'), request.form.get('body')
-        post = Post(title, body)
+        title, body, category = request.form.get('title'), request.form.get('body'), \
+                request.form.get('category')
+        post = Post(title, body, category)
 
         db.session.add(post)
         db.session.commit()
