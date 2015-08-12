@@ -10,6 +10,7 @@
   <title>hjlog: hj + hj = ♥︎</title>
 
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/semantic.min.css')}}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='image/icon/hj-03.png')}}">
   <style type="text/css">
   body {
     background-color: #FFFFFF;
@@ -47,7 +48,15 @@
       <img src="/static/image/icon/hj-06.png" alt="hjlog">
       </div>
       <a href="/" class="item">About</a>
-      <a href="/posts" class="item">Blog</a>
+      <div class="ui dropdown simple item">
+        Blog
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href='/posts' class='item'>All Posts</a>
+          <a href='/posts' class='item'>Daily</a>
+          <a href='/posts' class='item'>Study</a>
+        </div>
+      </div>
       <a href="/photo" class="item">Photo</a>
     </div>
   </div>
