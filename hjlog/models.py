@@ -15,7 +15,6 @@ class Post(db.Model):
         self.category = category
         self.datetime = datetime.now()
 
-
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(30))
@@ -42,5 +41,4 @@ class Photo(db.Model):
         self.title = title
         self.description = description
         self.filename = filename
-
         self.datetime = datetime.now()

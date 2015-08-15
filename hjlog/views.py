@@ -90,7 +90,6 @@ def photo_add():
     if request.method == 'POST' and form.validate_on_submit:
         title, description = request.form.get('title'), request.form.get('description')
         uploaded_file = request.files['photo']
-        print (uploaded_file.filename)
 
         if allowed_file(uploaded_file.filename):
             filename = secure_filename(uploaded_file.filename)
