@@ -1,19 +1,35 @@
 from hjlog import db
 from datetime import datetime
 
+# Tag helper table
+tags = db.Table('tags',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
+)
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120), index = True, unique = True)
     body = db.Column(db.Text)
     datetime = db.Column(db.DateTime)
     category = db.Column(db.String(20))
+    tags = db.relationship('Tag', secondary=tags,
+        backref=db.backref('describes', lazy='dynamic'))
     comments = db.relationship('Comment', backref='original')
 
-    def __init__(self, title, body, category):
+    def __init__(self, title, body, category, tags):
         self.title = title
         self.body = body
         self.category = category
+        self.tags = tags
         self.datetime = datetime.now()
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    tag_name = db.Column(db.String(30), unique = True)
+
+    def __init__(self, tag_name):
+        self.tag_name = tag_name
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)

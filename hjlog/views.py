@@ -2,7 +2,7 @@ from hjlog import app, db
 from flask import render_template, redirect, request, url_for
 from werkzeug import secure_filename
 from sqlalchemy import desc
-from .models import Post, Comment, Photo
+from .models import Post, Comment, Photo, Tag
 from .forms import PostForm, CommentForm, PhotoForm
 import os
 
@@ -53,9 +53,27 @@ def post(id):
 def post_new():
     form = PostForm()
     if form.validate_on_submit():
-        title, body, category = request.form.get('title'), request.form.get('body'), \
-                request.form.get('category')
-        post = Post(title, body, category)
+        title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
+                request.form.get('category'), request.form.get('tags')
+
+        # Tagging
+        tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
+        if tag_names == ['']:
+            tag_names = []
+
+        tags = []
+        for tag_name in tag_names:
+            try:
+                t = Tag(tag_name)
+                db.session.add(t)
+                db.session.commit()
+            except:
+                db.session.rollback()
+                t = Tag.query.filter_by(tag_name = tag_name).one()
+            finally:
+                tags.append(t)
+
+        post = Post(title, body, category, tags)
 
         db.session.add(post)
         db.session.commit()
@@ -66,11 +84,34 @@ def post_new():
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
 def post_edit(id):
     post = Post.query.filter_by(id=id).one()
-    form = PostForm(title = post.title, body = post.body)
+
+    tags_str = ", ".join([tag.tag_name for tag in post.tags])
+
+    form = PostForm(title = post.title, body = post.body, tags=tags_str,
+            category=post.category)
 
     if form.validate_on_submit():
-        title, body = request.form.get('title'), request.form.get('body')
-        post.title, post.body = title, body
+        title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
+                request.form.get('category'), request.form.get('tags')
+
+        # Tagging
+        tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
+        if tag_names == ['']:
+            tag_names = []
+
+        tags = []
+        for tag_name in tag_names:
+            try:
+                t = Tag(tag_name)
+                db.session.add(t)
+                db.session.commit()
+            except:
+                db.session.rollback()
+                t = Tag.query.filter_by(tag_name = tag_name).one()
+            finally:
+                tags.append(t)
+
+        post.title, post.body, post.category, post.tags = title, body, category, tags
 
         db.session.add(post)
         db.session.commit()

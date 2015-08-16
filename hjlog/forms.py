@@ -3,10 +3,10 @@ from wtforms import TextAreaField, StringField, FileField, SelectField
 from wtforms.validators import InputRequired, Length
 
 class PostForm(Form):
-    title = StringField('추억 제목', validators = [InputRequired(), Length(max=30)])
-    body = TextAreaField('추억 내용', validators = [InputRequired()])
-    category = SelectField('추억 분류', choices = [('daily', 'Daily'), ('study',
-        'Study')])
+    title = StringField('제목', validators = [InputRequired(), Length(max=30)])
+    body = TextAreaField('내용', validators = [InputRequired()])
+    tags = StringField('글갈피')
+    category = SelectField('분류', choices = [('daily', 'Daily'), ('study', 'Study')])
 
 class CommentForm(Form):
     name = StringField('누가', validators = [InputRequired(), Length(max=30)])
