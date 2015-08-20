@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
+{% block header %}
+<style type='text/css'>
+  a.mini {
+    font-size: 0.6rem !important;
+    padding: 0.785714em 1em !important;
+  }
+</style>
+{% endblock %}
 {% block content %}
 <h1>{{post.title}}</h1>
 <div class="ui left aligned grid">
@@ -6,21 +14,22 @@
         {{post.datetime.strftime('%Y %m %d %H:%M')}}
     </div>
     <div class="right floated right aligned four wide column">
+        <a href="{{post.id}}/delete" class='delete'>삭제하기</a>
         <a href="{{post.id}}/edit">수정하기</a>
     </div>
 </div>
 <br>
-{% filter markdown %}
-{{post.body}}
-{% endfilter %}
-<div class="ui horizontal divider">글갈피</div>
 {% if post.tags %}
   {% for tag in post.tags %}
   <a class='mini basic ui button'>{{tag.tag_name}}</a>
   {% endfor %}
-{% else %}
-  <p>이 글에는 글갈피가 꽂혀있지 않습니다.</p>
 {% endif %}
+<br>
+<br>
+{% filter markdown %}
+{{post.body}}
+{% endfilter %}
+<br>
 <div class="ui horizontal divider">덧생각들</div>
 {% if comments %}
     {% for comment in comments %}
