@@ -4,5 +4,5 @@
 ## Installation
 
 ``` bash
-pip install flask flask-sqlalchemy flask-wtf flask-markdown
+pip3 install -r requirements.txt
 ```
