@@ -81,6 +81,13 @@ def post_new():
 
     return render_template('post_new.html', form=form)
 
+@app.route('/post/<id>/delete')
+def post_delete(id):
+    post = Post.query.filter_by(id=id).one()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('posts'))
+
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
 def post_edit(id):
     post = Post.query.filter_by(id=id).one()
