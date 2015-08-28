@@ -48,22 +48,15 @@
       <img src="/static/image/icon/hj-06.png" alt="hjlog">
       </div>
       <a href="/" class="item">About</a>
-      <div class="ui dropdown simple item">
-        Blog
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <a href='/posts' class='item'>All Posts</a>
-          <a href='/posts/daily' class='item'>Daily</a>
-          <a href='/posts/study' class='item'>Study</a>
-        </div>
-      </div>
+      <a href='/posts' class='item'>All Posts</a>
+      <a href='/posts/daily' class='item'>Daily</a>
+      <a href='/posts/study' class='item'>Study</a>
       <a href="/photo" class="item">Photo</a>
     </div>
   </div>
 
   <div class="ui main text container">
     {% block content %}{% endblock %}
-    <div class="push"></div>
   </div>
 
   <div class="ui inverted vertical footer segment">
