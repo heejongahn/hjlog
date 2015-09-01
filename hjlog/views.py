@@ -45,7 +45,8 @@ def post(id):
 
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('post', id=post.id, comments=comments, form=form))
+        form = CommentForm()
+        return redirect(url_for('post', id=post.id))
 
     return render_template('post.html', post=post, comments=comments, form=form)
 
