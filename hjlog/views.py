@@ -38,7 +38,7 @@ def post(id):
     except:
         pass
 
-    if form.validate_on_submit():
+    if request.method=='POST' and form.validate_on_submit():
         name, ip, body, o_id = (request.form.get('name'), request.remote_addr,
                 request.form.get('body'), post.id)
         comment = Comment(name, ip, body, o_id)
@@ -53,7 +53,7 @@ def post(id):
 @app.route('/post/new', methods=['GET', 'POST'])
 def post_new():
     form = PostForm()
-    if form.validate_on_submit():
+    if request.method=='POST' and form.validate_on_submit():
         title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
                 request.form.get('category'), request.form.get('tags')
 
@@ -98,7 +98,7 @@ def post_edit(id):
     form = PostForm(title = post.title, body = post.body, tags=tags_str,
             category=post.category)
 
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
                 request.form.get('category'), request.form.get('tags')
 
@@ -136,7 +136,7 @@ def photo():
 @app.route('/photo/add', methods=['GET', 'POST'])
 def photo_add():
     form = PhotoForm()
-    if request.method == 'POST' and form.validate_on_submit:
+    if request.method == 'POST' and form.validate_on_submit():
         title, description = request.form.get('title'), request.form.get('description')
         uploaded_file = request.files['photo']
 
