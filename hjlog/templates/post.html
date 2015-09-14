@@ -42,8 +42,7 @@
                 <i>{{comment.ip}}</i>
             </div>
         </div>
-        <p>{% filter markdown %}
-        {{comment.body}}{% endfilter %}<p>
+        <p>{% filter markdown %}{{comment.body}}{% endfilter %}</p>
         <br>
     {% endfor %}
 {% else %}
