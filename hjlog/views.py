@@ -1,10 +1,46 @@
-from hjlog import app, db
+from hjlog import app, db, lm
 from flask import render_template, redirect, request, url_for
 from werkzeug import secure_filename
 from sqlalchemy import desc
-from .models import Post, Comment, Photo, Tag
-from .forms import PostForm, CommentForm, PhotoForm
+from .models import Post, Comment, Photo, Tag, User
+from .forms import PostForm, CommentForm, PhotoForm, LoginForm
+from flask.ext.login import login_user, logout_user, current_user
 import os
+
+# Login
+@lm.user_loader
+def load_user(user_id):
+    u = None
+    try:
+        u = User.query.filter_by(id=user_id).one()
+    except:
+        pass
+
+    return u
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        try:
+            user = User.query.filter_by(username=form.username.data).first_or_404()
+        except:
+            return redirect(url_for('login'))
+
+        if user.is_correct_password(form.password.data):
+            login_user(user)
+            return redirect(url_for('about'))
+        else:
+            return redirect(url_for('login'))
+
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+
+    return redirect(url_for('about'))
 
 # About
 @app.route('/')

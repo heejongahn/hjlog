@@ -5,9 +5,11 @@
         <h1>사진에 담은 추억들</h1>
     </div>
     <div class="ui one wide column">
+        {% if current_user.username %}
         <a href="/photo/add" class="ui icon button basic">
             <i class="plus icon"></i>
         </a>
+        {% endif %}
     </div>
 </div>
 <br><br>

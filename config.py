@@ -1,6 +1,8 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+BCRYPT_LOG_ROUNDS = 12
+
 # Form
 SECRET_KEY = 'I cannot forget may eighth'
 UPLOAD_FOLDER = 'hjlog/static/image/photo'

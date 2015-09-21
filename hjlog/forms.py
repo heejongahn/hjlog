@@ -1,6 +1,10 @@
 from flask_wtf import Form
-from wtforms import TextAreaField, StringField, FileField, SelectField
+from wtforms import TextField, TextAreaField, StringField, FileField, SelectField, PasswordField
 from wtforms.validators import InputRequired, Length
+
+class LoginForm(Form):
+    username = TextField('Username', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
 
 class PostForm(Form):
     title = StringField('제목', validators = [InputRequired(), Length(max=30)])

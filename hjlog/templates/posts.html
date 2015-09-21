@@ -13,9 +13,11 @@ h2.title, div.content {
       <h1> 하진과 희종, 희종과 하진의 이야기들{% if c %} :: {{c}}{% endif%}</h1>
     </div>
     <div class="ui one wide column">
+        {% if current_user.username %}
         <a href="/post/new" class="ui icon button basic">
             <i class="write icon"></i>
         </a>
+        {% endif %}
     </div>
 </div>
 <div class="ui divider"></div>

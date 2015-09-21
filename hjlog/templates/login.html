@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>로그인</h1>
+<form method='POST' action='/login' class='ui form'>
+  {{ form.hidden_tag() }}
+  {{ render_semantic(form.username) }}
+  {{ render_semantic(form.password) }}
+  <input type='submit' class='ui button basic' value='Login'>
+</form>
+{% endblock %}
+
+{% macro render_semantic(field) %}
+<div class='field'>
+    <label>{{ field.label }}</label>
+    {{ field|safe }}
+</div>
+{% endmacro %}
