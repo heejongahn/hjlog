@@ -48,11 +48,13 @@
       <a href='/posts/daily' class='item'>Daily</a>
       <a href='/posts/study' class='item'>Study</a>
       <a href='/photo' class="item">Photo</a>
+      <div class='right menu'>
       {% if current_user.username %}
       <a href='/logout' class='item'>Logout</a>
       {% else %}
       <a href='/login' class='item'>Login</a>
       {% endif %}
+    </div>
     </div>
   </div>
 
