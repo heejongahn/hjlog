@@ -24,7 +24,11 @@ h2.title, div.content {
 <div class"ui middle aligned relaxed selection list">
   {% for post in posts %}
   <div class="item">
+    {% if post.author.username == 'heejongahn' %}
     <img class="ui avatar image" src="/static/image/icon/hj-08.png">
+    {% else %}
+    <img class="ui avatar image" src="/static/image/icon/hj-07.png">
+    {% endif %}
     <div class="content">
       <a href="/post/{{post.id}}">
         <h2 class="title">{{post.title}}</h2>&nbsp;&nbsp;[{{post.comments|length}}]

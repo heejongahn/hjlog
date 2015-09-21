@@ -90,8 +90,8 @@ def post(id):
 def post_new():
     form = PostForm()
     if request.method=='POST' and form.validate_on_submit():
-        title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
-                request.form.get('category'), request.form.get('tags')
+        title, body, category, author, tag_names = request.form.get('title'), request.form.get('body'), \
+                request.form.get('category'), current_user, request.form.get('tags')
 
         # Tagging
         tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
@@ -110,7 +110,7 @@ def post_new():
             finally:
                 tags.append(t)
 
-        post = Post(title, body, category, tags)
+        post = Post(title, body, category, author, tags)
 
         db.session.add(post)
         db.session.commit()

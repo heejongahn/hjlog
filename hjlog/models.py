@@ -7,6 +7,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), unique=True)
     _password = db.Column(db.String(128))
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     @hybrid_property
     def password(self):
@@ -31,14 +32,16 @@ class Post(db.Model):
     body = db.Column(db.Text)
     datetime = db.Column(db.DateTime)
     category = db.Column(db.String(20))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     tags = db.relationship('Tag', secondary=tags,
         backref=db.backref('describes', lazy='dynamic'))
     comments = db.relationship('Comment', backref='original')
 
-    def __init__(self, title, body, category, tags):
+    def __init__(self, title, body, category, author, tags):
         self.title = title
         self.body = body
         self.category = category
+        self.author = author
         self.tags = tags
         self.datetime = datetime.now()
 
