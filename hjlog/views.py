@@ -53,16 +53,10 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 # Blog
-@app.route('/posts')
-def posts():
-    posts = Post.query.order_by(desc(Post.datetime)).all()
-    return render_template('posts.html', posts = posts)
-
 @app.route('/posts/<category>')
-def posts_with_category(category):
+def posts(category):
     posts = Post.query.filter_by(category=category).order_by(desc(Post.datetime)).all()
     return render_template('posts.html', posts = posts, c=category)
-
 
 @app.route('/post/<id>', methods=['GET', 'POST'])
 def post(id):
