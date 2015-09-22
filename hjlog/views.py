@@ -1,5 +1,5 @@
 from hjlog import app, db, lm
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, flash
 from werkzeug import secure_filename
 from sqlalchemy import desc
 from .models import Post, Comment, Photo, Tag, User
@@ -26,12 +26,15 @@ def login():
         try:
             user = User.query.filter_by(username=form.username.data).first_or_404()
         except:
+            flash('등록된 관리자가 아닙니다 :(', 'warning')
             return redirect(url_for('login'))
 
         if user.is_correct_password(form.password.data):
             login_user(user)
+            flash('관리자님 환영합니다 :)', 'success')
             return redirect(url_for('about'))
         else:
+            flash('올바르지 않은 ID/PW 쌍입니다 :-(', 'error')
             return redirect(url_for('login'))
 
     return render_template('login.html', form=form)
@@ -39,6 +42,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('성공적으로 로그아웃 되었습니다 :)', 'success')
 
     return redirect(url_for('about'))
 
@@ -68,47 +72,56 @@ def post(id):
     except:
         pass
 
-    if request.method=='POST' and form.validate_on_submit():
-        name, ip, body, o_id = (request.form.get('name'), request.remote_addr,
-                request.form.get('body'), post.id)
-        comment = Comment(name, ip, body, o_id)
+    if request.method=='POST':
+        if form.validate_on_submit():
+            name, ip, body, o_id = (request.form.get('name'), request.remote_addr,
+                    request.form.get('body'), post.id)
+            comment = Comment(name, ip, body, o_id)
 
-        db.session.add(comment)
-        db.session.commit()
-        form = CommentForm()
-        return redirect(url_for('post', id=post.id))
+            db.session.add(comment)
+            db.session.commit()
+            form = CommentForm()
+            return redirect(url_for('post', id=post.id))
+        else:
+            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+            return render_template('post.html', post=post, comments=comments, form=form)
+
 
     return render_template('post.html', post=post, comments=comments, form=form)
 
 @app.route('/post/new', methods=['GET', 'POST'])
 def post_new():
     form = PostForm()
-    if request.method=='POST' and form.validate_on_submit():
-        title, body, category, author, tag_names = request.form.get('title'), request.form.get('body'), \
-                request.form.get('category'), current_user, request.form.get('tags')
+    if request.method=='POST':
+        if form.validate_on_submit():
+            title, body, category, author, tag_names = request.form.get('title'), request.form.get('body'), \
+                    request.form.get('category'), current_user, request.form.get('tags')
 
-        # Tagging
-        tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
-        if tag_names == ['']:
-            tag_names = []
+            # Tagging
+            tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
+            if tag_names == ['']:
+                tag_names = []
 
-        tags = []
-        for tag_name in tag_names:
-            try:
-                t = Tag(tag_name)
-                db.session.add(t)
-                db.session.commit()
-            except:
-                db.session.rollback()
-                t = Tag.query.filter_by(tag_name = tag_name).one()
-            finally:
-                tags.append(t)
+            tags = []
+            for tag_name in tag_names:
+                try:
+                    t = Tag(tag_name)
+                    db.session.add(t)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                    t = Tag.query.filter_by(tag_name = tag_name).one()
+                finally:
+                    tags.append(t)
 
-        post = Post(title, body, category, author, tags)
+            post = Post(title, body, category, author, tags)
 
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('post', id=post.id))
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('post', id=post.id))
+        else:
+            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+            return render_template('post_new.html', form=form)
 
     return render_template('post_new.html', form=form)
 
@@ -117,6 +130,7 @@ def post_delete(id):
     post = Post.query.filter_by(id=id).one()
     db.session.delete(post)
     db.session.commit()
+    flash('성공적으로 삭제되었습니다 :)', 'success')
     return redirect(url_for('posts'))
 
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
@@ -128,32 +142,36 @@ def post_edit(id):
     form = PostForm(title = post.title, body = post.body, tags=tags_str,
             category=post.category)
 
-    if request.method == 'POST' and form.validate_on_submit():
-        title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
-                request.form.get('category'), request.form.get('tags')
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
+                    request.form.get('category'), request.form.get('tags')
 
-        # Tagging
-        tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
-        if tag_names == ['']:
-            tag_names = []
+            # Tagging
+            tag_names = [tag_name.strip('\n').strip(' ') for tag_name in tag_names.split(',')]
+            if tag_names == ['']:
+                tag_names = []
 
-        tags = []
-        for tag_name in tag_names:
-            try:
-                t = Tag(tag_name)
-                db.session.add(t)
-                db.session.commit()
-            except:
-                db.session.rollback()
-                t = Tag.query.filter_by(tag_name = tag_name).one()
-            finally:
-                tags.append(t)
+            tags = []
+            for tag_name in tag_names:
+                try:
+                    t = Tag(tag_name)
+                    db.session.add(t)
+                    db.session.commit()
+                except:
+                    db.session.rollback()
+                    t = Tag.query.filter_by(tag_name = tag_name).one()
+                finally:
+                    tags.append(t)
 
-        post.title, post.body, post.category, post.tags = title, body, category, tags
+            post.title, post.body, post.category, post.tags = title, body, category, tags
 
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('post', id=post.id))
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('post', id=post.id))
+        else:
+            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+            return render_template('post_edit.html', form=form, id=post.id)
 
     return render_template('post_edit.html', form=form, id=post.id)
 
@@ -166,21 +184,25 @@ def photo():
 @app.route('/photo/add', methods=['GET', 'POST'])
 def photo_add():
     form = PhotoForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        title, description = request.form.get('title'), request.form.get('description')
-        uploaded_file = request.files['photo']
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            title, description = request.form.get('title'), request.form.get('description')
+            uploaded_file = request.files['photo']
 
-        if allowed_file(uploaded_file.filename):
-            filename = secure_filename(uploaded_file.filename)
-            uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            if allowed_file(uploaded_file.filename):
+                filename = secure_filename(uploaded_file.filename)
+                uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                flash("올바른 사진 파일이 아닙니다 -_-", 'danger')
+                return redirect(url_for('photo_add'))
+
+            photo = Photo(title, description, filename)
+
+            db.session.add(photo)
+            db.session.commit()
+            return redirect(url_for('photo'))
         else:
-            flash("올바른 사진 파일이 아닙니다!!!", 'danger')
-            return redirect(url_for('photo_add'))
-
-        photo = Photo(title, description, filename)
-
-        db.session.add(photo)
-        db.session.commit()
-        return redirect(url_for('photo'))
+            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+            return render_template('photo_add.html', form=form)
 
     return render_template('photo_add.html', form=form)

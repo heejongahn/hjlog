@@ -56,8 +56,16 @@
     </div>
     </div>
   </div>
-
   <div class="ui main text container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="ui {{category}} message">
+            <div class='header'>{{ message }}</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
   </div>
 
