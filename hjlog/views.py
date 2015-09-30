@@ -46,6 +46,11 @@ def logout():
 
     return redirect(url_for('about'))
 
+# 404
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 # About
 @app.route('/')
 def about():
