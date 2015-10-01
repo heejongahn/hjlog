@@ -136,7 +136,7 @@ def post_delete(id):
     db.session.delete(post)
     db.session.commit()
     flash('성공적으로 삭제되었습니다 :)', 'success')
-    return redirect(url_for('posts'))
+    return redirect(url_for('posts', category='daily'))
 
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
 def post_edit(id):
