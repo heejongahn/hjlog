@@ -148,7 +148,8 @@ def post_edit(id):
             category=post.category)
 
     if request.method == 'POST':
-        if form.validate_on_submit():
+        form = PostForm(request.form)
+        if form.validate():
             title, body, category, tag_names = request.form.get('title'), request.form.get('body'), \
                     request.form.get('category'), request.form.get('tags')
 
