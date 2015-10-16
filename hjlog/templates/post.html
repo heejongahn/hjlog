@@ -2,6 +2,9 @@
 {% block title %}{{post.title}}{% endblock %}
 {% block header %}
 <style type='text/css'>
+  h1.title  {
+    font-size: 2.5em;
+  }
   a.mini {
     font-size: 0.6rem !important;
     padding: 0.785714em 1em !important;
@@ -15,7 +18,7 @@
 </style>
 {% endblock %}
 {% block content %}
-<h1>{{post.title}}</h1>
+<h1 class="title">{{post.title}}</h1>
 <div class="ui left aligned grid">
     <div class="left floated four wide column">
         {{post.datetime.strftime('%Y %m %d %H:%M')}}
@@ -36,7 +39,6 @@
   {% endfor %}
 {% endif %}
 </div>
-<br>
 <br>
 {% filter markdown %}
 {{post.body}}
