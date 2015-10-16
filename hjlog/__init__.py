@@ -1,5 +1,4 @@
 from flask import Flask
-from flask.ext.markdown import Markdown
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -16,8 +15,6 @@ lm.login_view = 'login'
 
 bcrypt = Bcrypt(app)
 CsrfProtect(app)
-
-Markdown(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

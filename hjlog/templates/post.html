@@ -40,9 +40,9 @@
 {% endif %}
 </div>
 <br>
-{% filter markdown %}
+<div class="markdown">
 {{post.body}}
-{% endfilter %}
+</div>
 <br>
 <div class="ui horizontal divider">덧생각들</div>
 {% if comments %}
@@ -56,7 +56,7 @@
                 <i>{{comment.ip}}</i>
             </div>
         </div>
-        <p>{% filter markdown %}{{comment.body}}{% endfilter %}</p>
+        <p class="markdown">{{comment.body}}</p>
         <br>
     {% endfor %}
 {% else %}
