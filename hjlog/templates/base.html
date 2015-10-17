@@ -85,6 +85,8 @@
         var converter = new showdown.Converter();
         var html = converter.makeHtml(md);
         $(".markdown").html(html);
+        $(".markdown").show();
+        $(".dimmer").hide();
       });
   </script>
 </body>

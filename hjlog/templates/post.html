@@ -40,7 +40,10 @@
 {% endif %}
 </div>
 <br>
-<div class="markdown">
+<div class="ui active inverted dimmer">
+  <div class="ui indeterminate text loader">글 로딩중...</div>
+</div>
+<div class="markdown" hidden>
 {{post.body}}
 </div>
 <br>
@@ -56,7 +59,7 @@
                 <i>{{comment.ip}}</i>
             </div>
         </div>
-        <p class="markdown">{{comment.body}}</p>
+        <p class="markdown" hidden>{{comment.body}}</p>
         <br>
     {% endfor %}
 {% else %}
