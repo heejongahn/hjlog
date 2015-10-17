@@ -82,11 +82,11 @@
   <script src="{{ url_for('static', filename = 'js/showdown.min.js') }}" type="text/javascript"></script>
   <script>
       $(document).ready(function() {
-        var md = $(".markdown").html();
+        var md = $(".markdown.postbody").html();
         var converter = new showdown.Converter();
         var html = converter.makeHtml(md);
-        $(".markdown").html(html);
-        $(".markdown").show();
+        $(".markdown.postbody").html(html);
+        $(".markdown.postbody").show();
         $(".dimmer").hide();
       });
   </script>
