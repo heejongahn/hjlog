@@ -37,23 +37,26 @@
   {% block header %}{% endblock %}
 </head>
 <body>
+  <header>
   <div class="ui fixed menu borderless">
-    <div class="ui container">
-      <a href='/' class='item'>
-        <img src="/static/image/icon/hj-06.png" alt="hjlog">
-      </a>
-      <a href='/posts/daily' class='item'>Daily</a>
-      <a href='/posts/study' class='item'>Study</a>
-      <a href='/photo' class="item">Photo</a>
-      <div class='right menu'>
-      {% if current_user.username %}
-      <a href='/logout' class='item'>Logout</a>
-      {% else %}
-      <a href='/login' class='item'>Login</a>
-      {% endif %}
-    </div>
-    </div>
+      <div class="ui container">
+        <a href='/' class='item'>
+          <img src="/static/image/icon/hj-06.png" alt="hjlog">
+        </a>
+        <a href='/posts/daily' class='item'>Daily</a>
+        <a href='/posts/study' class='item'>Study</a>
+        <a href='/photo' class="item">Photo</a>
+        <div class='right menu'>
+        {% if current_user.username %}
+        <a href='/logout' class='item'>Logout</a>
+        {% else %}
+        <a href='/login' class='item'>Login</a>
+        {% endif %}
+        </div>
+      </div>
   </div>
+  </header>
+  <section>
   <div class="ui main text container">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -66,7 +69,9 @@
     {% endwith %}
     {% block content %}{% endblock %}
   </div>
+  </section>
 
+  <footer>
   <div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
       <div class="ui stackable inverted divided grid">
@@ -77,6 +82,7 @@
       </div>
     </div>
   </div>
+  </footer>
   <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/semantic.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/showdown.min.js') }}" type="text/javascript"></script>
