@@ -1,0 +1,19 @@
+body {
+  background-color: #fff;
+  background-size: 100% 2em;
+}
+.ui.menu .item img.logo {
+  margin-right: 1.5em;
+}
+.main.container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 7em auto 5em;
+}
+.wireframe {
+  margin-top: 2em;
+}
+.ui.footer.segment {
+  padding: 5em 0em;
+}
