@@ -82,6 +82,7 @@
       $(document).ready(function() {
         var md = $(".markdown.postbody").html();
         var converter = new showdown.Converter();
+        converter.setOption('strikethrough', true);
         var html = converter.makeHtml(md);
         $(".markdown.postbody").html(html);
         $(".markdown.postbody").show();
