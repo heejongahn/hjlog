@@ -3,4 +3,4 @@ venv/*
 */*.pyc
 .DS_Store
 */.DS_Store
-hjlog/static/*
+hjlog/static/image/*
