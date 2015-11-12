@@ -14,6 +14,8 @@
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/semantic.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/github_markdown.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/hjlog.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/highlight.css')}}">
+
   <link rel="shortcut icon" href="{{ url_for('static', filename='image/icon/hj-03.png')}}">
 
   <!-- Addtional Headers -->
@@ -78,15 +80,20 @@
   <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/semantic.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/showdown.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename = 'js/highlight.min.js') }}" type="text/javascript"></script>
   <script>
-      $(document).ready(function() {
-        var md = $(".markdown.postbody").text();
-        var converter = new showdown.Converter();
-        converter.setOption('strikethrough', true);
-        var html = converter.makeHtml(md);
-        $(".markdown.postbody").html(html);
-        $(".markdown.postbody").show();
-        $(".dimmer").hide();
+    $(document).ready(function() {
+      // Markdown rendering
+      var md = $(".markdown.postbody").text();
+      var converter = new showdown.Converter();
+      converter.setOption('strikethrough', true);
+      var html = converter.makeHtml(md);
+      $(".markdown.postbody").html(html);
+      $(".markdown.postbody").show();
+      $(".dimmer").hide();
+
+      // Syntax highlighting
+      hljs.initHighlightingOnLoad();
       });
   </script>
 </body>
