@@ -62,10 +62,11 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 # Blog
-@app.route('/posts/<category>')
-def posts(category):
-    posts = Post.query.filter_by(category=category).order_by(desc(Post.datetime)).all()
-    return render_template('posts.html', posts = posts, c=category)
+@app.route('/posts/<category>/<page>')
+def posts(category, page):
+    pgn = Post.query.filter_by(category=category).order_by(desc(Post.datetime))\
+            .paginate(int(page), per_page = 10)
+    return render_template('posts.html', posts = pgn.items, c = category, pgn = pgn)
 
 @app.route('/post/<id>', methods=['GET', 'POST'])
 def post(id):
