@@ -3,7 +3,7 @@ body {
   background-size: 100% 2em;
 }
 #logo {
-  min-width: 130px;
+  width: 130px;
 }
 .fixed.menu.borderless {
   height: 2em;
