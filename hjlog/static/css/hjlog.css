@@ -2,8 +2,14 @@ body {
   background-color: #fff;
   background-size: 100% 2em;
 }
-.ui.menu .item img.logo {
-  margin-right: 1.5em;
+#logo {
+  height: 2em; !important;
+}
+.fixed.menu.borderless {
+  height: 2em;
+}
+.ui.menu .item {
+  margin-right: 0.5em;
 }
 section {
   min-height: 100%;
