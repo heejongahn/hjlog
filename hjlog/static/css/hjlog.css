@@ -3,9 +3,10 @@ body {
   background-size: 100% 2em;
 }
 a.logo {
-  padding: 0.3em !important;
+  padding: 0 !important;
   min-width: 100px !important;
   width: 100px !important;
+  margin-left: 1em;
 }
 img.logo  {
   width: 100%;
