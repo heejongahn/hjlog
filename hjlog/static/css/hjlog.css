@@ -2,8 +2,13 @@ body {
   background-color: #fff;
   background-size: 100% 2em;
 }
-#logo {
-  width: 130px;
+a.logo {
+  padding: 0.3em !important;
+  min-width: 100px !important;
+  width: 100px !important;
+}
+img.logo  {
+  width: 100%;
 }
 .fixed.menu.borderless {
   height: 2em;
