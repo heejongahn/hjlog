@@ -4,15 +4,8 @@
 <h1>로그인은 관리자만 할 수 있단다 :)</h1>
 <form method='POST' action='/login' class='ui form'>
   {{ form.hidden_tag() }}
-  {{ render_semantic(form.username) }}
-  {{ render_semantic(form.password) }}
+  {{ semantic.render(form.username) }}
+  {{ semantic.render(form.password) }}
   <input type='submit' class='ui button basic' value='나는 관리자란다 :)'>
 </form>
 {% endblock %}
-
-{% macro render_semantic(field) %}
-<div class='field'>
-    <label>{{ field.label }}</label>
-    {{ field|safe }}
-</div>
-{% endmacro %}

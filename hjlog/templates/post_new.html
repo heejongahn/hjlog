@@ -6,28 +6,14 @@
   {{ form.hidden_tag() }}
   <div class='ui grid'>
   <div class='twelve wide column'>
-  {{ render_semantic(form.title) }}
+  {{ semantic.render(form.title) }}
   </div>
   <div class='four wide column'>
-  {{ render_semantic_select(form.category) }}
+  {{ semantic.render_select(form.category) }}
   </div>
   </div></br>
-  {{ render_semantic(form.body) }}
-  {{ render_semantic(form.tags) }}
+  {{ semantic.render(form.body) }}
+  {{ semantic.render(form.tags) }}
   <input type='submit' class='ui button basic' value='작성'>
 </form>
 {% endblock %}
-
-{% macro render_semantic(field) %}
-<div class='field'>
-    <label>{{ field.label }}</label>
-    {{ field|safe }}
-</div>
-{% endmacro %}
-
-{% macro render_semantic_select(field) %}
-<div class='field'>
-    <label>{{ field.label }}</label>
-    {{ field(class="ui dropdown")|safe }}
-</div>
-{% endmacro %}

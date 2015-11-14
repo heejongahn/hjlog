@@ -70,15 +70,8 @@
 <br>
 <form method='POST' action='/post/{{post.id}}' class='ui form'>
     {{ form.hidden_tag() }}
-    {{ render_semantic(form.name) }}
-    {{ render_semantic(form.body) }}
+    {{ semantic.render(form.name) }}
+    {{ semantic.render(form.body) }}
     <input type='submit' class='ui button basic' value='작성'>
 </form>
 {% endblock %}
-
-{% macro render_semantic(field) %}
-<div class='field'>
-    <label>{{ field.label }}</label>
-    {{ field|safe }}
-</div>
-{% endmacro %}

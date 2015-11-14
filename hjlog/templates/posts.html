@@ -51,21 +51,5 @@ a {
   <br>
   {% endfor %}
 </div>
-{{ render_pagination(pgn, 'posts') }}
+{{ semantic.render_pagination(pgn, 'posts') }}
 {% endblock %}
-
-{% macro render_pagination(pagination, endpoint) %}
-  <div class="ui pagination menu">
-  {% for page in pagination.iter_pages() %}
-    {% if page %}
-      {% if page != pagination.page %}
-        <a class="item" href="{{ url_for(endpoint, page = page, category = c) }}">{{ page }}</a>
-      {% else %}
-        <div class="active item">{{ page }}</div>
-      {% endif %}
-    {% else %}
-      <div class="disable item">…</div>
-    {% endif %}
-  {% endfor %}
-  </div>
-{% endmacro %}
