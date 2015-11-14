@@ -36,6 +36,7 @@ class Post(db.Model):
     tags = db.relationship('Tag', secondary=tags,
         backref=db.backref('describes', lazy='dynamic'))
     comments = db.relationship('Comment', backref='original')
+    photos = db.relationship('Photo', backref='original')
 
     def __init__(self, title, body, category, author, tags):
         self.title = title
@@ -73,9 +74,11 @@ class Photo(db.Model):
     description = db.Column(db.Text)
     filename = db.Column(db.String(100))
     datetime = db.Column(db.DateTime)
+    original_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
-    def __init__(self, title, description, filename):
+    def __init__(self, title, description, filename, original_id):
         self.title = title
         self.description = description
         self.filename = filename
         self.datetime = datetime.now()
+        self.original_id = original_id
