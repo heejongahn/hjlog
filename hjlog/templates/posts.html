@@ -19,9 +19,9 @@ a {
 <div class="ui grid">
     <div class="ui fifteen wide column">
       {% if c == 'daily' %}
-      <h1>대전공대 커플의 일상다반사</h1>
+      <h1>대전공대 커플 일상다반사</h1>
       {% else %}
-      <h1>while (hj.alive) { hj.study(); }</h1>
+      <h1>공부가 제일 쉬웠어요</h1>
       {% endif %}
     </div>
     <div class="ui one wide column">
@@ -51,5 +51,5 @@ a {
   <br>
   {% endfor %}
 </div>
-{{ semantic.render_pagination(pgn, 'posts') }}
+{{ semantic.render_pagination(pgn, 'posts', c) }}
 {% endblock %}

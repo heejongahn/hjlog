@@ -137,7 +137,7 @@ def post_delete(id):
     db.session.delete(post)
     db.session.commit()
     flash('성공적으로 삭제되었습니다 :)', 'success')
-    return redirect(url_for('posts', category='daily'))
+    return redirect(url_for('posts', category='daily', page=1))
 
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
 def post_edit(id):
@@ -202,7 +202,7 @@ def photo_add():
                 flash("올바른 사진 파일이 아닙니다 -_-", 'danger')
                 return redirect(url_for('photo_add'))
 
-            photo = Photo(title, description, filename)
+            photo = Photo(title, description, filename, 28)
 
             db.session.add(photo)
             db.session.commit()
