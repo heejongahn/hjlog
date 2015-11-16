@@ -8,6 +8,10 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config.from_object('config')
+try:
+    app.config.from_envvar('RUN_OPT')
+except:
+    pass
 
 lm = LoginManager()
 lm.init_app(app)
