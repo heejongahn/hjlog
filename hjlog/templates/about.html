@@ -9,24 +9,33 @@
     .fb{
       margin-right : 2em;
     }
+    code {
+      font-size: 1em;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
   <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
-      <h1 class='ui header'>hjlog : hj & hj 's lifelog ! ! !</h1>
+      <h1 class='ui header'>hjlog : hj & hj 's lifelog</h1>
       <div class="row">
         <div class="ten wide column">
-          <h3 class="ui header">환영합니다.</h3>
-          <p><b>hjlog</b> : hj + hj 's lifelog 에 오신 것을
-          진심으로 환영합니다!<br>
-          이 멀리 있는 누추한 곳을 찾아줘서 고마워요 :)</p>
-          <h3 class="ui header">기록은 기억을 지배한다.</h3>
-          <p>기억은 기록하지 않을 때 쉽게 왜곡되고, 또 잊혀집니다.<br>
-          우리는 우리가 관심을 갖고, 오래도록 보관하고 싶은 기억들<br>
-          - 기술 자료나 시행착오, 그리고 무엇보다 <i>서로의 일상</i> -<br>
-          을 이곳에 기록하려 합니다.</p>
+          <pre><code class="python language-python">print("Greetings, visitor!")</code></pre>
+          <p>
+            희종과 하진, 하진과 희종의 아지트인
+            <b>hjlog</b>에 오신 여러분을 진심으로 환영합니다!
+            부디 유용한 정보, 또는 따스한 기운을 가진 채로 떠나시길 바래요.
+          </p>
+
+
+          <pre><code class="python language-python">Record.governs(Memory)</code></pre>
+          <p>
+            기억은 기록하지 않을 때 쉽게 왜곡되고, 또 잊혀집니다.
+            이 곳에서, 우리 둘은 우리가 관심을 갖고, 오래도록 보관하고 싶은
+            기억들을 기억하려 합니다. 공부한 내용들과 그 과정에서의 시행착오들,
+            서로의 일상까지요.
+          </p>
         </div>
         <div class="five wide right floated column">
           <img src="{{ url_for('static', filename='image/photo/socute.jpg') }}" class="ui large bordered rounded image">
@@ -55,16 +64,6 @@
           커서 훌륭한 사람이 되고싶어요! </p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="ui vertical stripe segment">
-    <div class="ui text container center aligned">
-      <h3 class="ui header">hjlog는 오픈 소스 프로젝트입니다!</h3>
-      <p>hjlog의 모든 소스코드와 개발과정은 전부 Github에 공개되어 있습니다!<br>
-      버그를 발견했다구요? 사이트를 이렇게 개선해보면 더 좋을 것 같다구요?<br>
-      Pull Request와 Issue Open는 언제든지 환영입니다 :)</p>
-    <a class="ui large button" href='https://github.com/heejongahn/hjlog'>I wanna contibute!</a>
     </div>
   </div>
 {% endblock %}
