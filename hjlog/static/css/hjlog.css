@@ -28,3 +28,6 @@ section {
 .ui.footer.segment {
   padding: 5em 0em;
 }
+a.license {
+  color: white;
+}
