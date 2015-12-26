@@ -43,7 +43,8 @@ a {
     {% endif %}
     <div class="content">
       <a href="/post/{{post.id}}">
-        <h2 class="title">{{post.title}}</h2>[{{post.comments|length}}]
+        <h2 class="title">{{post.title}}</h2>
+        <a href="/post/{{post.id}}#disqus_thread"></a>
       </a>
     </div>
     <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
