@@ -28,3 +28,12 @@ section {
 .ui.footer.segment {
   padding: 5em 0em;
 }
+a.license {
+  color: white;
+}
+a{
+  color: #800000;
+}
+a:hover{
+  color: #663300;
+}
