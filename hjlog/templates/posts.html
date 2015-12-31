@@ -19,9 +19,9 @@ a {
 <div class="ui grid">
     <div class="ui fifteen wide column">
       {% if c == 'daily' %}
-      <h1>대전공대 커플의 일상다반사</h1>
+      <h1>대전공대 커플 일상다반사</h1>
       {% else %}
-      <h1>while (hj.alive) { hj.study(); }</h1>
+      <h1>공부가 제일 쉬웠어요</h1>
       {% endif %}
     </div>
     <div class="ui one wide column">
@@ -43,7 +43,8 @@ a {
     {% endif %}
     <div class="content">
       <a href="/post/{{post.id}}">
-        <h2 class="title">{{post.title}}</h2>[{{post.comments|length}}]
+        <h2 class="title">{{post.title}}</h2>
+        <a href="/post/{{post.id}}#disqus_thread"></a>
       </a>
     </div>
     <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
@@ -51,5 +52,5 @@ a {
   <br>
   {% endfor %}
 </div>
-{{ semantic.render_pagination(pgn, 'posts') }}
+{{ semantic.render_pagination(pgn, 'posts', c) }}
 {% endblock %}

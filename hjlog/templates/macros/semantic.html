@@ -19,7 +19,7 @@
 </div>
 {% endmacro %}
 
-{% macro render_pagination(pagination, endpoint) %}
+{% macro render_pagination(pagination, endpoint, c) %}
   <div class="ui pagination menu">
   {% for page in pagination.iter_pages() %}
     {% if page %}

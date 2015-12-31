@@ -20,7 +20,7 @@
 {% block content %}
 <h1 class="title">{{post.title}}</h1>
 <div class="ui left aligned grid">
-    <div class="left floated four wide column">
+    <div class="left floated twelve wide column">
         {{post.datetime.strftime('%Y %m %d %H:%M')}}
     </div>
     <div class="right floated right aligned four wide column">
@@ -31,47 +31,46 @@
     </div>
 </div>
 <br>
+{% if post.tags %}
 <div>
   <i class="tag icon"></i>
-{% if post.tags %}
   {% for tag in post.tags %}
   <span class="tag">{{tag.tag_name}}{% if not loop.last %} ,{% endif %}</span>
   {% endfor %}
-{% endif %}
 </div>
 <br>
+{% endif %}
 <div class="ui active inverted dimmer">
   <div class="ui indeterminate text loader">글 로딩중...</div>
 </div>
 <div class="markdown postbody" hidden>
 {{post.body}}
 </div>
-<br>
-<div class="ui horizontal divider">덧생각들</div>
-{% if comments %}
-    {% for comment in comments %}
-        <b>{{comment.name}}</b>
-        <div class="ui left aligned grid">
-            <div class="left floated four wide column">
-                {{comment.datetime.strftime('%Y %m %d %H:%M')}}
-            </div>
-            <div class="right floated right aligned four wide column">
-                <i>{{comment.ip}}</i>
-            </div>
-        </div>
-        <p class="markdown">{{comment.body}}</p>
 
-        <br>
-    {% endfor %}
-{% else %}
-<p>이 글에는 덧생각이 달려있지 않습니다.</p>
-{% endif %}
-<div class="ui horizontal divider">덧생각 적기</div>
+<!--DISQUE comment-->
 <br>
-<form method='POST' action='/post/{{post.id}}' class='ui form'>
-    {{ form.hidden_tag() }}
-    {{ semantic.render(form.name) }}
-    {{ semantic.render(form.body) }}
-    <input type='submit' class='ui button basic' value='작성'>
-</form>
+<div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+
+var disqus_config = function () {
+this.page.url = window.location.href;
+//this.page.identifier = PAGE_IDENTIFIER;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//hjlogme.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<!-- DISQUE comment end -->
+
 {% endblock %}
