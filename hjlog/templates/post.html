@@ -73,33 +73,4 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 <!-- DISQUE comment end -->
 
-<!--need deleting-->
-<br>
-<div class="ui horizontal divider">덧생각들</div>
-{% if comments %}
-    {% for comment in comments %}
-        <b>{{comment.name}}</b>
-        <div class="ui left aligned grid">
-            <div class="left floated twelve wide column">
-                {{comment.datetime.strftime('%Y %m %d %H:%M')}}
-            </div>
-            <div class="right floated right aligned four wide column">
-                <i>{{comment.ip}}</i>
-            </div>
-        </div>
-        <p class="markdown">{{comment.body}}</p>
-
-        <br>
-    {% endfor %}
-{% else %}
-<p>이 글에는 덧생각이 달려있지 않습니다.</p>
-{% endif %}
-<div class="ui horizontal divider">덧생각 적기</div>
-<br>
-<form method='POST' action='/post/{{post.id}}' class='ui form'>
-    {{ form.hidden_tag() }}
-    {{ semantic.render(form.name) }}
-    {{ semantic.render(form.body) }}
-    <input type='submit' class='ui button basic' value='작성'>
-</form>
 {% endblock %}

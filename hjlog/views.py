@@ -2,8 +2,8 @@ from hjlog import app, db, lm
 from flask import render_template, redirect, request, url_for, flash
 from werkzeug import secure_filename
 from sqlalchemy import desc
-from .models import Post, Comment, Photo, Tag, User
-from .forms import PostForm, CommentForm, PhotoForm, LoginForm
+from .models import Post, Photo, Tag, User
+from .forms import PostForm, PhotoForm, LoginForm
 from flask.ext.login import login_user, logout_user, current_user
 import os
 
@@ -73,32 +73,10 @@ def posts(category, page):
             .paginate(int(page), per_page = 10)
     return render_template('posts.html', posts = pgn.items, c = category, pgn = pgn)
 
-@app.route('/post/<id>', methods=['GET', 'POST'])
+@app.route('/post/<id>')
 def post(id):
-    form = CommentForm()
     post = Post.query.filter_by(id=id).one()
-    comments = []
-    try:
-        comments = Comment.query.filter_by(original=post).all()
-    except:
-        pass
-
-    if request.method=='POST':
-        if form.validate_on_submit():
-            name, ip, body, o_id = (request.form.get('name'), request.remote_addr,
-                    request.form.get('body'), post.id)
-            comment = Comment(name, ip, body, o_id)
-
-            db.session.add(comment)
-            db.session.commit()
-            form = CommentForm()
-            return redirect(url_for('post', id=post.id))
-        else:
-            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
-            return render_template('post.html', post=post, comments=comments, form=form)
-
-
-    return render_template('post.html', post=post, comments=comments, form=form)
+    return render_template('post.html', post=post)
 
 @app.route('/post/new', methods=['GET', 'POST'])
 def post_new():
