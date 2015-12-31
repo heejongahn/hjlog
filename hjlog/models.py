@@ -35,7 +35,7 @@ class Post(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     tags = db.relationship('Tag', secondary=tags,
         backref=db.backref('describes', lazy='dynamic'))
-    comments = db.relationship('Comment', backref='original')
+    #comments = db.relationship('Comment', backref='original')
     photos = db.relationship('Photo', backref='original')
 
     def __init__(self, title, body, category, author, tags):
@@ -53,20 +53,20 @@ class Tag(db.Model):
     def __init__(self, tag_name):
         self.tag_name = tag_name
 
-class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(30))
-    ip = db.Column(db.String(20))
-    body = db.Column(db.Text)
-    datetime = db.Column(db.DateTime)
-    original_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-
-    def __init__(self, name, ip, body, original_id):
-        self.name = name
-        self.ip = ip
-        self.body = body
-        self.datetime = datetime.now()
-        self.original_id = original_id
+#class Comment(db.Model):
+#    id = db.Column(db.Integer, primary_key = True)
+#    name = db.Column(db.String(30))
+#    ip = db.Column(db.String(20))
+#    body = db.Column(db.Text)
+#    datetime = db.Column(db.DateTime)
+#    original_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+#
+#    def __init__(self, name, ip, body, original_id):
+#        self.name = name
+#        self.ip = ip
+#        self.body = body
+#        self.datetime = datetime.now()
+#        self.original_id = original_id
 
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
