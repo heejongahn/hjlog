@@ -91,21 +91,6 @@
   <script src="{{ url_for('static', filename = 'js/semantic.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/showdown.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/highlight.min.js') }}" type="text/javascript"></script>
-  <script>
-    $(document).ready(function() {
-      // Markdown rendering
-      var md = $(".markdown.postbody").text();
-      var converter = new showdown.Converter();
-      converter.setOption('strikethrough', true);
-      var html = converter.makeHtml(md);
-      $(".markdown.postbody").html(html);
-      $(".markdown.postbody").show();
-      $(".dimmer").hide();
-
-      // Syntax highlighting
-      hljs.initHighlightingOnLoad();
-      });
-  </script>
   <script id="dsq-count-scr" src="//hjlogme.disqus.com/count.js" async></script>
   <script src="{{ url_for('static', filename = 'js/hjlog.js') }}" type="text/javascript"></script>
 </body>
