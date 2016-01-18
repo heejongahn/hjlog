@@ -54,15 +54,15 @@ class Tag(db.Model):
 
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String(30))
-    description = db.Column(db.Text)
+    #title = db.Column(db.String(30))
+    #description = db.Column(db.Text)
     filename = db.Column(db.String(100))
-    datetime = db.Column(db.DateTime)
+    #datetime = db.Column(db.DateTime)
     original_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
     def __init__(self, title, description, filename, original_id):
-        self.title = title
-        self.description = description
+        #self.title = title
+        #self.description = description
         self.filename = filename
-        self.datetime = datetime.now()
+        #self.datetime = datetime.now()
         self.original_id = original_id
