@@ -14,6 +14,8 @@
     </div></br>
     {{ semantic.render(form.body(rows="30")|safe) }}
     {{ semantic.render(form.tags) }}
+    <input type="text" name="photonames" style="display:none">
     <input type='submit' class='ui button basic' value='작성'>
 </form>
+<input type="file" id="photoupload" name='photo'>
 {% endblock %}

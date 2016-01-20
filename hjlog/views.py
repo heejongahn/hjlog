@@ -1,11 +1,12 @@
 from hjlog import app, db, lm
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, jsonify
 from werkzeug import secure_filename
 from sqlalchemy import desc
 from .models import Post, Photo, Tag, User
 from .forms import PostForm, PhotoForm, LoginForm
 from flask.ext.login import login_user, logout_user, current_user
 import os
+import time
 
 # Login
 @lm.user_loader
@@ -107,6 +108,15 @@ def post_new():
 
             db.session.add(post)
             db.session.commit()
+
+            # Photo
+            photo_names = request.form.get('photonames')
+            photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
+            for photo_name in photo_names:
+                p = Photo(photo_name, post.id)
+                db.session.add(p)
+            db.session.commit()
+
             return redirect(url_for('post', id=post.id))
         else:
             flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
@@ -117,6 +127,10 @@ def post_new():
 @app.route('/post/<id>/delete')
 def post_delete(id):
     post = Post.query.filter_by(id=id).one()
+    photos = Photo.query.filter_by(original_id=id)
+    for photo in photos:
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
+        db.session.delete(photo)
     db.session.delete(post)
     db.session.commit()
     flash('성공적으로 삭제되었습니다 :)', 'success')
@@ -157,6 +171,15 @@ def post_edit(id):
 
             db.session.add(post)
             db.session.commit()
+
+            #Photo
+            photo_names = request.form.get('photonames')
+            photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
+            for photo_name in photo_names:
+                p = Photo(photo_name, post.id)
+                db.session.add(p)
+            db.session.commit()
+
             return redirect(url_for('post', id=post.id))
         else:
             flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
@@ -164,34 +187,48 @@ def post_edit(id):
 
     return render_template('post_edit.html', form=form, id=post.id)
 
+@app.route('/photoajax', methods=['POST'])
+def photo_ajax():
+    if request.method == 'POST':
+        photo = request.files['file']
+        if photo and allowed_file(photo.filename):
+            filename =  secure_filename(str(time.time())+photo.filename)
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            directory=url_for('static', filename='image/photo/'+filename)
+            return jsonify(correct=True, name=filename, direc=directory)
+        elif not allowed_file(photo.filename):
+            flash("올바른 사진 파일이 아닙니다 -3-", 'danger')
+            return jsonify(correct=False)
+
+
 # Photo
 @app.route('/photo')
 def photo():
     photos = Photo.query.order_by(desc(Photo.datetime)).all()
     return render_template('photo.html', photos=photos)
 
-@app.route('/photo/add', methods=['GET', 'POST'])
-def photo_add():
-    form = PhotoForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            title, description = request.form.get('title'), request.form.get('description')
-            uploaded_file = request.files['photo']
-
-            if allowed_file(uploaded_file.filename):
-                filename = secure_filename(uploaded_file.filename)
-                uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            else:
-                flash("올바른 사진 파일이 아닙니다 -_-", 'danger')
-                return redirect(url_for('photo_add'))
-
-            photo = Photo(title, description, filename, 28)
-
-            db.session.add(photo)
-            db.session.commit()
-            return redirect(url_for('photo'))
-        else:
-            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
-            return render_template('photo_add.html', form=form)
-
-    return render_template('photo_add.html', form=form)
+#@app.route('/photo/add', methods=['GET', 'POST'])
+#def photo_add():
+#    form = PhotoForm()
+#    if request.method == 'POST':
+#        if form.validate_on_submit():
+#            title, description = request.form.get('title'), request.form.get('description')
+#            uploaded_file = request.files['photo']
+#
+#            if allowed_file(uploaded_file.filename):
+#                filename = secure_filename(uploaded_file.filename)
+#                uploaded_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#            else:
+#                flash("올바른 사진 파일이 아닙니다 -_-", 'danger')
+#                return redirect(url_for('photo_add'))
+#
+#            photo = Photo(title, description, filename, 28)
+#
+#            db.session.add(photo)
+#            db.session.commit()
+#            return redirect(url_for('photo'))
+#        else:
+#            flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+#            return render_template('photo_add.html', form=form)
+#
+#    return render_template('photo_add.html', form=form)
