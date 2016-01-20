@@ -129,7 +129,6 @@ def post_delete(id):
     post = Post.query.filter_by(id=id).one()
     photos = Photo.query.filter_by(original_id=id)
     for photo in photos:
-        print(photo.filename)
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
         db.session.delete(photo)
     db.session.delete(post)
