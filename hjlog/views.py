@@ -115,7 +115,7 @@ def post_new():
             for photo_name in photo_names:
                 p = Photo(photo_name, post.id)
                 db.session.add(p)
-                db.session.commit()
+            db.session.commit()
 
             return redirect(url_for('post', id=post.id))
         else:
@@ -127,6 +127,11 @@ def post_new():
 @app.route('/post/<id>/delete')
 def post_delete(id):
     post = Post.query.filter_by(id=id).one()
+    photos = Photo.query.filter_by(original_id=id)
+    for photo in photos:
+        print(photo.filename)
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
+        db.session.delete(photo)
     db.session.delete(post)
     db.session.commit()
     flash('성공적으로 삭제되었습니다 :)', 'success')
@@ -174,7 +179,7 @@ def post_edit(id):
             for photo_name in photo_names:
                 p = Photo(photo_name, post.id)
                 db.session.add(p)
-                db.session.commit()
+            db.session.commit()
 
             return redirect(url_for('post', id=post.id))
         else:
