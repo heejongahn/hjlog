@@ -121,7 +121,7 @@
             success: function(data, textStatus, jqXHR) {
                         if (data['correct']) {
                             $("textarea").val($("textarea").val() + '![' + data['name'] +
-                                ']('+data['direc']+')');
+                                ']('+data['url']+')');
                             $("input[name=photonames]").val(function(i, v) {
                                 return v + " " + data['name'];
                             });
