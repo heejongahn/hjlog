@@ -105,7 +105,7 @@
     }
    })
 
-   $('#photobutton').click(function() {
+   $('#photoupload').change(function() {
        var formData = new FormData();
        var file = $('#photoupload')[0].files[0];
        formData.append('file', file);

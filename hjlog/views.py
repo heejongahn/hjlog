@@ -6,6 +6,7 @@ from .models import Post, Photo, Tag, User
 from .forms import PostForm, PhotoForm, LoginForm
 from flask.ext.login import login_user, logout_user, current_user
 import os
+import time
 
 # Login
 @lm.user_loader
@@ -167,14 +168,15 @@ def post_edit(id):
 @app.route('/photoajax', methods=['POST'])
 def photo_ajax():
     if request.method == 'POST':
-        print(request.files)
         photo = request.files['file']
-        print(photo)
         if photo and allowed_file(photo.filename):
-            filename = secure_filename(photo.filename)
+            filename =  secure_filename(str(time.time())+photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             directory=url_for('static', filename='image/photo/'+filename)
             return jsonify(name=filename, direc=directory)
+        elif not allowed_file(photo.filename):
+            flash("올바른 사진 파일이 아닙니다 -3-", 'danger')
+
 
 # Photo
 @app.route('/photo')
