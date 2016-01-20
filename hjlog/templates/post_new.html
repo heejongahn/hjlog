@@ -19,3 +19,7 @@
 </form>
 <input type="file" id="photoupload" name='photo'>
 {% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename = 'js/photoAjax.js') }}" type="text/javascript" async></script>
+{% endblock %}
