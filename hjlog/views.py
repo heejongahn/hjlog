@@ -108,6 +108,15 @@ def post_new():
 
             db.session.add(post)
             db.session.commit()
+
+            # Photo
+            photo_names = request.form.get('photonames')
+            photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
+            for photo_name in photo_names:
+                p = Photo(photo_name, post.id)
+                db.session.add(p)
+                db.session.commit()
+
             return redirect(url_for('post', id=post.id))
         else:
             flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
@@ -158,6 +167,15 @@ def post_edit(id):
 
             db.session.add(post)
             db.session.commit()
+
+            #Photo
+            photo_names = request.form.get('photonames')
+            photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
+            for photo_name in photo_names:
+                p = Photo(photo_name, post.id)
+                db.session.add(p)
+                db.session.commit()
+
             return redirect(url_for('post', id=post.id))
         else:
             flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
@@ -173,9 +191,10 @@ def photo_ajax():
             filename =  secure_filename(str(time.time())+photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             directory=url_for('static', filename='image/photo/'+filename)
-            return jsonify(name=filename, direc=directory)
+            return jsonify(correct=True, name=filename, direc=directory)
         elif not allowed_file(photo.filename):
             flash("올바른 사진 파일이 아닙니다 -3-", 'danger')
+            return jsonify(correct=False)
 
 
 # Photo

@@ -119,12 +119,19 @@
             processData: false,
             dataType: 'json',
             success: function(data, textStatus, jqXHR) {
-                        $("textarea").val($("textarea").val() + '![' + data['name'] +
-                            ']('+data['direc']+')')
-                        },
-            error: function(data){
-                        console.log(data);
+                        if (data['correct']) {
+                            $("textarea").val($("textarea").val() + '![' + data['name'] +
+                                ']('+data['direc']+')');
+                            $("input[name=photonames]").val(function(i, v) {
+                                return v + " " + data['name'];
+                            });
+                        } else {
+                            alert("파일의 형식이 올바르지 않아요!")
                         }
+                    },
+            error: function(xhr){
+                        console.log(xhr);
+                    }
             })
     });
 });
