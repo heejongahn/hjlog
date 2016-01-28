@@ -4,3 +4,4 @@ venv/*
 .DS_Store
 */.DS_Store
 hjlog/static/image/*
+.well-known/

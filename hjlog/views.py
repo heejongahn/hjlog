@@ -8,6 +8,7 @@ from flask.ext.login import login_user, logout_user, current_user
 import os
 import time
 
+
 # Login
 @lm.user_loader
 def load_user(user_id):
@@ -62,10 +63,17 @@ def internal_server_error(e):
 def about():
     return render_template('about.html')
 
+@app.route('/.well-known/acme-challenge/<tmp>')
+def letencrpyt(tmp):
+    with open('.well-known/acme-challenge/{}'.format(tmp)) as f:
+        answer = f.readline().strip()
+
+    return answer
+
 # Helper functions
 def allowed_file(filename):
     return '.' in filename and \
-        filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+        filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 # Blog
 @app.route('/posts/<category>/<page>')
