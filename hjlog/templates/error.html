@@ -1,21 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Oops, 404 alert!{% endblock %}
-{% block header %}
-<style type="text/css">
-    img {
-        width: 25%;
-        float: left;
-        margin: 0 5% 0 0;
-    }
-    div#intro{
-      margin: 1em 0 0 0;
-      padding: 0 0 1em 0;
-    }
-    .fb{
-      margin-right : 2em;
-    }
-</style>
-{% endblock %}
+{% block title %}Oops, {{error}} alert!{% endblock %}
 
 {% block content %}
 <h1>이런, 뭔가 잘못 되었군요!</h1>
@@ -29,5 +13,4 @@
   남겨주시면 최대한 빠른 시간 내로 처리하겠습니다!
 </p>
 {% endif %}
-{{ error }}
 {% endblock %}
