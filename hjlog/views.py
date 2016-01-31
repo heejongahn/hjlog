@@ -61,6 +61,7 @@ def method_not_allowed(e):
 # 500
 @app.errorhandler(500)
 def internal_server_error(e):
+    return str(e)
     return render_template('error.html', code=500), 500
 
 # About
@@ -124,11 +125,12 @@ def post_new():
 
             # Photo
             photo_names = request.form.get('photonames')
-            photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
-            for photo_name in photo_names:
-                p = Photo(photo_name, post.id)
-                db.session.add(p)
-            db.session.commit()
+            if photo_names:
+                photo_names = [photo_name for photo_name in photo_names.strip(' ').split(' ')]
+                for photo_name in photo_names:
+                    p = Photo(photo_name, post.id)
+                    db.session.add(p)
+                db.session.commit()
 
             return redirect(url_for('post', id=post.id))
         else:
@@ -140,7 +142,7 @@ def post_new():
 @app.route('/post/<id>/delete')
 def post_delete(id):
     post = Post.query.filter_by(id=id).one()
-    photos = Photo.query.filter_by(original_id=id)
+    photos = Photo.query.filter_by(original_id=id).all()
     for photo in photos:
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
         db.session.delete(photo)
