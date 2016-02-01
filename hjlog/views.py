@@ -4,7 +4,7 @@ from werkzeug import secure_filename
 from sqlalchemy import desc
 from .models import Post, Photo, Tag, User
 from .forms import PostForm, PhotoForm, LoginForm
-from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.login import login_user, logout_user, current_user, login_required
 import os
 import time
 
@@ -23,7 +23,6 @@ def load_user(user_id):
 @app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
-
     if request.method == 'POST' and form.validate_on_submit():
         try:
             user = User.query.filter_by(username=form.username.data).first_or_404()
@@ -42,6 +41,7 @@ def login():
     return render_template('login.html', form=form)
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     flash('성공적으로 로그아웃 되었습니다 :)', 'success')
@@ -61,7 +61,6 @@ def method_not_allowed(e):
 # 500
 @app.errorhandler(500)
 def internal_server_error(e):
-    return str(e)
     return render_template('error.html', code=500), 500
 
 # About
@@ -70,7 +69,7 @@ def about():
     return render_template('about.html')
 
 @app.route('/.well-known/acme-challenge/<tmp>')
-def letencrpyt(tmp):
+def letsencrpyt(tmp):
     with open('.well-known/acme-challenge/{}'.format(tmp)) as f:
         answer = f.readline().strip()
 
@@ -94,6 +93,7 @@ def post(id):
     return render_template('post.html', post=post)
 
 @app.route('/post/new', methods=['GET', 'POST'])
+@login_required
 def post_new():
     form = PostForm()
     if request.method=='POST':
@@ -140,6 +140,7 @@ def post_new():
     return render_template('post_new.html', form=form)
 
 @app.route('/post/<id>/delete')
+@login_required
 def post_delete(id):
     post = Post.query.filter_by(id=id).one()
     photos = Photo.query.filter_by(original_id=id).all()
@@ -152,6 +153,7 @@ def post_delete(id):
     return redirect(url_for('posts', category='daily', page=1))
 
 @app.route('/post/<id>/edit', methods=['GET', 'POST'])
+@login_required
 def post_edit(id):
     post = Post.query.filter_by(id=id).one()
 
@@ -204,6 +206,7 @@ def post_edit(id):
     return render_template('post_edit.html', form=form, id=post.id)
 
 @app.route('/photoajax', methods=['POST'])
+@login_required
 def photo_ajax():
     if request.method == 'POST':
         photo = request.files['file']
