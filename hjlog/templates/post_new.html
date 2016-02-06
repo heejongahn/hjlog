@@ -6,14 +6,14 @@
   {{ form.hidden_tag() }}
   <div class='ui grid'>
   <div class='twelve wide column'>
-  {{ semantic.render(form.title) }}
+  {{ semantic.form(form.title) }}
   </div>
   <div class='four wide column'>
-  {{ semantic.render_select(form.category) }}
+  {{ semantic.select(form.category) }}
   </div>
   </div></br>
-  {{ semantic.render(form.body(rows="30")|safe)}}
-  {{ semantic.render(form.tags) }}
+  {{ semantic.form(form.body(rows="30")|safe)}}
+  {{ semantic.form(form.tags) }}
   <input type="text" name="photonames" style="display:none">
   <input type='submit' class='ui button basic' value='작성'>
 </form>
