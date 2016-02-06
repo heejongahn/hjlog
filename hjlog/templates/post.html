@@ -35,7 +35,7 @@
 <div>
   <i class="tag icon"></i>
   {% for tag in post.tags %}
-  <a class="tag" href="/search/{{tag.tag_name}}/1">{{tag.tag_name}}{% if not loop.last %} ,{% endif %}</span>
+  <a class="tag" href="/search/{{tag.tag_name}}/1">{{tag.tag_name}}{% if not loop.last %} ,{% endif %}</a>
   {% endfor %}
 </div>
 <br>
