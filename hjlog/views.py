@@ -83,6 +83,7 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 # Blog
+@app.route('/posts/<category>', defaults={'page': 1})
 @app.route('/posts/<category>/<page>')
 def posts(category, page):
     pgn = Post.query.filter_by(category=category).order_by(desc(Post.datetime))\
@@ -207,6 +208,7 @@ def post_edit(id):
 
     return render_template('post_edit.html', form=form, id=post.id)
 
+@app.route('/search/<tag_name>', defaults={'page': 1})
 @app.route('/search/<tag_name>/<page>')
 def search(tag_name, page):
     pgn = Post.query.filter(Post.tags.any(tag_name=tag_name))\
