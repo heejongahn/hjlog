@@ -1,25 +1,18 @@
-{% macro render(field) %}
+{% macro form(field) %}
 <div class='field'>
     <label>{{ field.label }}</label>
     {{ field|safe }}
 </div>
 {% endmacro %}
 
-{% macro render_file(field) %}
-<div class='field'>
-    <label>{{ field.label }}</label>
-    {{ field|safe }}
-</div>
-{% endmacro %}
-
-{% macro render_select(field) %}
+{% macro select(field) %}
 <div class='field'>
     <label>{{ field.label }}</label>
     {{ field(class="ui dropdown")|safe }}
 </div>
 {% endmacro %}
 
-{% macro render_pagination(pagination, endpoint, c) %}
+{% macro pagination(pagination, endpoint, c) %}
   <div class="ui pagination menu">
   {% for page in pagination.iter_pages() %}
     {% if page %}
