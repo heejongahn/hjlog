@@ -3,11 +3,10 @@ from flask import render_template, redirect, request, url_for, flash, jsonify
 from werkzeug import secure_filename
 from sqlalchemy import desc
 from .models import Post, Photo, Tag, User
-from .forms import PostForm, PhotoForm, LoginForm
+from .forms import PostForm, LoginForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 import os
 import time
-
 
 # Login
 @lm.user_loader
