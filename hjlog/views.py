@@ -207,6 +207,14 @@ def post_edit(id):
 
     return render_template('post_edit.html', form=form, id=post.id)
 
+@app.route('/search/<tag_name>/<page>')
+def search(tag_name, page):
+    pgn = Post.query.filter(Post.tags.any(tag_name=tag_name))\
+            .paginate(int(page), per_page=10)
+
+    return render_template('search.html', posts=pgn.items, pgn=pgn,
+            tag_name=tag_name)
+
 @app.route('/photoajax', methods=['POST'])
 @login_required
 def photo_ajax():
