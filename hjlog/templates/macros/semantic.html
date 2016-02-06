@@ -34,3 +34,19 @@
   {% endfor %}
   </div>
 {% endmacro %}
+
+{% macro search_pagination(pagination, endpoint, t) %}
+  <div class="ui pagination menu">
+  {% for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a class="item" href="{{ url_for(endpoint, page = page, tag_name = t) }}">{{ page }}</a>
+      {% else %}
+        <div class="active item">{{ page }}</div>
+      {% endif %}
+    {% else %}
+      <div class="disable item">…</div>
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endmacro %}
