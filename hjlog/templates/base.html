@@ -25,21 +25,25 @@
 <body>
   <header>
   <!-- Navbar -->
-  <div class="ui fixed top menu borderless">
+    <div class="navbar-header">
       <a href='/' class='logo item'>
-        <img class="ui logo" src="{{url_for('static',
-        filename='image/icon/logo.png')}}" alt="hjlog">
+        <img class="ui logo" src="{{url_for('static', filename='image/icon/logo.png')}}" alt="hjlog">
       </a>
-      <a href='/posts/daily' class='item'>Daily</a>
-      <a href='/posts/study' class='item'>Study</a>
-      <div class='right menu'>
-        {% if current_user.username %}
-        <a href='/logout' class='item'>Logout</a>
-        {% else %}
-        <a href='/login' class='item'>Login</a>
-        {% endif %}
-      </div>
-  </div>
+      <a class="trigger">Menu</a>
+    </div>
+    <nav>
+      <ul class="menu">
+        <li><a href='/posts/daily' class='item'>Daily</a></li>
+        <li><a href='/posts/study' class='item'>Study</a></li>
+        <li class="right">
+          {% if current_user.username %}
+          <a href='/logout' class='item'>Logout</a>
+          {% else %}
+          <a href='/login' class='item'>Login</a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
   </header>
 
   <!-- Main Section -->
