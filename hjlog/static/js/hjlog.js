@@ -12,4 +12,15 @@ $(document).ready(function() {
 
   // Syntax highlighting
   hljs.initHighlightingOnLoad();
+
+  var trigger = document.getElementById('trigger');
+
+  trigger.onclick = navToggle;
   });
+
+var navToggle = function() {
+  var nav = document.getElementsByTagName('nav')[0];
+
+  if (nav.style.display === 'block') { nav.style.display = 'none'; }
+  else { nav.style.display = 'block'; }
+}

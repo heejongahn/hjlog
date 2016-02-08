@@ -22,7 +22,7 @@ ul.menu > li {
   display: inline;
   margin: auto 1em;
 }
-a.trigger {
+a#trigger {
   display: none;
   margin: 0 auto;
 }
@@ -37,10 +37,15 @@ img.logo  {
 }
 
 @media (max-width: 480px) {
-  ul.menu > li {
+  nav {
+    width: 100%;
     display: none;
   }
-  a.trigger {
+  ul.menu > li {
+    width: 100%;
+    display: block;
+  }
+  a#trigger {
     display: inline;
   }
 }
