@@ -24,7 +24,6 @@ ul.menu > li {
 }
 a#trigger {
   display: none;
-  margin: 0 auto;
 }
 a.logo {
   padding: 0 !important;
@@ -37,16 +36,45 @@ img.logo  {
 }
 
 @media (max-width: 480px) {
+  header {
+    border: none;
+    box-shadow: none;
+  }
+  .navbar-header {
+    width: 100%;
+    vertical-align: middle;
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+  }
   nav {
     width: 100%;
     display: none;
+    padding: 0;
+  }
+  ul.menu, ul.menu > li {
+    width: 100%;
+  }
+  ul.menu {
+    margin: 0;
   }
   ul.menu > li {
-    width: 100%;
     display: block;
+    text-align: center;
+    padding: 0.3em 0;
+    margin: 0;
+    background: rgb(84, 84, 84);
+  }
+  a.item {
+    color: white;
+    font-style: bold;
   }
   a#trigger {
     display: inline;
+    text-align: right;
+    color: black;
+  }
+  a#trigger:hover {
+    color: #663300;
   }
 }
 
@@ -64,11 +92,11 @@ section {
   margin-top: 2em;
 }
 
-a {
+section a {
   color: #800000;
 }
 
-a:hover{
+section a:hover{
   color: #663300;
 }
 
