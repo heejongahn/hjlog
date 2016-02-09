@@ -13,7 +13,7 @@ $(document).ready(function() {
   // Syntax highlighting
   hljs.initHighlightingOnLoad();
 
-  var trigger = document.getElementById('trigger');
+  var trigger = document.getElementsByClassName('trigger')[0];
 
   trigger.onclick = navToggle;
   });
