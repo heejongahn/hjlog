@@ -8,6 +8,19 @@ header {
   background: #fff;
   z-index: 101;
   position: fixed;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+
+  align-items: center;
+}
+header * {
+  vertical-align: middle;
 }
 .navbar-header, nav {
   display: inline-block;
@@ -17,11 +30,13 @@ ul.menu {
   display: inline-block;
   padding: 0;
   margin: 0.75em 0;
+  line-height: 1em;
 }
 ul.menu > li {
   display: inline;
   width: 100%;
   margin: auto 1em;
+  text-align: center;
 }
 a.trigger {
   display: none;
@@ -29,18 +44,19 @@ a.trigger {
 a.logo {
   padding: 0 !important;
   margin-left: 1em;
-  vertical-align: middle;
   display: inline-block;
 }
 img.logo  {
   width: 100px;
+  display: inline-block;
 }
 
 @media (max-width: 480px) {
+  header {
+    height: 3em;
+  }
   .navbar-header {
     width: 100%;
-    vertical-align: middle;
-    position: relative;
   }
   nav, ul.menu, ul.menu > li {
     width: 100%;
@@ -48,6 +64,8 @@ img.logo  {
   nav {
     display: none;
     padding: 0;
+    position: absolute;
+    top: 100%;
   }
   ul.menu {
     margin: 0;
@@ -55,7 +73,7 @@ img.logo  {
   ul.menu > li {
     display: block;
     text-align: center;
-    padding: 0.3em 0;
+    padding: 0.5em 0;
     margin: 0;
     background: rgb(84, 84, 84);
   }
@@ -64,11 +82,21 @@ img.logo  {
     font-style: bold;
   }
   a.trigger {
-    display: inline;
+    display: -ms-inline-flex;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
     color: black;
     position: absolute;
     right: 0.5em;
-    top: 7.5px;
+    top: 0;
+    bottom: 0;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
   }
   a.trigger:hover {
     color: #663300;
@@ -86,7 +114,7 @@ body {
 section {
   min-height: calc(100% - 7em);
   height: auto;
-  margin: 7em auto 3em;
+  margin: 5em auto 3em;
 }
 .wireframe {
   margin-top: 2em;
