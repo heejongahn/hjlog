@@ -9,10 +9,23 @@ header {
   z-index: 101;
   position: fixed;
 }
+
+header, .navbar-header {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+
+  flex-wrap: wrap;
+  align-items: center;
+}
 header * {
   vertical-align: middle;
 }
-.navbar-header, nav {
+nav {
   display: inline-block;
 }
 ul.menu {
@@ -20,6 +33,7 @@ ul.menu {
   display: inline-block;
   padding: 0;
   margin: 0.75em 0;
+  line-height: 1em;
 }
 ul.menu > li {
   display: inline;
@@ -41,6 +55,7 @@ img.logo  {
 
 @media (max-width: 480px) {
   .navbar-header {
+    height: 3em;
     width: 100%;
     position: relative;
   }
@@ -66,12 +81,22 @@ img.logo  {
     font-style: bold;
   }
   a.trigger {
-    display: inline;
     color: black;
     position: absolute;
     right: 0.5em;
     top: 0;
     bottom: 0;
+
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    flex-wrap: wrap;
+    align-items: center;
   }
   a.trigger:hover {
     color: #663300;
