@@ -3,7 +3,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  border: 1px solid rgba(34,36,38,.15);
+  border-bottom: 1px solid rgba(34,36,38,.15);
   box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
   background: #fff;
   z-index: 101;
@@ -37,24 +37,17 @@ img.logo  {
 }
 
 @media (max-width: 480px) {
-  header {
-    border: none;
-    box-shadow: none;
-  }
   .navbar-header {
     width: 100%;
     vertical-align: middle;
-    border: 1px solid rgba(34,36,38,.15);
-    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
     position: relative;
   }
-  nav {
+  nav, ul.menu, ul.menu > li {
     width: 100%;
+  }
+  nav {
     display: none;
     padding: 0;
-  }
-  ul.menu, ul.menu > li {
-    width: 100%;
   }
   ul.menu {
     margin: 0;
@@ -75,16 +68,13 @@ img.logo  {
     color: black;
     position: absolute;
     right: 0.5em;
+    top: 7.5px;
   }
   a.trigger:hover {
     color: #663300;
   }
   a.trigger > i {
     margin: 0;
-    box-shadow: none;
-  }
-  .login {
-    position: static;
   }
 }
 
