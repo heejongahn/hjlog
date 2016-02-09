@@ -18,11 +18,28 @@ header {
   -webkit-box-align: center;
 
   align-items: center;
+  flex-wrap: wrap;
 }
 header * {
   vertical-align: middle;
 }
-.navbar-header, nav {
+
+header, .navbar-header {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+
+  flex-wrap: wrap;
+  align-items: center;
+}
+header * {
+  vertical-align: middle;
+}
+nav {
   display: inline-block;
 }
 ul.menu {
@@ -56,6 +73,7 @@ img.logo  {
     height: 3em;
   }
   .navbar-header {
+    height: 3em;
     width: 100%;
   }
   nav, ul.menu, ul.menu > li {
