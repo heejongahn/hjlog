@@ -9,6 +9,9 @@ header {
   z-index: 101;
   position: fixed;
 }
+header * {
+  vertical-align: middle;
+}
 .navbar-header, nav {
   display: inline-block;
 }
@@ -29,17 +32,16 @@ a.trigger {
 a.logo {
   padding: 0 !important;
   margin-left: 1em;
-  vertical-align: middle;
   display: inline-block;
 }
 img.logo  {
   width: 100px;
+  display: inline-block;
 }
 
 @media (max-width: 480px) {
   .navbar-header {
     width: 100%;
-    vertical-align: middle;
     position: relative;
   }
   nav, ul.menu, ul.menu > li {
@@ -55,7 +57,7 @@ img.logo  {
   ul.menu > li {
     display: block;
     text-align: center;
-    padding: 0.3em 0;
+    padding: 0.5em 0;
     margin: 0;
     background: rgb(84, 84, 84);
   }
@@ -68,7 +70,8 @@ img.logo  {
     color: black;
     position: absolute;
     right: 0.5em;
-    top: 7.5px;
+    top: 0;
+    bottom: 0;
   }
   a.trigger:hover {
     color: #663300;
