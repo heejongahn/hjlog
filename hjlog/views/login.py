@@ -5,16 +5,6 @@ from hjlog.forms import LoginForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
 def register(app):
-    @lm.user_loader
-    def load_user(user_id):
-        u = None
-        try:
-            u = User.query.filter_by(id=user_id).one()
-        except:
-            pass
-
-        return u
-
     @app.route('/login', methods=["GET", "POST"])
     def login():
         if current_user.is_authenticated():
@@ -45,3 +35,16 @@ def register(app):
         flash('성공적으로 로그아웃 되었습니다 :)', 'success')
 
         return redirect(url_for('about'))
+
+    ####################
+    # Helper functions #
+    ####################
+    @lm.user_loader
+    def load_user(user_id):
+        u = None
+        try:
+            u = User.query.filter_by(id=user_id).one()
+        except:
+            pass
+
+        return u

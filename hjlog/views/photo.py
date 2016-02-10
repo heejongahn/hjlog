@@ -5,10 +5,6 @@ import os
 import time
 
 def register(app):
-    def allowed_file(filename):
-        return '.' in filename and \
-            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
     @app.route('/photoajax', methods=['POST'])
     @login_required
     def photo_ajax():
@@ -23,3 +19,10 @@ def register(app):
 
             elif not allowed_file(photo.filename):
                 return jsonify(correct=False)
+
+    ####################
+    # Helper functions #
+    ####################
+    def allowed_file(filename):
+        return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
