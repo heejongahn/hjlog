@@ -119,6 +119,9 @@ def register(app):
 
         tags = []
         for tag_name in tag_names:
+            if tag_name == "":
+                continue
+
             try:
                 t = Tag(tag_name)
                 db.session.add(t)
