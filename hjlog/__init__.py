@@ -26,5 +26,5 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
-from hjlog import models, forms
+from hjlog import forms
 from hjlog.views import init_app as init_view; init_view(app)
