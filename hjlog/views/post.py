@@ -91,8 +91,12 @@ def register(app):
         photos = Photo.query.filter_by(original_id=id).all()
         delete_photos(photos)
 
+        tags = post.tags
+
         db.session.delete(post)
         db.session.commit()
+
+        delete_orphan_tag(tags)
 
         flash('성공적으로 삭제되었습니다 :)', 'success')
         return redirect(url_for('posts', category='daily', page=1))
@@ -145,3 +149,9 @@ def register(app):
         for photo in photos:
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
             db.session.delete(photo)
+
+    def delete_orphan_tag(tags):
+        for tag in tags:
+            if not tag.describes.all():
+                db.session.delete(tag)
+                db.session.commit()
