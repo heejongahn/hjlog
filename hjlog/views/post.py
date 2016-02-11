@@ -35,14 +35,14 @@ def register(app):
                 request.form.get('title'), request.form.get('body'),
                 request.form.get('category'), current_user,
                 request.form.get('tags'))
-            tags = handle_tag(tag_names)
+            tags = create_tags(tag_names)
 
             post = Post(title, body, category, author, tags)
             db.session.add(post)
             db.session.commit()
 
             photo_names = request.form.get('photonames')
-            handle_photo(photo_names, post)
+            create_photos(photo_names, post)
 
             return redirect(url_for('post', id=post.id))
 
@@ -68,14 +68,14 @@ def register(app):
             title, body, category, tag_names = (
                 request.form.get('title'), request.form.get('body'),
                 request.form.get('category'), request.form.get('tags'))
-            tags = handle_tag(tag_names)
+            tags = create_tags(tag_names)
 
             post.title, post.body, post.category, post.tags = title, body, category, tags
             db.session.add(post)
             db.session.commit()
 
             photo_names = request.form.get('photonames')
-            handle_photo(photo_names, post)
+            create_photos(photo_names, post)
 
             return redirect(url_for('post', id=post.id))
 
@@ -111,7 +111,7 @@ def register(app):
     # Helper functions #
     ####################
 
-    def handle_tag(tag_names):
+    def create_tags(tag_names):
         tag_names = [name.strip() for name in tag_names.split(',')]
 
         if tag_names == ['']:
@@ -134,7 +134,7 @@ def register(app):
 
         return tags
 
-    def handle_photo(photo_names, original):
+    def create_photos(photo_names, original):
         photo_names = [name for name in photo_names.strip().split()]
         for photo_name in photo_names:
             p = Photo(photo_name, original.id)
