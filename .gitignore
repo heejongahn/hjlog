@@ -6,3 +6,5 @@ venv/*
 hjlog/static/image/*
 .well-known/
 hjlog.db
+node_modules
+npm_debug.log
