@@ -95,7 +95,7 @@
   <script src="{{ url_for('static', filename = 'js/semantic.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/showdown.min.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename = 'js/highlight.min.js') }}" type="text/javascript"></script>
-  <script src="{{ url_for('static', filename = 'js/hjlog.js') }}" type="text/javascript"></script>
+  <script src="{{ asset_url_for('app_js.js') }}" type="text/javascript"></script>
   {% block script %}{% endblock %}
 </body>
 </html>

@@ -1,10 +1,22 @@
+# virtualenv
 venv/*
+
+# cache
 *.pyc
 */*.pyc
 .DS_Store
 */.DS_Store
+
+# static image & webpack build
 hjlog/static/image/*
-.well-known/
-hjlog.db
+hjlog/static/build/
+
+# npm
 node_modules
 npm_debug.log
+
+# test db
+hjlog.db
+
+# letsencrypt
+.well-known/
