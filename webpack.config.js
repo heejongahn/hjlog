@@ -1,10 +1,22 @@
 var path = require('path');
+var webpack = require('webpack');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 
 var rootAssetPath = './hjlog/static';
 var jsPath = rootAssetPath + '/js/hjlog.js';
+
+var plugins = [
+    new ManifestRevisionPlugin(path.join('.', 'manifest.json'), {
+        rootAssetPath: rootAssetPath,
+        ignorePaths: [/.DS_Store$/, '/css', '/js', '/build']
+    })
+];
+
+if (process.env.WEBPACK === 'release') {
+    plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }));
+}
 
 module.exports = {
     entry: {
@@ -29,10 +41,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new ManifestRevisionPlugin(path.join('.', 'manifest.json'), {
-            rootAssetPath: rootAssetPath,
-            ignorePaths: [/.DS_Store$/, '/css', '/js', '/build']
-        })
-    ]
+    plugins: plugins
 };
