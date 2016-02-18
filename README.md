@@ -3,28 +3,27 @@
 
 ## Production
 
-1. 가상환경 활성화 &  디펜던시 설치
   ``` bash
-  source venv/bin/activate
-  pip3 install -r requirements.txt
-  ```
+  source venv/bin/activate          # 가상 환경 활성화
 
-2. 서버 시작
-  ``` bash
-  sudo service hjlog start
+  pip3 install -r requirements.txt  # 파이썬 디펜던시 설치
+  npm install                       # npm 디펜던시 설치
+  WEBPACK=release npm run build     # Webpack 빌드
+
+  sudo service hjlog start          # 프로덕션 서버 시작
   ```
 
 ## Development
 
-1. 가상환경, 디펜던시, 디비 및 환경변수 설정
   ```bash
-  source venv/bin/activate
-  pip3 install -r dev_requirements.txt
-  touch hjlog.db
-  export RUN_OPT=../dev_config.py
-  ```
+  source venv/bin/activate              # 가상 환경 활성화
 
-2. 서버 시작
-  ``` bash
-  python dev_run.py
+  pip3 install -r dev_requirements.txt  # 파이썬 개발 디펜던시 설치
+  npm install                           # npm 디펜던시 설치
+  npm run build                         # Webpack 빌드
+
+  touch hjlog.db                        # 테스트용 SQLite3 디비 생성
+  export RUN_OPT=../dev_config.py       # 환경 변수 설정
+
+  python dev_run.py                     # 개발 서버 시작
   ```
