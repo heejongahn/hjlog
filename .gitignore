@@ -7,9 +7,12 @@ venv/*
 .DS_Store
 */.DS_Store
 
-# static image & webpack build
+# static images
 hjlog/static/image/*
+
+# webpack
 hjlog/static/build/
+manifest.json
 
 # npm
 node_modules
