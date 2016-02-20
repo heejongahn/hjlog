@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 
 var rootAssetPath = './hjlog/static';
-var jsPath = rootAssetPath + '/js/hjlog.js';
+var absRootAssetPath = path.resolve(rootAssetPath);
 
 var plugins = [
     new ManifestRevisionPlugin(path.join('.', 'manifest.json'), {
@@ -28,6 +28,7 @@ module.exports = {
         filename: '[name].[hash].js',
     },
     resolve: {
+        root: absRootAssetPath + '/js',
         extensions: ['', '.js', '.css']
     },
     module: {

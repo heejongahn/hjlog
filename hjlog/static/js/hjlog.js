@@ -1,3 +1,8 @@
+require('script!jquery');
+require('script!semantic');
+require('script!highlight');
+require('script!showdown');
+
 $(document).ready(function() {
   // Markdown rendering
   var md = $(".markdown.postbody").text();
