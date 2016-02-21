@@ -22,4 +22,3 @@ MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
 # Webpack
 WEBPACK_MANIFEST_PATH = os.path.join(basedir, 'manifest.json')
-print (WEBPACK_MANIFEST_PATH)
