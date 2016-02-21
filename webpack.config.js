@@ -11,7 +11,7 @@ var plugins = [
   new ExtractTextPlugin('[name].[hash].css'),
   new ManifestRevisionPlugin(path.join('.', 'manifest.json'), {
     rootAssetPath: rootAssetPath,
-    ignorePaths: [/.DS_Store$/, '/css', '/js', '/build']
+    ignorePaths: [/.DS_Store$/, '/css', '/js', '/public']
   })
 ];
 
@@ -25,8 +25,8 @@ module.exports = {
     style: rootAssetPath + '/css/hjlog.scss'
   },
   output: {
-    path: 'hjlog/static/build',
-    publicPath: '/static/build/',
+    path: 'hjlog/static/public',
+    publicPath: '/static/public/',
     filename: '[name].[hash].js',
   },
   resolve: {
