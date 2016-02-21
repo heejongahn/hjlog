@@ -10,7 +10,6 @@ def register(app):
     def photo_ajax():
         if request.method == 'POST':
             photo = request.files['file']
-
             if photo and allowed_file(photo.filename):
                 filename = secure_filename(str(time.time())+photo.filename)
                 photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
