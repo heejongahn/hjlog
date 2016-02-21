@@ -12,7 +12,7 @@
   <title>{% block title %}{% endblock %}</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" type="text/css" href="{{ asset_url_for('style.css') | safe}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='public/style.css')}}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='image/icon/hj-03.png')}}">
 
   <!-- Addtional Headers -->
@@ -87,7 +87,7 @@
   </footer>
 
   <!-- Javascript Import & Markdown Rendering -->
-  <script src="{{ asset_url_for('bundle.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='public/bundle.js') }}" type="text/javascript"></script>
   {% block script %}{% endblock %}
 </body>
 </html>
