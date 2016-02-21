@@ -2,11 +2,13 @@ require('script!jquery');
 require('script!semantic');
 require('script!highlight');
 require('script!showdown');
+require('script!figure');
 
 $(document).ready(function() {
   // Markdown rendering
   var md = $(".markdown.postbody").text();
   var converter = new showdown.Converter({
+    'extensions': ['figure'],
     'strikethrough': true,
     'tables': true,
     'noHeaderId': true});
