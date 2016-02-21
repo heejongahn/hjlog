@@ -1,3 +1,6 @@
+@import 'github_markdown';
+@import 'highlight';
+
 /* Responsive Navbar */
 header {
   top: 0;

@@ -8,6 +8,7 @@ var rootAssetPath = './hjlog/static';
 var absRootAssetPath = path.resolve(rootAssetPath);
 
 var plugins = [
+  new ExtractTextPlugin('[name].[hash].css'),
   new ManifestRevisionPlugin(path.join('.', 'manifest.json'), {
     rootAssetPath: rootAssetPath,
     ignorePaths: [/.DS_Store$/, '/css', '/js', '/build']
@@ -20,7 +21,8 @@ if (process.env.WEBPACK === 'release') {
 
 module.exports = {
   entry: {
-    app_js: rootAssetPath + '/js/hjlog.js'
+    bundle: rootAssetPath + '/js/hjlog.js',
+    style: rootAssetPath + '/css/style.css'
   },
   output: {
     path: 'hjlog/static/build',
@@ -28,7 +30,7 @@ module.exports = {
     filename: '[name].[hash].js',
   },
   resolve: {
-    root: absRootAssetPath + '/js',
+    root: [absRootAssetPath + '/js', absRootAssetPath + '/css'],
     extensions: ['', '.js', '.css']
   },
   module: {
@@ -39,6 +41,10 @@ module.exports = {
           'file?context=' + rootAssetPath + '&name=[path][name].[hash].[ext]',
           'image?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       }
     ]
   },
