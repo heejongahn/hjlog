@@ -22,7 +22,7 @@ if (process.env.WEBPACK === 'release') {
 module.exports = {
   entry: {
     bundle: rootAssetPath + '/js/hjlog.js',
-    style: rootAssetPath + '/css/style.css'
+    style: rootAssetPath + '/css/hjlog.scss'
   },
   output: {
     path: 'hjlog/static/build',
@@ -45,6 +45,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'sass-loader?outputStyle=nested'])
       }
     ]
   },

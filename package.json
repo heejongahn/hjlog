@@ -1,12 +1,14 @@
 {
   "scripts": {
-    "build": "node_modules/.bin/webpack --progress --colors --display-error-details"
+    "build": "node_modules/.bin/webpack --progress --colors"
   },
   "dependencies": {
     "css-loader": "^0.14.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "image-webpack-loader": "^1.6.3",
     "manifest-revision-webpack-plugin": "^0.1.0",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
     "script-loader": "^0.6.1",
     "style-loader": "^0.12.4",
     "webpack": "^1.12.13",
