@@ -12,8 +12,6 @@
   <title>{% block title %}{% endblock %}</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/semantic.css') }}">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="{{ asset_url_for('style.css') | safe}}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='image/icon/hj-03.png')}}">
 
@@ -27,7 +25,7 @@
       <a href='/' class='logo item'>
         <img class="ui logo" src="{{url_for('static', filename='image/icon/logo.png')}}" alt="hjlog">
       </a>
-      <a class="trigger"><i class="fa fa-bars"></i></a>
+      <a class="trigger"><i class="sidebar icon"></i></a>
     </div>
     <nav>
       <ul class="menu">
