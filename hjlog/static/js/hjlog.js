@@ -1,3 +1,4 @@
+require('hjlog.scss');
 require('script!jquery');
 require('script!semantic');
 require('script!highlight');

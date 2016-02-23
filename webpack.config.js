@@ -7,7 +7,7 @@ var rootAssetPath = './hjlog/static';
 var absRootAssetPath = path.resolve(rootAssetPath);
 
 var plugins = [
-  new ExtractTextPlugin('[name].css'),
+  new ExtractTextPlugin('style.css'),
 ];
 
 if (process.env.WEBPACK === 'release') {
@@ -17,7 +17,6 @@ if (process.env.WEBPACK === 'release') {
 module.exports = {
   entry: {
     bundle: rootAssetPath + '/js/hjlog.js',
-    style: rootAssetPath + '/css/hjlog.scss'
   },
   output: {
     path: 'hjlog/static/public',
