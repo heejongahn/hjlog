@@ -4,6 +4,7 @@ require('script!semantic');
 require('script!highlight');
 require('script!showdown');
 require('script!figure');
+require('script!photoAjax');
 
 $(document).ready(function() {
   // Markdown rendering
