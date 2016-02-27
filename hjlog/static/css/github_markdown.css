@@ -170,8 +170,11 @@ span.float-right {
     text-align: right; }
 
 code {
+  overflow-x: auto;
   font-size: 13px;
   line-height: 19px;
   border-radius: 5px;
-  padding: 6px 10px;
+  padding: 3px 5px;
+  background: #f4f4f4;
+  -webkit-text-size-adjust: none;
 }
