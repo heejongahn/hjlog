@@ -10,10 +10,6 @@ var plugins = [
   new ExtractTextPlugin('style.css'),
 ];
 
-if (process.env.WEBPACK === 'release') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }));
-}
-
 module.exports = {
   entry: {
     bundle: rootAssetPath + '/js/hjlog.js',

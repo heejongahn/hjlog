@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "node_modules/.bin/webpack --progress --colors"
+    "build": "node_modules/.bin/webpack --progress --colors",
+    "release": "node_modules/.bin/webpack -p --progress --colors"
   },
   "dependencies": {
     "css-loader": "^0.14.5",
