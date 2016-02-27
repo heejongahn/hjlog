@@ -24,7 +24,6 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
-    root: [absRootAssetPath + '/js', absRootAssetPath + '/css'],
     extensions: ['', '.js', '.css']
   },
   module: {

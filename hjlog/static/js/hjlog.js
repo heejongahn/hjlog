@@ -1,10 +1,10 @@
-require('hjlog.scss');
+require('../css/hjlog.scss');
 require('script!jquery');
-require('script!semantic');
-require('script!highlight');
-require('script!showdown');
-require('script!figure');
-require('script!photoAjax');
+require('script!semantic-ui/dist/semantic.js');
+require('script!./highlight');
+require('script!./showdown');
+require('script!./figure');
+require('script!./photoAjax');
 
 $(document).ready(function() {
   // Markdown rendering

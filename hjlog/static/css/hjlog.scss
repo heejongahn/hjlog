@@ -1,6 +1,6 @@
 @import 'github_markdown';
 @import 'highlight';
-@import 'semantic';
+@import url('../../../node_modules/semantic-ui/dist/semantic.css');
 
 /* Responsive Navbar */
 header {
