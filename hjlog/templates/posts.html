@@ -6,12 +6,9 @@ h2.title, div.content {
   display: inline;
   vertical-align: middle;
 }
+
 h2.title {
   margin-right: 0.3em;
-}
-div#post-list div.post-content {
-  display: inline-flex;
-  align-items: center;
 }
 
 div#post-list a {
@@ -45,16 +42,18 @@ a.disqus-comments {
 <div class="ui middle aligned relaxed selection list" id="post-list">
   {% for post in posts %}
   <div class="item">
-    {% if post.author.username == 'heejongahn' %}
-    <img class="ui avatar image" src="/static/image/icon/hj-08.png">
-    {% else %}
-    <img class="ui avatar image" src="/static/image/icon/hj-07.png">
-    {% endif %}
-    <div class="content post-content">
-      <a href="/post/{{post.id}}">
-        <h2 class="title">{{post.title}}</h2>
-        <a class="disqus-comments" href="/post/{{post.id}}#disqus_thread"></a>
-      </a>
+    <div>
+      {% if post.author.username == 'heejongahn' %}
+      <img class="ui avatar image" src="/static/image/icon/hj-08.png">
+      {% else %}
+      <img class="ui avatar image" src="/static/image/icon/hj-07.png">
+      {% endif %}
+      <div class="content post-content">
+        <a href="/post/{{post.id}}">
+          <h2 class="title">{{post.title}}</h2>
+          <a class="disqus-comments" href="/post/{{post.id}}#disqus_thread"></a>
+        </a>
+      </div>
     </div>
     <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
   </div>
