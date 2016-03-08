@@ -19,23 +19,38 @@ a.disqus-comments {
   text-decoration: none;
   font-size: 0.8em;
 }
+
+div#quote {
+  position: relative;
+}
+
+div#quote > h1 {
+  display: inline-block;
+}
+
+a#write-icon {
+  position: absolute;
+  right: 2em;
+}
 </style>
 {% endblock %}
 {% block content %}
 <div class="ui grid">
-    <div class="ui fifteen wide column">
-      {% if c == 'daily' %}
-      <h1>대전공대 커플 일상다반사</h1>
-      {% else %}
-      <h1>공부가 제일 쉬웠어요</h1>
+    <div class="ui sixteen wide column" id="quote">
+      {% if c == 'everyday' %}
+      <h1>"매일을 삶의 마지막 날인듯이 살라"</h1>
+      {% elif c == 'study' %}
+      <h1>"공부가 제일 쉬웠어요"</h1>
+      {% elif c == 'world' %}
+      <h1>"우린 우주의 작은 별 안의 작은 점"</h1>
+      {% elif c == 'idea' %}
+      <h1>"상상력은 지식보다 중요하다"</h1>
       {% endif %}
-    </div>
-    <div class="ui one wide column">
-        {% if current_user.username %}
-        <a href="/post/new" class="ui icon button basic">
-            <i class="write icon"></i>
-        </a>
-        {% endif %}
+      {% if current_user.username %}
+      <a href="/post/new" class="ui icon button basic" id="write-icon">
+          <i class="write icon"></i>
+      </a>
+      {% endif %}
     </div>
 </div>
 <div class="ui divider"></div>
