@@ -26,7 +26,7 @@ def register(app):
         form = PostForm()
 
         if request.method == 'GET':
-            return render_template('post_new.html', form=form)
+            return render_template('post_write.html', form=form)
 
         # Form Data Submitted
         if form.validate_on_submit():
@@ -48,7 +48,7 @@ def register(app):
 
         # Invalid input
         flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
-        return render_template('post_new.html', form=form)
+        return render_template('post_write.html', form=form)
 
     @app.route('/post/<id>/edit', methods=['GET', 'POST'])
     @login_required
@@ -60,7 +60,7 @@ def register(app):
                         category=post.category)
 
         if request.method == 'GET':
-            return render_template('post_edit.html', form=form, id=post.id)
+            return render_template('post_write.html', form=form, id=post.id)
 
         # Form Data Submitted
         if form.validate_on_submit():
@@ -81,7 +81,7 @@ def register(app):
 
         # Invalid input
         flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
-        return render_template('post_edit.html', form=form, id=post.id)
+        return render_template('post_write.html', form=form, id=post.id)
 
     @app.route('/post/<id>/delete')
     @login_required

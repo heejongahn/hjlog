@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}글 수정{% endblock %}
+{% block title %}
+  {% if id %}
+  글 수정
+  {% else %}
+  글 작성
+  {% endif %}
+{% endblock %}
 {% block content %}
 <h1>추억 적기</h1>
-<form method='POST' action='/post/{{id}}/edit' class='ui form'>
+<form method='POST' action={% if id %}'/post/{{id}}/edit'{% else %}'/post/new'{% endif %} class='ui form'>
     {{ form.hidden_tag() }}
     <div class='ui grid'>
     <div class='twelve wide column'>
