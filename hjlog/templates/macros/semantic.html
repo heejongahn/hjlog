@@ -1,13 +1,13 @@
 {% macro form(field) %}
 <div class='field'>
-    <label>{{ field.label }}</label>
+    {{ field.label }}
     {{ field|safe }}
 </div>
 {% endmacro %}
 
 {% macro select(field) %}
 <div class='field'>
-    <label>{{ field.label }}</label>
+    {{ field.label }}
     {{ field(class="ui dropdown")|safe }}
 </div>
 {% endmacro %}
