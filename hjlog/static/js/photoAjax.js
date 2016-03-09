@@ -106,6 +106,6 @@ function updateForm(name, url) {
   var textarea = document.getElementsByTagName('textarea')[0];
   var photoNames = document.getElementsByName('photonames')[0];
 
-  textarea.innerHTML += ('![' + name + '](' + url + ')');
-  photoNames.innerHTML += (" " + name);
+  textarea.innerHTML = textarea.innerHTML + '![' + name + '](' + url + ')';
+  photoNames.value = photoNames.value + " " + name;
 }
