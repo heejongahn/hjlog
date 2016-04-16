@@ -159,6 +159,18 @@ section {
   margin-top: 2em;
 }
 
+figure {
+  img {
+    width: 100%;
+  }
+
+  figcaption {
+    color: grey;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
 /* Footer */
 .ui.footer.segment {
   padding: 5em 0em;
