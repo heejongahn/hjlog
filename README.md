@@ -55,15 +55,16 @@ server {
         include uwsgi_params;
         uwsgi_pass unix:/home/ubuntu/workspace/hjlog/hjlog.sock;
     }
-
-    location ~ /.well-known {
-        allow all;
-    }
 }
 
 server {
     listen 80;
     server_name hjlog.me;
+
+    location ~ /.well-known {
+        allow all;
+    }
+
     return 301 https://$host$request_uri;
 }
 ```
