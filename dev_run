@@ -1,0 +1,11 @@
+#!/bin/bash
+source venv/bin/activate              # 가상 환경 활성화
+
+pip3 install -r dev_requirements.txt  # 파이썬 개발 디펜던시 설치
+npm install                           # npm 디펜던시 설치
+npm run build                         # Webpack 빌드
+
+touch hjlog.db                        # 테스트용 SQLite3 디비 생성
+export RUN_OPT=../dev_config.py       # 환경 변수 설정
+
+python dev_run.py                     # 개발 서버 시작
