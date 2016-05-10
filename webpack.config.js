@@ -15,8 +15,8 @@ module.exports = {
     bundle: rootAssetPath + '/js/hjlog.js',
   },
   output: {
-    path: 'hjlog/static/public',
-    publicPath: '/static/public/',
+    path: 'hjlog/static/build',
+    publicPath: '/static/build/',
     filename: '[name].js',
   },
   resolve: {
