@@ -9,7 +9,7 @@ venv/*
 hjlog/static/image/*
 
 # webpack
-hjlog/static/public/
+hjlog/static/build/
 manifest.json
 
 # npm
