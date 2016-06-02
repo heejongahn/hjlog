@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Oops, {{error}} alert!{% endblock %}
-
+{% block og_title %}Oops, {{error}} alert!{% endblock %}
 {% block content %}
 <h1>이런, 뭔가 잘못 되었군요!</h1>
 {% if code == 404 %}
