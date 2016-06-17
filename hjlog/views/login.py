@@ -41,10 +41,4 @@ def register(app):
     ####################
     @lm.user_loader
     def load_user(user_id):
-        u = None
-        try:
-            u = User.query.filter_by(id=user_id).one()
-        except:
-            pass
-
-        return u
+        return User.query.get(user_id)
