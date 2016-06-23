@@ -6,29 +6,28 @@ require('script!./showdown');
 require('script!./figure');
 require('script!./photoAjax');
 
-$(document).ready(function() {
-  // Markdown rendering
-  var md = $(".markdown.postbody").text();
-  var converter = new showdown.Converter({
-    'extensions': ['figure'],
-    'strikethrough': true,
-    'tables': true,
-    'noHeaderId': true});
-  var html = converter.makeHtml(md);
-  $(".markdown.postbody").html(html);
-  $(".markdown.postbody").show();
-  $(".dimmer").hide();
+// Markdown rendering
+const md = $(".markdown").text();
+const converter = new showdown.Converter({
+  'extensions': ['figure'],
+  'strikethrough': true,
+  'tables': true,
+  'noHeaderId': true});
+const html = converter.makeHtml(md);
 
-  // Syntax highlighting
-  hljs.initHighlightingOnLoad();
+const postBody = document.querySelector(".markdown");
+const dimmer = document.querySelector(".dimmer");
+postBody.innerHTML = converter.makeHtml(md);
+postBody.style.display="block";
+dimmer.style.display="none";
 
-  var trigger = document.getElementsByClassName('trigger')[0];
+// Syntax highlighting
+hljs.initHighlightingOnLoad();
 
-  trigger.onclick = navToggle;
-  });
-
-var navToggle = function() {
-  var nav = document.getElementsByTagName('nav')[0];
+// Responsive navbar
+const trigger = document.getElementsByClassName('trigger')[0];
+trigger.onclick = (e) => {
+  const nav = document.getElementsByTagName('nav')[0];
 
   if (nav.style.display === 'block') {
     nav.style.display = 'none';

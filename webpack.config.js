@@ -1,12 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var rootAssetPath = './hjlog/assets';
-var absRootAssetPath = path.resolve(rootAssetPath);
+const rootAssetPath = './hjlog/assets';
+const absRootAssetPath = path.resolve(rootAssetPath);
 
-var plugins = [
+const plugins = [
   new ExtractTextPlugin('style.css'),
 ];
 
