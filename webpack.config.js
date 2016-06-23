@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var rootAssetPath = './hjlog/static';
+var rootAssetPath = './hjlog/assets';
 var absRootAssetPath = path.resolve(rootAssetPath);
 
 var plugins = [
