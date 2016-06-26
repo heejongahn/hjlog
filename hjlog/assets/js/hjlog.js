@@ -1,6 +1,5 @@
 require('../css/hjlog.scss');
 require('script!jquery');
-require('script!semantic-ui/dist/semantic.js');
 require('script!./highlight');
 require('script!./showdown');
 require('script!./figure');
