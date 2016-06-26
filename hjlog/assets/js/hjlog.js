@@ -19,17 +19,17 @@ if (postBody) {
 
   postBody.innerHTML = converter.makeHtml(md);
   postBody.style.display = "block";
-}
 
-const dimmer = document.getElementsByClassName("dimmer")[0];
-dimmer.style.display = "none";
+  const dimmer = document.getElementsByClassName("dimmer")[0];
+  dimmer.style.display = "none";
+}
 
 // Syntax highlighting
 hljs.initHighlightingOnLoad();
 
 // Responsive navbar
 const trigger = document.getElementsByClassName('trigger')[0];
-trigger.onclick = (e) => {
+trigger.addEventListener("click", () => {
   const nav = document.getElementsByTagName('nav')[0];
 
   if (nav.style.display === 'block') {
@@ -38,4 +38,4 @@ trigger.onclick = (e) => {
   else {
     nav.style.display = 'block';
   }
-}
+});
