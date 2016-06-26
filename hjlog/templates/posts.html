@@ -48,7 +48,7 @@ a#write-icon {
       <h1>"상상력은 지식보다 중요하다"</h1>
       {% endif %}
       {% if current_user.username %}
-      <a href="/post/new" class="ui icon button basic" id="write-icon">
+      <a href="/posts/{{c}}/new" class="ui icon button basic" id="write-icon">
           <i class="write icon"></i>
       </a>
       {% endif %}

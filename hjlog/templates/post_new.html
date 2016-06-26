@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}글 작성{% endblock %}
+{% block og_title %}글 작성{% endblock %}
+{% block content %}
+<h1>추억 적기</h1>
+<form method='POST' action='/posts/{{c}}/new' class='ui form'>
+    {{ form.hidden_tag() }}
+    <div class='ui grid'>
+      <div class='sixteen wide column'>
+        {{ semantic.form(form.title) }}
+      </div>
+    </div></br>
+    {{ semantic.form(form.body(rows="30")|safe) }}
+    {{ semantic.form(form.tags) }}
+    <input type="text" name="photonames" style="display:none">
+    <input type='submit' class='ui button basic' value='작성'>
+</form>
+<input type="file" id="photoupload" name='photo'>
+{% endblock %}

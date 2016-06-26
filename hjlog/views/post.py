@@ -20,20 +20,21 @@ def register(app):
         post = Post.query.filter_by(id=id).one()
         return render_template('post.html', post=post)
 
-    @app.route('/post/new', methods=['GET', 'POST'])
+    @app.route('/posts/<category>/new', methods=['GET', 'POST'])
     @login_required
-    def post_new():
+    def post_new(category):
         form = PostForm()
+        print(category)
 
         if request.method == 'GET':
-            return render_template('post_write.html', form=form)
+            return render_template('post_new.html', form=form, c=category)
 
         # Form Data Submitted
         if form.validate_on_submit():
             # Valid input
             title, body, category, author, tag_names = (
                 request.form.get('title'), request.form.get('body'),
-                request.form.get('category'), current_user,
+                category, current_user,
                 request.form.get('tags'))
             tags = create_tags(tag_names)
 
@@ -48,7 +49,7 @@ def register(app):
 
         # Invalid input
         flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
-        return render_template('post_write.html', form=form)
+        return render_template('post_new.html', form=form, c=category)
 
     @app.route('/post/<id>/edit', methods=['GET', 'POST'])
     @login_required
@@ -60,7 +61,7 @@ def register(app):
                         category=post.category)
 
         if request.method == 'GET':
-            return render_template('post_write.html', form=form, id=post.id)
+            return render_template('post_edit.html', form=form, id=post.id)
 
         # Form Data Submitted
         if form.validate_on_submit():
