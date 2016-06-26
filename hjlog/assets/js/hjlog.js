@@ -7,19 +7,22 @@ require('script!./figure');
 require('script!./photoAjax');
 
 // Markdown rendering
-const md = $(".markdown").text();
-const converter = new showdown.Converter({
-  'extensions': ['figure'],
-  'strikethrough': true,
-  'tables': true,
-  'noHeaderId': true});
-const html = converter.makeHtml(md);
+const postBody = document.getElementsByClassName("markdown")[0];
+if (postBody) {
+  const md = $(".markdown").text();
+  const converter = new showdown.Converter({
+    'extensions': ['figure'],
+    'strikethrough': true,
+    'tables': true,
+    'noHeaderId': true});
+  const html = converter.makeHtml(md);
 
-const postBody = document.querySelector(".markdown");
-const dimmer = document.querySelector(".dimmer");
-postBody.innerHTML = converter.makeHtml(md);
-postBody.style.display="block";
-dimmer.style.display="none";
+  postBody.innerHTML = converter.makeHtml(md);
+  postBody.style.display = "block";
+}
+
+const dimmer = document.getElementsByClassName("dimmer")[0];
+dimmer.style.display = "none";
 
 // Syntax highlighting
 hljs.initHighlightingOnLoad();
