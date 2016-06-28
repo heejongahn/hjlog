@@ -2,13 +2,13 @@ let csrfToken = document.querySelector("meta[name=csrf-token]").getAttribute("co
 let photoUploadForm = document.getElementById("photoupload");
 
 const resize = (img) => {
-  const canvas = document.createElement('canvas');
   const MAX_LENGTH = 800;
 
+  let canvas = document.createElement('canvas');
   let ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0);
 
-  let width, height = [img.width, img.height];
+  let [width, height] = [img.width, img.height];
   if (height > width) {
     if (MAX_LENGTH < height) {
       width *= MAX_LENGTH/height;
@@ -21,7 +21,7 @@ const resize = (img) => {
     }
   }
 
-  canvas.width, canvas.height = [width, height];
+  [canvas.width, canvas.height] = [width, height];
   ctx = canvas.getContext('2d')
   ctx.drawImage(img, 0, 0, width, height);
 
@@ -49,27 +49,26 @@ const dataURItoBlob = (dataURI) => {
 }
 
 
-const upload = (formData, csrfToken) => {
+const upload = (formData) => {
   let headers = new Headers({
-      "ENCTYPE": "multipart/form-data",
-      "X-CSRFToken": csrfToken,
-      "mode": "same-origin"
+    "x-requested-with": "XMLHttpRequest",
+    "x-csrftoken": csrfToken,
+    "accept": "application/json"
   });
 
   fetch("/photoajax", {
     method: "POST",
+    mode: "same-origin",
+    credentials: "same-origin",
     body: formData,
     headers: headers
   }).then(function(response) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
-    return response;
-  }).then((response) => {
-    if (response.status == 200) {
-      const data = response.json();
-      updateForm(data["name"], data["url"]);
-    }
+    return response.json;
+  }).then((data) => {
+    updateForm(data["name"], data["url"]);
   }).catch((e) => {
     console.log(e);
   });
@@ -98,7 +97,7 @@ const handleUpload = (e) => {
       const formData = new FormData();
 
       formData.append('file', blob, file.name);
-      upload(formData, csrfToken);
+      upload(formData);
     }
   }
 
