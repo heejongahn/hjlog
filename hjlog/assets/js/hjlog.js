@@ -3,7 +3,7 @@ require('script!jquery');
 require('script!./highlight');
 require('script!./showdown');
 require('script!./figure');
-require('script!./photoAjax');
+require('./photoAjax');
 
 // Markdown rendering
 const postBody = document.getElementsByClassName("markdown")[0];

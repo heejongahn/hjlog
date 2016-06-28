@@ -1,45 +1,14 @@
-$(document).ready(function() {
-  var csrftoken = $('meta[name=csrf-token]').attr('content')
+let csrfToken = document.querySelector("meta[name=csrf-token]").getAttribute("content");
+let photoUploadForm = document.getElementById("photoupload");
 
-  $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-      if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-        xhr.setRequestHeader("X-CSRFToken", csrftoken)
-      }
-    }
-  });
+const resize = (img) => {
+  const canvas = document.createElement('canvas');
+  const MAX_LENGTH = 800;
 
-  $('#photoupload').change(function() {
-    var file = $('#photoupload')[0].files[0];
-    var img = document.createElement('img');
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      img.src = e.target.result;
-      img.onload = function () {
-        var canvas = resize(img);
-        var dataURL = canvas.toDataURL('image/jpeg');
-        var blob = dataURItoBlob(dataURL);
-        var formData = new FormData();
-
-        formData.append('file', blob, file.name);
-        upload(formData);
-      }
-    }
-
-    reader.readAsDataURL(file);
-  });
-});
-
-function resize(img) {
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('2d');
+  let ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0);
 
-  var MAX_LENGTH = 800;
-  var width = img.width;
-  var height = img.height;
-
+  let width, height = [img.width, img.height];
   if (height > width) {
     if (MAX_LENGTH < height) {
       width *= MAX_LENGTH/height;
@@ -52,60 +21,90 @@ function resize(img) {
     }
   }
 
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width, canvas.height = [width, height];
   ctx = canvas.getContext('2d')
   ctx.drawImage(img, 0, 0, width, height);
 
   return canvas;
 }
 
-function dataURItoBlob(dataURI) {
-  var byteString;
+
+const dataURItoBlob = (dataURI) => {
+  let byteString;
   if (dataURI.split(',')[0].indexOf('base64') >= 0) {
     byteString = atob(dataURI.split(',')[1]);
   } else {
     byteString = unescape(dataURI.split(',')[1]);
   }
 
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-  var arrayBuffer = new ArrayBuffer(byteString.length);
-  var intArray = new Uint8Array(arrayBuffer);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const intArray = new Uint8Array(arrayBuffer);
 
-  for (var i = 0; i < byteString.length; i++) {
+  for (let i = 0; i < byteString.length; i++) {
     intArray[i] = byteString.charCodeAt(i);
   }
 
-  var blob = new Blob([arrayBuffer], {"type": mimeString});
-  return blob;
+  return new Blob([arrayBuffer], {"type": mimeString});
 }
 
-function upload(formData) {
-  $.ajax({
-    type: 'POST',
-    url: '/photoajax',
-    data: formData,
-    enctype: "multipart/form-data",
-    contentType: false,
-    processData: false,
-    dataType: 'json',
-    success: function(data, textStatus, jqXHR) {
-      if (data['correct']) {
-        updateForm(data['name'], data['url']);
-      } else {
-        alert("파일의 형식이 올바르지 않아요!")
-      }
-    },
-    error: function(xhr) {
-      console.log(xhr);
+
+const upload = (formData, csrfToken) => {
+  let headers = new Headers({
+      "ENCTYPE": "multipart/form-data",
+      "X-CSRFToken": csrfToken,
+      "mode": "same-origin"
+  });
+
+  fetch("/photoajax", {
+    method: "POST",
+    body: formData,
+    headers: headers
+  }).then(function(response) {
+    if (!response.ok) {
+      throw Error(response.statusText);
     }
+    return response;
+  }).then((response) => {
+    if (response.status == 200) {
+      const data = response.json();
+      updateForm(data["name"], data["url"]);
+    }
+  }).catch((e) => {
+    console.log(e);
   });
 }
 
-function updateForm(name, url) {
-  var textarea = document.getElementsByTagName('textarea')[0];
-  var photoNames = document.getElementsByName('photonames')[0];
 
-  textarea.value = textarea.value + '![' + name + '](' + url + ')';
-  photoNames.value = photoNames.value + " " + name;
+const updateForm = (name, url) => {
+  const textarea = document.getElementsByTagName("textarea")[0];
+  const photoNames = document.getElementsByName("photonames")[0];
+
+  textarea.value = `${textarea.value}![${name}](${url})`;
+  photoNames.value = `${photoNames.value} ${name}`;
+}
+
+
+const handleUpload = (e) => {
+  const file = e.target.files[0];
+  const img = document.createElement('img');
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    img.src = e.target.result;
+    img.onload = () => {
+      const dataURL = resize(img).toDataURL('image/jpeg');
+      const blob = dataURItoBlob(dataURL);
+      const formData = new FormData();
+
+      formData.append('file', blob, file.name);
+      upload(formData, csrfToken);
+    }
+  }
+
+  reader.readAsDataURL(file);
+}
+
+if (photoUploadForm) {
+  photoUploadForm.addEventListener("change", handleUpload);
 }
