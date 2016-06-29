@@ -1,10 +1,10 @@
 import figureExtension from "./figure"
+import asyncPhotoUpload from "./photoAjax"
 
 require('../css/hjlog.scss');
 require('script!showdown');
 require('script!jquery');
 require('script!./highlight');
-require('./photoAjax');
 
 
 // Markdown rendering
@@ -41,3 +41,10 @@ trigger.addEventListener("click", () => {
     nav.style.display = 'block';
   }
 });
+
+// Photo Upload
+const photoUploadForm = document.getElementById("photoupload");
+
+if (photoUploadForm) {
+  photoUploadForm.addEventListener("change", asyncPhotoUpload);
+}

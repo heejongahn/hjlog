@@ -1,6 +1,3 @@
-let csrfToken = document.querySelector("meta[name=csrf-token]").getAttribute("content");
-let photoUploadForm = document.getElementById("photoupload");
-
 const resize = (img) => {
   const MAX_LENGTH = 800;
 
@@ -50,6 +47,8 @@ const dataURItoBlob = (dataURI) => {
 
 
 const upload = (formData) => {
+  const csrfToken = document.querySelector("meta[name=csrf-token]").getAttribute("content");
+
   let headers = new Headers({
     "x-requested-with": "XMLHttpRequest",
     "x-csrftoken": csrfToken,
@@ -84,7 +83,7 @@ const updateForm = (name, url) => {
 }
 
 
-const handleUpload = (e) => {
+const asyncPhotoUpload = (e) => {
   const file = e.target.files[0];
   const img = document.createElement('img');
   const reader = new FileReader();
@@ -104,6 +103,4 @@ const handleUpload = (e) => {
   reader.readAsDataURL(file);
 }
 
-if (photoUploadForm) {
-  photoUploadForm.addEventListener("change", handleUpload);
-}
+export default asyncPhotoUpload;
