@@ -1,13 +1,16 @@
+import figureExtension from "./figure"
+
 require('../css/hjlog.scss');
-require('script!jquery');
 require('script!showdown');
+require('script!jquery');
 require('script!./highlight');
-require('script!./figure');
 require('./photoAjax');
+
 
 // Markdown rendering
 const postBody = document.getElementsByClassName("markdown")[0];
 if (postBody) {
+  figureExtension(showdown);
   const md = $(".markdown").text();
   const converter = new showdown.Converter({
     'extensions': ['figure'],
