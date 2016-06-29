@@ -1,7 +1,7 @@
 require('../css/hjlog.scss');
 require('script!jquery');
+require('script!showdown');
 require('script!./highlight');
-require('script!./showdown');
 require('script!./figure');
 require('./photoAjax');
 
