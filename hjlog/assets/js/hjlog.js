@@ -3,7 +3,6 @@ import asyncPhotoUpload from "./photoAjax"
 
 require('../css/hjlog.scss');
 require('script!showdown');
-require('script!jquery');
 require('script!./highlight');
 
 
@@ -11,7 +10,7 @@ require('script!./highlight');
 const postBody = document.getElementsByClassName("markdown")[0];
 if (postBody) {
   figureExtension(showdown);
-  const md = $(".markdown").text();
+  const md = postBody.innerText;
   const converter = new showdown.Converter({
     'extensions': ['figure'],
     'strikethrough': true,
