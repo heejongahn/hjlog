@@ -25,6 +25,14 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.js$/,
+        include: [
+          path.resolve(`${rootAssetPath}/js`)
+        ],
+        loader: 'babel',
+        query: { presets: ['es2015'] }
+      },
+      {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'sass-loader?outputStyle=nested'])
       },
