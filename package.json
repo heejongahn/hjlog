@@ -9,7 +9,6 @@
     "css-loader": "^0.14.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "image-webpack-loader": "^1.6.3",
-    "jquery": "^2.2.1",
     "manifest-revision-webpack-plugin": "^0.1.0",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
