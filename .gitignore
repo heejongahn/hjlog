@@ -6,7 +6,7 @@ venv/*
 **/.DS_Store
 
 # static images
-hjlog/static/image/*
+hjlog/static/image/photo/*
 
 # webpack
 hjlog/static/build/
