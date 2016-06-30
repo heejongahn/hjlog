@@ -45,6 +45,13 @@ server {
     error_log /var/log/nginx/error.log error;
 
 
+    location ^~ /static/  {
+        gzip on;
+        allow all;
+        include  /etc/nginx/mime.types;
+        root /home/ubuntu/workspace/hjlog/hjlog/;
+    }
+
     location / {
         include uwsgi_params;
         uwsgi_pass unix:/home/ubuntu/workspace/hjlog/hjlog.sock;
