@@ -33,11 +33,11 @@ const trigger = document.getElementsByClassName('trigger')[0];
 trigger.addEventListener("click", () => {
   const nav = document.getElementsByTagName('nav')[0];
 
-  if (nav.style.display === 'block') {
-    nav.style.display = 'none';
+  if (nav.style.visibility === 'visible') {
+    nav.style.visibility = 'hidden';
   }
   else {
-    nav.style.display = 'block';
+    nav.style.visibility = 'visible';
   }
 });
 
