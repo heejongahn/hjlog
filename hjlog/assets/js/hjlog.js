@@ -16,7 +16,6 @@ if (postBody) {
     'strikethrough': true,
     'tables': true,
     'noHeaderId': true});
-  const html = converter.makeHtml(md);
 
   postBody.innerHTML = converter.makeHtml(md);
   postBody.style.display = "block";

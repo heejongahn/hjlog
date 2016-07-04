@@ -1,5 +1,4 @@
 const figureExtension = (showdown) => {
-  const figure = `<figure><img src="`
   const imgRegex = /(?:<p>)?<img.*?src="(.+?)".*?alt="(.*?)"(.*?)\/?>(?:<\/p>)?/gi;
   showdown.extension('figure', () => {
     return [
