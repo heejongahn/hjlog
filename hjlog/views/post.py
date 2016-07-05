@@ -11,6 +11,10 @@ def register(app):
     @app.route('/posts/<category>', defaults={'page': 1})
     @app.route('/posts/<category>/<page>')
     def posts(category, page):
+        if category not in ['everyday', 'idea', 'study', 'world']:
+            flash('존재하지 않는 카테고리입니다!', 'warning')
+            return redirect(url_for('posts', category='everyday'))
+
         pgn = Post.query.filter_by(category=category).order_by(desc(Post.datetime))\
             .paginate(int(page), per_page=10)
         return render_template('posts.html', posts=pgn.items, c=category, pgn=pgn)
@@ -100,7 +104,7 @@ def register(app):
         delete_orphan_tag(tags)
 
         flash('성공적으로 삭제되었습니다 :)', 'success')
-        return redirect(url_for('posts', category='daily', page=1))
+        return redirect(url_for('posts', category='everyday'))
 
     @app.route('/search/<tag_name>', defaults={'page': 1})
     @app.route('/search/<tag_name>/<page>')
