@@ -1,147 +1,14 @@
+@import 'nav';
 @import 'github_markdown';
 @import 'highlight';
 @import url('../../../node_modules/semantic-ui/dist/semantic.css');
-
-/* Responsive Navbar */
-header {
-  top: 0;
-  left: 0;
-  width: 100%;
-  border-bottom: 1px solid rgba(34,36,38,.15);
-  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
-  background: #fff;
-  z-index: 101;
-  position: fixed;
-
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-
-  align-items: center;
-  flex-wrap: wrap;
-
-  * {
-    vertical-align: middle;
-  }
-
-  a {
-    color: black;
-  }
-}
-
-header, .navbar-header {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-nav {
-  display: inline-block;
-}
-
-ul.menu {
-  list-style: none;
-  display: inline-block;
-  padding: 0;
-  margin: 0.75em 0;
-  line-height: 1em;
-
-  li {
-    display: inline;
-    width: 100%;
-    margin: auto 1em;
-    text-align: center;
-  }
-}
-
-a.trigger {
-  display: none;
-}
-
-a.logo {
-  padding: 0 !important;
-  margin-left: 1em;
-  display: inline-block;
-
-  img {
-    width: 100px;
-    display: inline-block;
-  }
-}
-
-@media (max-width: 480px) {
-  header {
-    height: 3em;
-  }
-  .navbar-header {
-    height: 3em;
-    width: 100%;
-  }
-  nav, ul.menu, ul.menu > li {
-    width: 100%;
-  }
-  nav {
-    visibility: hidden;
-    padding: 0;
-  }
-  ul.menu {
-    margin: 0;
-
-    li {
-      display: block;
-      text-align: center;
-      padding: 0.5em 0;
-      margin: 0;
-      background: rgb(84, 84, 84);
-    }
-  }
-  a.item {
-    color: white;
-    font-style: bold;
-  }
-  a.trigger {
-    display: -ms-inline-flex;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-
-    color: black;
-    position: absolute;
-    right: 0.5em;
-    top: 0;
-    bottom: 0;
-
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-
-    align-items: center;
-
-    i {
-      margin: 0;
-    }
-
-    & :hover {
-      color: #663300;
-    }
-  }
-}
 
 /* Body */
 body {
   background-color: #fff;
   background-size: 100% 2em;
 }
+
 section {
   min-height: calc(100% - 7em);
   height: auto;
@@ -177,4 +44,23 @@ figure {
 }
 a.license {
   color: white;
+}
+
+/* Cooler horizontal rules */
+hr {
+  border: 0;
+  border-top: 1px dashed #8c8c8c;
+  text-align:center;
+  margin: 2em 0;
+
+  &:after {
+    content: '\002702';
+    display: inline-block;
+    position: relative;
+    top: -13px;
+    padding: 0 3px;
+    background: #fff;
+    color: #8c8c8c;
+    font-size: 18px;
+  }
 }
