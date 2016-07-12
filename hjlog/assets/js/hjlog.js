@@ -15,7 +15,9 @@ if (postBody) {
     'extensions': ['figure'],
     'strikethrough': true,
     'tables': true,
-    'noHeaderId': true});
+    'noHeaderId': true,
+    'literalMidWordUnderscores': true,
+    'simplifiedAutoLink': true});
 
   postBody.innerHTML = converter.makeHtml(md);
   postBody.style.display = "block";
