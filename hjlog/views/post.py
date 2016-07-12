@@ -69,6 +69,8 @@ def register(app):
 
         # Form Data Submitted
         if form.validate_on_submit():
+            old_tags = post.tags
+
             # Valid input
             title, body, category, tag_names = (
                 request.form.get('title'), request.form.get('body'),
@@ -78,6 +80,8 @@ def register(app):
             post.title, post.body, post.category, post.tags = title, body, category, tags
             db.session.add(post)
             db.session.commit()
+
+            delete_orphan_tag(old_tags)
 
             photo_names = request.form.get('photonames')
             create_photos(photo_names, post)
