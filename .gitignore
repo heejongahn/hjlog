@@ -21,3 +21,6 @@ hjlog.db
 
 # letsencrypt
 .well-known/
+
+# CSRF key
+SECRET_KEY

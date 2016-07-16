@@ -4,7 +4,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 BCRYPT_LOG_ROUNDS = 12
 
 # Form
-SECRET_KEY = 'I cannot forget may eighth'
+with open('SECRET_KEY') as secret_key:
+    SECRET_KEY = secret_key.read().strip()
+
 UPLOAD_FOLDER = 'hjlog/static/image/photo'
 ALLOWED_EXTENSIONS = set(['gif', 'jpg', 'jpeg', 'png'])
 
