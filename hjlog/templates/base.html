@@ -9,7 +9,7 @@
   <meta name='description' content="희종과 하진, 하진과 희종 : 두 hj 의 블로그">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- OpenGraph -->
-  <meta property="og:title" content="{% block og_title %}{% endblock %}" />
+  <meta property="og:title" content="{{ self.title() }}" />
   <meta property="og:type" content="blog" />
   <meta property="og:url" content="{{ request.base_url }}" />
   <meta property="og:description" content="희종과 하진, 하진과 희종 : 두 hj의 블로그" />
