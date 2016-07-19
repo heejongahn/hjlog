@@ -1,22 +1,5 @@
 {% extends 'base.html' %}
 {% block title %}{{post.title}}{% endblock %}
-{% block header %}
-<style type='text/css'>
-  h1.title  {
-    font-size: 2.5em;
-  }
-  a.mini {
-    font-size: 0.6rem !important;
-    padding: 0.785714em 1em !important;
-  }
-  a#edit, a#delete  {
-    color: black;
-  }
-  a.tag {
-    margin-right: 0.3em;
-  }
-</style>
-{% endblock %}
 {% block content %}
 <h1 class="title">{{post.title}}</h1>
 <div class="ui left aligned grid">
@@ -25,8 +8,8 @@
     </div>
     <div class="right floated right aligned four wide column">
         {% if current_user.username %}
-        <a id="edit" href="{{post.id}}/edit">수정하기</a>
-        <a id="delete" href="{{post.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제하기</a>
+        <a class="button" href="{{post.id}}/edit">수정하기</a>
+        <a class="button" href="{{post.id}}/delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제하기</a>
         {% endif %}
     </div>
 </div>

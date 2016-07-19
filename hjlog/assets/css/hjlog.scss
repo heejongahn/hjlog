@@ -3,7 +3,7 @@
 @import 'highlight';
 @import url('../../../node_modules/semantic-ui/dist/semantic.css');
 
-/* Body */
+/* Body Shared Style*/
 body {
   background-color: #fff;
   background-size: 100% 2em;
@@ -26,6 +26,39 @@ section {
   margin-top: 2em;
 }
 
+/* About Page */
+div#greeting code {
+  font-size: 1em;
+}
+
+div#intro {
+  margin: 1em 0 0 0;
+  padding: 0 0 1em 0;
+}
+
+#heejong a {
+  margin-right: 2em;
+}
+
+/* Post page */
+
+h1.post-title {
+  font-size: 2.5em;
+}
+
+a.mini {
+  font-size: 0.6rem !important;
+  padding: 0.785714em 1em !important;
+}
+
+a.button {
+  color: black;
+}
+
+a.tag {
+  margin-right: 0.3em;
+}
+
 figure {
   display: flex;
   flex-direction: column;
@@ -37,6 +70,39 @@ figure {
     font-weight: bold;
   }
 }
+
+/* Posts & Search page */
+
+h2.title, div.post-content {
+  display: inline;
+  vertical-align: middle;
+}
+
+h2.title {
+  margin-right: 0.3em;
+}
+
+div.post-content a {
+  color: black;
+}
+
+a.disqus-comments {
+  font-size: 0.8em;
+}
+
+div#quote {
+  position: relative;
+
+  h1 {
+    display: inline-block;
+  }
+
+  a {
+    position: absolute;
+    right: 2em;
+  }
+}
+
 
 /* Footer */
 .ui.footer.segment {

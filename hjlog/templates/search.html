@@ -1,20 +1,5 @@
 {% extends 'base.html' %}
 {% block title %}'{{tag_name}}' 태그 검색 결과{% endblock %}
-{% block header %}
-<style type='text/css'>
-h2.title, div.content {
-  display: inline;
-  vertical-align: middle;
-}
-h2.title {
-  margin-right: 0.3em;
-}
-a {
-    color: #000;
-    text-decoration: none;
-}
-</style>
-{% endblock %}
 {% block content %}
 <div class="ui grid">
     <div class="ui sixteen wide column">
@@ -30,8 +15,8 @@ a {
     {% else %}
     <img class="ui avatar image" src="/static/image/icon/hj-07.png">
     {% endif %}
-    <div class="content">
-      <a href="/post/{{post.id}}">
+    <div class="post-content">
+      <a href="/post/{{post.id}}" id="disqus-comments">
         <h2 class="title">{{post.title}}</h2>
         <a href="/post/{{post.id}}#disqus_thread"></a>
       </a>

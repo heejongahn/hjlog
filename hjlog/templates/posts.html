@@ -1,39 +1,5 @@
 {% extends 'base.html' %}
 {% block title %}{{c}}{% endblock %}
-{% block header %}
-<style type='text/css'>
-h2.title, div.content {
-  display: inline;
-  vertical-align: middle;
-}
-
-h2.title {
-  margin-right: 0.3em;
-}
-
-div#post-list a {
-  color: #000;
-}
-
-a.disqus-comments {
-  text-decoration: none;
-  font-size: 0.8em;
-}
-
-div#quote {
-  position: relative;
-}
-
-div#quote > h1 {
-  display: inline-block;
-}
-
-a#write-icon {
-  position: absolute;
-  right: 2em;
-}
-</style>
-{% endblock %}
 {% block content %}
 <div class="ui grid">
     <div class="ui sixteen wide column" id="quote">
@@ -47,7 +13,7 @@ a#write-icon {
       <h1>"상상력은 지식보다 중요하다"</h1>
       {% endif %}
       {% if current_user.username %}
-      <a href="/posts/{{c}}/new" class="ui icon button basic" id="write-icon">
+      <a href="/posts/{{c}}/new" class="ui icon button basic">
           <i class="write icon"></i>
       </a>
       {% endif %}
@@ -63,7 +29,7 @@ a#write-icon {
       {% else %}
       <img class="ui avatar image" src="/static/image/icon/hj-07.png">
       {% endif %}
-      <div class="content post-content">
+      <div class="post-content">
         <a href="/post/{{post.id}}">
           <h2 class="title">{{post.title}}</h2>
           <a class="disqus-comments" href="/post/{{post.id}}#disqus_thread"></a>

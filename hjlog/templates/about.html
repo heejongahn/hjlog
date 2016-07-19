@@ -1,26 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}hjlog{% endblock %}
-{% block header %}
-<style type="text/css">
-    div#intro{
-      margin: 1em 0 0 0;
-      padding: 0 0 1em 0;
-    }
-    .heejong > a{
-      margin-right : 2em;
-    }
-    code {
-      font-size: 1em;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
   <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
       <h1 class='ui header'>hjlog : hj & hj 's lifelog</h1>
       <div class="row">
-        <div class="ten wide column">
+        <div class="ten wide column" id="greeting">
           <pre><code class="python language-python">print("Greetings, visitor!")</code></pre>
           <p>
             희종과 하진, 하진과 희종의 아지트인
@@ -44,10 +29,10 @@
     </div>
   </div>
 
-  <div class="ui vertical stripe quote segment" id='intro'>
+  <div class="ui vertical stripe quote segment">
     <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column heejong">
+      <div class="center aligned row" id="intro">
+        <div class="column" id="heejong">
           <h3>안희종 | Heejong Ahn</h3>
           <p>힙합, 그리고 새로운 기술을 공부하는 걸 좋아해요.
             스타트업에 관심이 많고, 블로그를 개발하면서 웹 표준 및 네트워크를
@@ -63,7 +48,7 @@
             Join Slack Reading List
           </a>
         </div>
-        <div class="column hajin">
+        <div class="column" id="hajin">
           <h3>심하진 | Hajin Shim</h3>
           <p>어쩌다가 외고를 갔다가
           KAIST에 와서 수학공부 하다가
