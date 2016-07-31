@@ -29,6 +29,28 @@
 <div class="markdown" hidden>
 {{post.body}}
 </div>
+<div id="prev-and-next">
+  <div id="prev">
+    {% if prv %}
+    <b>이전 글</b><br>
+    <a href="{{ url_for('post', id=prv.id) }}">
+      {{prv.title}}
+    </a>
+    {% else %}
+      첫 번째 글입니다
+    {% endif %}
+  </div>
+  <div id="next">
+    {% if nxt %}
+    <b>다음 글</b><br>
+    <a href="{{ url_for('post', id=nxt.id) }}">
+      {{nxt.title}}
+    </a>
+    {% else %}
+      마지막 글입니다
+    {% endif %}
+  </div>
+</div>
 
 <!--DISQUE comment-->
 <br>

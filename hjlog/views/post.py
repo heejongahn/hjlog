@@ -22,7 +22,14 @@ def register(app):
     @app.route('/post/<id>')
     def post(id):
         post = Post.query.filter_by(id=id).one()
-        return render_template('post.html', post=post)
+        category = post.category
+
+        base = Post.query.filter_by(category=category)
+
+        prv = base.order_by(desc("id")).filter(Post.id<id).first()
+        nxt = base.order_by("id").filter(Post.id>id).first()
+
+        return render_template('post.html', post=post, prv=prv, nxt=nxt)
 
     @app.route('/posts/<category>/new', methods=['GET', 'POST'])
     @login_required

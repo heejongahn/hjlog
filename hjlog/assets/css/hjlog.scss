@@ -107,6 +107,27 @@ div#quote {
   }
 }
 
+div#prev-and-next {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2em 0;
+}
+
+div#prev, div#next {
+  overflow: hidden;
+  width: 50%;
+  height: 4em;
+
+  a {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  div#prev, div#next {
+    width: 100%;
+  }
+}
 
 /* Footer */
 .ui.footer.segment {
