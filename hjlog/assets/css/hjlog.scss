@@ -14,10 +14,14 @@ section {
   height: auto;
   margin: 5em auto 3em;
 
+  div, a, p {
+    line-height: 1.8em;
+  }
+
   a {
     color: #800000;
 
-    & :hover {
+    & :hover, :active {
       color: #663300;
     }
   }
