@@ -31,8 +31,8 @@
 </div>
 <div id="prev-and-next">
   <div id="prev">
-    {% if prv %}
     <b>이전 글</b><br>
+    {% if prv %}
     <a href="{{ url_for('post', id=prv.id) }}">
       {{prv.title}}
     </a>
@@ -41,8 +41,8 @@
     {% endif %}
   </div>
   <div id="next">
-    {% if nxt %}
     <b>다음 글</b><br>
+    {% if nxt %}
     <a href="{{ url_for('post', id=nxt.id) }}">
       {{nxt.title}}
     </a>
