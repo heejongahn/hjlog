@@ -16,13 +16,9 @@ def register(app):
 
         form = LoginForm()
         if request.method == 'POST' and form.validate_on_submit():
-            try:
-                user = User.query.filter_by(username=form.username.data).first_or_404()
-            except:
-                flash(msg_invalid_user, 'error')
-                return redirect(url_for('login'))
+            user = User.query.filter_by(username=form.username.data).first()
 
-            if user.is_correct_password(form.password.data):
+            if user and user.is_correct_password(form.password.data):
                 login_user(user)
                 flash(msg_login_success, 'success')
                 return redirect(url_for('about'))
