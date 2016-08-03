@@ -34,8 +34,11 @@ def register(app):
     @app.route('/posts/<category>/new', methods=['GET', 'POST'])
     @login_required
     def post_new(category):
+        if category not in ['everyday', 'idea', 'study', 'world']:
+            flash('존재하지 않는 카테고리입니다!', 'warning')
+            return redirect(url_for('post_new', category='everyday'))
+
         form = PostForm()
-        print(category)
 
         if request.method == 'GET':
             return render_template('post_new.html', form=form, c=category)
