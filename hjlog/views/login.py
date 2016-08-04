@@ -16,12 +16,12 @@ def register(app):
                 user = User.query.filter_by(username=form.username.data).first_or_404()
             except:
                 flash('등록된 관리자가 아닙니다 :(', 'warning')
-                return redirect(url_for('login'))
+                return form.redirect(url_for('login'))
 
             if user.is_correct_password(form.password.data):
                 login_user(user)
                 flash('관리자님 환영합니다 :)', 'success')
-                return redirect(url_for('about'))
+                return form.redirect(url_for('about'))
             else:
                 flash('올바르지 않은 ID/PW 쌍입니다 :-(', 'error')
                 return redirect(url_for('login'))
@@ -31,10 +31,11 @@ def register(app):
     @app.route('/logout')
     @login_required
     def logout():
+        form = LoginForm()
         logout_user()
         flash('성공적으로 로그아웃 되었습니다 :)', 'success')
 
-        return redirect(url_for('about'))
+        return form.redirect(url_for('about'))
 
     ####################
     # Helper functions #
