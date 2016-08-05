@@ -112,7 +112,7 @@ def register(app):
         post = Post.query.filter_by(id=id).one()
 
         photos = Photo.query.filter_by(original_id=id).all()
-        delete_photos(photos)
+        delete_photos(photos, app.config['UPLOAD_FOLDER'])
 
         tags = post.tags
 
@@ -134,47 +134,47 @@ def register(app):
                 tag_name=tag_name)
 
 
-    ####################
-    # Helper functions #
-    ####################
+####################
+# Helper functions #
+####################
 
-    def create_tags(tag_names):
-        tag_names = [name.strip() for name in tag_names.split(',')]
+def create_tags(tag_names):
+    tag_names = [name.strip() for name in tag_names.split(',')]
 
-        if tag_names == ['']:
-            tag_names = []
+    if tag_names == ['']:
+        tag_names = []
 
-        tags = []
-        for tag_name in tag_names:
-            if tag_name == "":
-                continue
+    tags = []
+    for tag_name in tag_names:
+        if tag_name == "":
+            continue
 
-            try:
-                t = Tag(tag_name)
-                db.session.add(t)
-                db.session.commit()
-            except:
-                db.session.rollback()
-                t = Tag.query.filter_by(tag_name=tag_name).one()
-            finally:
-                tags.append(t)
+        try:
+            t = Tag(tag_name)
+            db.session.add(t)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            t = Tag.query.filter_by(tag_name=tag_name).one()
+        finally:
+            tags.append(t)
 
-        return tags
+    return tags
 
-    def create_photos(photo_names, original):
-        photo_names = [name for name in photo_names.strip().split()]
-        for photo_name in photo_names:
-            p = Photo(photo_name, original.id)
-            db.session.add(p)
-        db.session.commit()
+def create_photos(photo_names, original):
+    photo_names = [name for name in photo_names.strip().split()]
+    for photo_name in photo_names:
+        p = Photo(photo_name, original.id)
+        db.session.add(p)
+    db.session.commit()
 
-    def delete_photos(photos):
-        for photo in photos:
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], photo.filename))
-            db.session.delete(photo)
+def delete_photos(photos, upload_folder):
+    for photo in photos:
+        os.remove(os.path.join(upload_folder, photo.filename))
+        db.session.delete(photo)
 
-    def delete_orphan_tag(tags):
-        for tag in tags:
-            if not tag.describes.all():
-                db.session.delete(tag)
-                db.session.commit()
+def delete_orphan_tag(tags):
+    for tag in tags:
+        if not tag.describes.all():
+            db.session.delete(tag)
+            db.session.commit()

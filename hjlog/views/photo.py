@@ -10,18 +10,18 @@ def register(app):
     def photo_ajax():
         if request.method == 'POST':
             photo = request.files['file']
-            if photo and allowed_file(photo.filename):
+            if photo and allowed_file(photo.filename, app.config['ALLOWED_EXTENSIONS']):
                 filename = secure_filename(str(time.time())+photo.filename)
                 photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 url = url_for('static', filename='image/photo/'+filename)
                 return jsonify(correct=True, name=filename, url=url)
 
-            elif not allowed_file(photo.filename):
+            elif not allowed_file(photo.filename, app.config['ALLOWED_EXTENSIONS']):
                 return jsonify(correct=False)
 
-    ####################
-    # Helper functions #
-    ####################
-    def allowed_file(filename):
-        return '.' in filename and \
-            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+####################
+# Helper functions #
+####################
+def allowed_file(filename, allowed_extensions):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in allowed_extensions

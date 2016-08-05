@@ -45,9 +45,9 @@ def register(app):
         flash(msg_logout_success, 'success')
         return form.redirect(url_for('about'))
 
-    ####################
-    # Helper functions #
-    ####################
-    @lm.user_loader
-    def load_user(user_id):
-        return User.query.get(user_id)
+####################
+# Helper functions #
+####################
+@lm.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
