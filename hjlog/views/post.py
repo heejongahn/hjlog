@@ -7,12 +7,16 @@ from hjlog.forms import PostForm
 from flask.ext.login import current_user, login_required
 import os
 
+msg_invalid_category = '존재하지 않는 카테고리입니다!'
+msg_invalid_input = '이런, 뭔가 빼먹으신 모양인데요?'
+msg_delete_success = '성공적으로 삭제되었습니다 :)'
+
 def register(app):
     @app.route('/posts/<category>', defaults={'page': 1})
     @app.route('/posts/<category>/<page>')
     def posts(category, page):
         if category not in ['everyday', 'idea', 'study', 'world']:
-            flash('존재하지 않는 카테고리입니다!', 'warning')
+            flash(msg_invalid_category, 'warning')
             return redirect(url_for('posts', category='everyday'))
 
         pgn = Post.query.filter_by(category=category).order_by(desc(Post.datetime))\
@@ -35,7 +39,7 @@ def register(app):
     @login_required
     def post_new(category):
         if category not in ['everyday', 'idea', 'study', 'world']:
-            flash('존재하지 않는 카테고리입니다!', 'warning')
+            flash(msg_invalid_category, 'warning')
             return redirect(url_for('post_new', category='everyday'))
 
         form = PostForm()
@@ -62,7 +66,7 @@ def register(app):
             return redirect(url_for('post', id=post.id))
 
         # Invalid input
-        flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+        flash(msg_invalid_input, 'warning')
         return render_template('post_new.html', form=form, c=category)
 
     @app.route('/post/<id>/edit', methods=['GET', 'POST'])
@@ -99,7 +103,7 @@ def register(app):
             return redirect(url_for('post', id=post.id))
 
         # Invalid input
-        flash('이런, 뭔가 빼먹으신 모양인데요?', 'warning')
+        flash(msg_invalid_input, 'warning')
         return render_template('post_write.html', form=form, id=post.id)
 
     @app.route('/post/<id>/delete')
@@ -117,7 +121,7 @@ def register(app):
 
         delete_orphan_tag(tags)
 
-        flash('성공적으로 삭제되었습니다 :)', 'success')
+        flash(msg_delete_success, 'success')
         return redirect(url_for('posts', category='everyday'))
 
     @app.route('/search/<tag_name>', defaults={'page': 1})

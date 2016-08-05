@@ -4,6 +4,10 @@ from hjlog.models import User
 from hjlog.forms import LoginForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 
+msg_invalid_user = '등록된 관리자가 아닙니다 :('
+msg_login_success = '관리자님 환영합니다 :)'
+msg_logout_success = '성공적으로 로그아웃 되었습니다 :)'
+
 def register(app):
     @app.route('/login', methods=["GET", "POST"])
     def login():
@@ -15,15 +19,15 @@ def register(app):
             try:
                 user = User.query.filter_by(username=form.username.data).first_or_404()
             except:
-                flash('등록된 관리자가 아닙니다 :(', 'warning')
-                return form.redirect(url_for('login'))
+                flash(msg_invalid_user, 'error')
+                return redirect(url_for('login'))
 
             if user.is_correct_password(form.password.data):
                 login_user(user)
-                flash('관리자님 환영합니다 :)', 'success')
-                return form.redirect(url_for('about'))
+                flash(msg_login_success, 'success')
+                return redirect(url_for('about'))
             else:
-                flash('올바르지 않은 ID/PW 쌍입니다 :-(', 'error')
+                flash(msg_invalid_user, 'error')
                 return redirect(url_for('login'))
 
         return render_template('login.html', form=form)
@@ -33,7 +37,7 @@ def register(app):
     def logout():
         form = LoginForm()
         logout_user()
-        flash('성공적으로 로그아웃 되었습니다 :)', 'success')
+        flash(msg_logout_success, 'success')
 
         return form.redirect(url_for('about'))
 
