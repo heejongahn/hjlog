@@ -29,8 +29,7 @@ def register(app):
                 return form.redirect(url_for('about'))
             else:
                 flash(msg_invalid_user, 'error')
-                return redirect(url_for('login', next=session['next_url']))
-
+                return redirect(url_for('login'))
 
         return render_template('login.html', form=form)
 
