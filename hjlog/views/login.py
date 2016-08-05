@@ -9,6 +9,10 @@ msg_invalid_user = '등록된 관리자가 아닙니다 :('
 msg_login_success = '관리자님 환영합니다 :)'
 msg_logout_success = '성공적으로 로그아웃 되었습니다 :)'
 
+msg_invalid_user = '등록된 관리자가 아닙니다 :('
+msg_login_success = '관리자님 환영합니다 :)'
+msg_logout_success = '성공적으로 로그아웃 되었습니다 :)'
+
 def register(app):
     @app.route('/login', methods=["GET", "POST"])
     def login():
