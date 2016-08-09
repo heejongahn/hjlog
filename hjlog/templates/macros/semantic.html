@@ -12,6 +12,15 @@
 </div>
 {% endmacro %}
 
+{% macro checkbox(field) %}
+<div class='field'>
+  <div class='ui toggle checkbox'>
+    {{ field|safe }}
+    {{ field.label }}
+  </div>
+</div>
+{% endmacro %}
+
 {% macro pagination(pagination, endpoint, c) %}
   <div class="ui pagination menu">
   {% for page in pagination.iter_pages() %}

@@ -10,6 +10,7 @@
       </div>
     </div></br>
     {{ semantic.form(form.body(rows="30")|safe) }}
+    {{ semantic.checkbox(form.private) }}
     {{ semantic.form(form.tags) }}
     <input type="text" name="photonames" style="display:none">
     <input type='submit' class='ui button basic' value='작성'>
