@@ -20,13 +20,7 @@ def register(app):
             flash(msg_invalid_category, 'warning')
             return redirect(url_for('posts', category='everyday'))
 
-        if current_user and current_user.is_authenticated():
-            accessible_posts = Post.query.filter(
-                    or_(~Post.private, Post.author == current_user))
-        else:
-            accessible_posts = Post.query.filter_by(private=False)
-
-        pgn = accessible_posts\
+        pgn = get_visible_posts(current_user)\
                 .filter_by(category=category)\
                 .order_by(desc(Post.datetime))\
                 .paginate(int(page), per_page=10)
@@ -42,13 +36,7 @@ def register(app):
             flash(msg_unauthorized, 'warning')
             return redirect(url_for('about'))
 
-        if current_user and current_user.is_authenticated():
-            accessible_posts = Post.query.filter(
-                    or_(~Post.private, Post.author == current_user))
-        else:
-            accessible_posts = Post.query.filter_by(private=False)
-
-        base = accessible_posts.filter_by(category=category)
+        base = get_visible_posts(current_user).filter_by(category=category)
 
         prv = base.order_by(desc("id")).filter(Post.id<id).first()
         nxt = base.order_by("id").filter(Post.id>id).first()
@@ -157,13 +145,7 @@ def register(app):
     @app.route('/search/<tag_name>', defaults={'page': 1})
     @app.route('/search/<tag_name>/<page>')
     def search(tag_name, page):
-        if current_user and current_user.is_authenticated():
-            accessible_posts = Post.query.filter(
-                    or_(~Post.private, Post.author == current_user))
-        else:
-            accessible_posts = Post.query.filter_by(private=False)
-
-        pgn = accessible_posts\
+        pgn = get_visible_posts(current_user)\
                 .filter(Post.tags.any(tag_name=tag_name))\
                 .paginate(int(page), per_page=10)
 
@@ -215,3 +197,9 @@ def delete_orphan_tag(tags):
         if not tag.describes.all():
             db.session.delete(tag)
             db.session.commit()
+
+def get_visible_posts(current_user):
+    if current_user and current_user.is_authenticated():
+        return Post.query.filter(or_(~Post.private, Post.author == current_user))
+    else:
+        return Post.query.filter_by(private=False)
