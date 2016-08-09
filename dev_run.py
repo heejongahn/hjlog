@@ -50,6 +50,7 @@ for i in range(15):
             dummy_body,
             "everyday",
             u,
+            False,
             [dummy_tag for dummy_tag in dummy_tags if random.random() > 0.5]
             )
     db.session.add(p)

@@ -14,16 +14,18 @@ class Post(db.Model):
     datetime = db.Column(db.DateTime)
     category = db.Column(db.String(20))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    private = db.Column(db.Boolean)
     tags = db.relationship(
         'Tag',
         secondary=tags,
         backref=db.backref('describes', lazy='dynamic'))
     photos = db.relationship('Photo', backref='original')
 
-    def __init__(self, title, body, category, author, tags):
+    def __init__(self, title, body, category, author, private, tags):
         self.title = title
         self.body = body
         self.category = category
         self.author = author
         self.tags = tags
+        self.private = private
         self.datetime = datetime.now()
