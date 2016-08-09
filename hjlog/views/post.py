@@ -7,17 +7,19 @@ from hjlog.forms import PostForm
 from flask.ext.login import current_user, login_required
 import os
 
-msg_invalid_category = '존재하지 않는 카테고리입니다!'
-msg_invalid_input = '이런, 뭔가 빼먹으신 모양인데요?'
-msg_delete_success = '성공적으로 삭제되었습니다 :)'
-msg_unauthorized = '이 글에 접근할 권한이 없습니다.'
+MSG_INVALID_CATEGORY = '존재하지 않는 카테고리입니다!'
+MSG_INVALID_INPUT = '이런, 뭔가 빼먹으신 모양인데요?'
+MSG_DELETE_SUCCESS = '성공적으로 삭제되었습니다 :)'
+MSG_UNAUTHORIZED = '이 글에 접근할 권한이 없습니다.'
+
+ALLOWED_CATEGORIES = ['everyday', 'idea', 'study', 'world']
 
 def register(app):
     @app.route('/posts/<category>', defaults={'page': 1})
     @app.route('/posts/<category>/<page>')
     def posts(category, page):
-        if category not in ['everyday', 'idea', 'study', 'world']:
-            flash(msg_invalid_category, 'warning')
+        if category not in ALLOWED_CATEGORIES:
+            flash(MSG_INVALID_CATEGORY, 'warning')
             return redirect(url_for('posts', category='everyday'))
 
         pgn = get_visible_posts(current_user)\
@@ -33,7 +35,7 @@ def register(app):
         category = post.category
 
         if post.private and post.author != current_user:
-            flash(msg_unauthorized, 'warning')
+            flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
         base = get_visible_posts(current_user).filter_by(category=category)
@@ -46,8 +48,8 @@ def register(app):
     @app.route('/posts/<category>/new', methods=['GET', 'POST'])
     @login_required
     def post_new(category):
-        if category not in ['everyday', 'idea', 'study', 'world']:
-            flash(msg_invalid_category, 'warning')
+        if category not in ALLOWED_CATEGORIES:
+            flash(MSG_INVALID_CATEGORY, 'warning')
             return redirect(url_for('post_new', category='everyday'))
 
         form = PostForm()
@@ -74,7 +76,7 @@ def register(app):
             return redirect(url_for('post', id=post.id))
 
         # Invalid input
-        flash(msg_invalid_input, 'warning')
+        flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_new.html', form=form, c=category)
 
     @app.route('/post/<id>/edit', methods=['GET', 'POST'])
@@ -83,7 +85,7 @@ def register(app):
         post = Post.query.filter_by(id=id).one()
 
         if post.private and post.author != current_user:
-            flash(msg_unauthorized, 'warning')
+            flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
         tags_str = ", ".join([tag.tag_name for tag in post.tags])
@@ -117,7 +119,7 @@ def register(app):
             return redirect(url_for('post', id=post.id))
 
         # Invalid input
-        flash(msg_invalid_input, 'warning')
+        flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_write.html', form=form, id=post.id)
 
     @app.route('/post/<id>/delete')
@@ -126,7 +128,7 @@ def register(app):
         post = Post.query.filter_by(id=id).one()
 
         if post.private and post.author != current_user:
-            flash(msg_unauthorized, 'warning')
+            flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
         photos = Photo.query.filter_by(original_id=id).all()
@@ -139,7 +141,7 @@ def register(app):
 
         delete_orphan_tag(tags)
 
-        flash(msg_delete_success, 'success')
+        flash(MSG_DELETE_SUCCESS, 'success')
         return redirect(url_for('posts', category='everyday'))
 
     @app.route('/search/<tag_name>', defaults={'page': 1})

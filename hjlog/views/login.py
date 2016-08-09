@@ -5,13 +5,9 @@ from hjlog.forms import LoginForm
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from urllib.parse import urlparse
 
-msg_invalid_user = '등록된 관리자가 아닙니다 :('
-msg_login_success = '관리자님 환영합니다 :)'
-msg_logout_success = '성공적으로 로그아웃 되었습니다 :)'
-
-msg_invalid_user = '등록된 관리자가 아닙니다 :('
-msg_login_success = '관리자님 환영합니다 :)'
-msg_logout_success = '성공적으로 로그아웃 되었습니다 :)'
+MSG_INVALID_USER = '등록된 관리자가 아닙니다 :('
+MSG_LOGIN_SUCCESS = '관리자님 환영합니다 :)'
+MSG_LOGOUT_SUCCESS = '성공적으로 로그아웃 되었습니다 :)'
 
 def register(app):
     @app.route('/login', methods=["GET", "POST"])
@@ -28,11 +24,11 @@ def register(app):
 
             if user and user.is_correct_password(form.password.data):
                 login_user(user)
-                flash(msg_login_success, 'success')
+                flash(MSG_LOGIN_SUCCESS, 'success')
                 session.pop('next_url', None)
                 return form.redirect(url_for('about'))
             else:
-                flash(msg_invalid_user, 'error')
+                flash(MSG_INVALID_USER, 'error')
                 return redirect(url_for('login'))
 
         return render_template('login.html', form=form)
@@ -42,7 +38,7 @@ def register(app):
     def logout():
         form = LoginForm()
         logout_user()
-        flash(msg_logout_success, 'success')
+        flash(MSG_LOGOUT_SUCCESS, 'success')
         return form.redirect(url_for('about'))
 
 ####################
