@@ -29,3 +29,6 @@ class Post(db.Model):
         self.tags = tags
         self.private = private
         self.datetime = datetime.now()
+
+    def is_invisible_by(self, user):
+        return self.private and self.author != user

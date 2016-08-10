@@ -31,14 +31,13 @@ def register(app):
 
     @app.route('/post/<id>')
     def post(id):
-        post = Post.query.filter_by(id=id).one()
-        category = post.category
+        post = Post.query.get_or_404(id)
 
-        if post.private and post.author != current_user:
+        if post.is_invisible_by(current_user):
             flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
-        base = get_visible_posts(current_user).filter_by(category=category)
+        base = get_visible_posts(current_user).filter_by(category=post.category)
 
         prv = base.order_by(desc("id")).filter(Post.id<id).first()
         nxt = base.order_by("id").filter(Post.id>id).first()
@@ -57,14 +56,13 @@ def register(app):
         if request.method == 'GET':
             return render_template('post_new.html', form=form, c=category)
 
-        # Form Data Submitted
         if form.validate_on_submit():
             keys = ['title', 'body', 'private', 'tags']
             title, body, private, tag_names =\
                     [request.form.get(key) for key in keys]
 
-            private = bool(private)
             tags = create_tags(tag_names)
+            private = bool(private)
 
             post = Post(title, body, category, current_user, private, tags)
             db.session.add(post)
@@ -75,16 +73,15 @@ def register(app):
 
             return redirect(url_for('post', id=post.id))
 
-        # Invalid input
         flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_new.html', form=form, c=category)
 
     @app.route('/post/<id>/edit', methods=['GET', 'POST'])
     @login_required
     def post_edit(id):
-        post = Post.query.filter_by(id=id).one()
+        post = Post.query.get_or_404(id)
 
-        if post.private and post.author != current_user:
+        if post.is_invisible_by(current_user):
             flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
@@ -95,10 +92,7 @@ def register(app):
         if request.method == 'GET':
             return render_template('post_edit.html', form=form, id=post.id)
 
-        # Form Data Submitted
         if form.validate_on_submit():
-            old_tags = post.tags
-
             keys = ['title', 'body', 'category', 'private', 'tags']
             title, body, category, private, tag_names =\
                     [request.form.get(key) for key in keys]
@@ -106,28 +100,29 @@ def register(app):
             private = bool(private)
             tags = create_tags(tag_names)
 
+            removed = [tag for tag in post.tags if tag not in tags]
+
             post.title, post.body, post.category, post.private, post.tags =\
                     title, body, category, private, tags
             db.session.add(post)
             db.session.commit()
 
-            delete_orphan_tag(old_tags)
+            delete_orphan_tag(removed)
 
             photo_names = request.form.get('photonames')
             create_photos(photo_names, post)
 
             return redirect(url_for('post', id=post.id))
 
-        # Invalid input
         flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_write.html', form=form, id=post.id)
 
     @app.route('/post/<id>/delete')
     @login_required
     def post_delete(id):
-        post = Post.query.filter_by(id=id).one()
+        post = Post.query.get_or_404(id)
 
-        if post.private and post.author != current_user:
+        if post.is_invisible_by(current_user):
             flash(MSG_UNAUTHORIZED, 'warning')
             return redirect(url_for('about'))
 
@@ -170,23 +165,23 @@ def create_tags(tag_names):
         if tag_name == "":
             continue
 
-        try:
+        t = Tag.query.filter_by(tag_name=tag_name).first()
+        if not t:
             t = Tag(tag_name)
             db.session.add(t)
             db.session.commit()
-        except:
-            db.session.rollback()
-            t = Tag.query.filter_by(tag_name=tag_name).one()
-        finally:
-            tags.append(t)
+
+        tags.append(t)
 
     return tags
 
 def create_photos(photo_names, original):
     photo_names = [name for name in photo_names.strip().split()]
+
     for photo_name in photo_names:
         p = Photo(photo_name, original.id)
         db.session.add(p)
+
     db.session.commit()
 
 def delete_photos(photos, upload_folder):
