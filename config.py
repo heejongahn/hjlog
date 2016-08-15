@@ -1,4 +1,6 @@
 import os
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 BCRYPT_LOG_ROUNDS = 12

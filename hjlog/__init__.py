@@ -1,10 +1,11 @@
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.script import Manager
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 from flask_wtf.csrf import CsrfProtect
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+
 
 app = Flask(__name__)
 try:

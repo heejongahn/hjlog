@@ -1,6 +1,8 @@
-from hjlog import db, bcrypt
+from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
-from flask.ext.login import UserMixin
+
+from hjlog import db, bcrypt
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

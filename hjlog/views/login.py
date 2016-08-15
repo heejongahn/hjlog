@@ -1,13 +1,16 @@
-from hjlog import lm
+from urllib.parse import urlparse
+
 from flask import render_template, redirect, flash, url_for, request, session
+from flask_login import login_user, logout_user, current_user, login_required
+
+from hjlog import lm
 from hjlog.models import User
 from hjlog.forms import LoginForm
-from flask.ext.login import login_user, logout_user, current_user, login_required
-from urllib.parse import urlparse
 
 MSG_INVALID_USER = '등록된 관리자가 아닙니다 :('
 MSG_LOGIN_SUCCESS = '관리자님 환영합니다 :)'
 MSG_LOGOUT_SUCCESS = '성공적으로 로그아웃 되었습니다 :)'
+
 
 def register(app):
     @app.route('/login', methods=["GET", "POST"])
@@ -44,6 +47,8 @@ def register(app):
 ####################
 # Helper functions #
 ####################
+
+
 @lm.user_loader
 def load_user(user_id):
     return User.query.get(user_id)

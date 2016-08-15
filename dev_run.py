@@ -1,8 +1,6 @@
-from hjlog import app
-import os
 import random
 
-from hjlog import db
+from hjlog import app, db
 from hjlog.models import User, Post, Tag
 
 db.drop_all()

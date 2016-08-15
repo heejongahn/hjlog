@@ -1,8 +1,9 @@
+from urllib.parse import urlparse, urljoin
+
+from flask import request, url_for, redirect, session
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, HiddenField
 from wtforms.validators import InputRequired
-from urllib.parse import urlparse, urljoin, unquote
-from flask import request, url_for, redirect, session
 
 
 class RedirectForm(Form):
@@ -29,11 +30,13 @@ class LoginForm(RedirectForm):
 # helper functions #
 ####################
 
+
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
-            ref_url.netloc == test_url.netloc
+        ref_url.netloc == test_url.netloc
+
 
 def get_redirect_target():
     if 'next_url' in session:

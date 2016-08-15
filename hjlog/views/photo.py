@@ -1,27 +1,31 @@
+import os
+import time
+
 from flask import request, jsonify, url_for
 from flask.ext.login import login_required
 from werkzeug import secure_filename
-import os
-import time
+
 
 def register(app):
     @app.route('/photoajax', methods=['POST'])
     @login_required
     def photo_ajax():
-        if request.method == 'POST':
-            photo = request.files['file']
-            if photo and allowed_file(photo.filename, app.config['ALLOWED_EXTENSIONS']):
-                filename = secure_filename(str(time.time())+photo.filename)
-                photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                url = url_for('static', filename='image/photo/'+filename)
-                return jsonify(correct=True, name=filename, url=url)
+        photo = request.files['file']
+        filename = secure_filename(str(time.time())+photo.filename)
 
-            elif not allowed_file(photo.filename, app.config['ALLOWED_EXTENSIONS']):
-                return jsonify(correct=False)
+        if photo and allowed_file(filename, app.config['ALLOWED_EXTENSIONS']):
+            photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            url = url_for('static', filename='image/photo/'+filename)
+            return jsonify(correct=True, name=filename, url=url)
+
+        elif not allowed_file(filename, app.config['ALLOWED_EXTENSIONS']):
+            return jsonify(correct=False)
 
 ####################
 # Helper functions #
 ####################
+
+
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in allowed_extensions

@@ -1,11 +1,13 @@
-from hjlog import db
 from datetime import datetime
+
+from hjlog import db
 
 # Tag helper table
 tags = db.Table(
     'tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id')))
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
