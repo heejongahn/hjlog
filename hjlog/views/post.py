@@ -18,7 +18,7 @@ ALLOWED_CATEGORIES = ['everyday', 'idea', 'study', 'world']
 
 def register(app):
     @app.route('/posts/<category>', defaults={'page': 1})
-    @app.route('/posts/<category>/<page>')
+    @app.route('/posts/<category>/<int:page>')
     def posts(category, page):
         if category not in ALLOWED_CATEGORIES:
             flash(MSG_INVALID_CATEGORY, 'warning')
@@ -27,12 +27,12 @@ def register(app):
         pgn = get_visible_posts(current_user)\
             .filter_by(category=category)\
             .order_by(desc(Post.datetime))\
-            .paginate(int(page), per_page=10)
+            .paginate(page, per_page=10)
 
         return render_template(
                 'posts.html', posts=pgn.items, c=category, pgn=pgn)
 
-    @app.route('/post/<id>')
+    @app.route('/post/<int:id>')
     def post(id):
         post = Post.query.get_or_404(id)
 
@@ -80,7 +80,7 @@ def register(app):
         flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_new.html', form=form, c=category)
 
-    @app.route('/post/<id>/edit', methods=['GET', 'POST'])
+    @app.route('/post/<int:id>/edit', methods=['GET', 'POST'])
     @login_required
     def post_edit(id):
         post = Post.query.get_or_404(id)
@@ -122,7 +122,7 @@ def register(app):
         flash(MSG_INVALID_INPUT, 'warning')
         return render_template('post_write.html', form=form, id=post.id)
 
-    @app.route('/post/<id>/delete')
+    @app.route('/post/<int:id>/delete')
     @login_required
     def post_delete(id):
         post = Post.query.get_or_404(id)
@@ -145,11 +145,11 @@ def register(app):
         return redirect(url_for('posts', category='everyday'))
 
     @app.route('/search/<tag_name>', defaults={'page': 1})
-    @app.route('/search/<tag_name>/<page>')
+    @app.route('/search/<tag_name>/<int:page>')
     def search(tag_name, page):
         pgn = get_visible_posts(current_user)\
                 .filter(Post.tags.any(tag_name=tag_name))\
-                .paginate(int(page), per_page=10)
+                .paginate(page, per_page=10)
 
         return render_template(
                 'search.html', posts=pgn.items, pgn=pgn, tag_name=tag_name)
