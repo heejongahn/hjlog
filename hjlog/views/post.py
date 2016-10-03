@@ -1,4 +1,5 @@
 import os
+from functools import wraps
 
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_required
@@ -33,6 +34,7 @@ def register(app):
                 'posts.html', posts=pgn.items, c=category, pgn=pgn)
 
     @app.route('/post/<int:id>')
+    @check_private
     def post(id):
         post = Post.query.get_or_404(id)
 
@@ -82,6 +84,7 @@ def register(app):
 
     @app.route('/post/<int:id>/edit', methods=['GET', 'POST'])
     @login_required
+    @check_private
     def post_edit(id):
         post = Post.query.get_or_404(id)
 
@@ -124,12 +127,9 @@ def register(app):
 
     @app.route('/post/<int:id>/delete')
     @login_required
+    @check_private
     def post_delete(id):
         post = Post.query.get_or_404(id)
-
-        if post.is_invisible_by(current_user):
-            flash(MSG_UNAUTHORIZED, 'warning')
-            return redirect(url_for('about'))
 
         photos = Photo.query.filter_by(original_id=id).all()
         delete_photos(photos, app.config['UPLOAD_FOLDER'])
@@ -158,6 +158,18 @@ def register(app):
 ####################
 # Helper functions #
 ####################
+
+def check_private(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        id = kwargs['id']
+        post = Post.query.get_or_404(id)
+        if post.is_invisible_by(current_user):
+            flash(MSG_UNAUTHORIZED, 'warning')
+            return redirect(url_for('about'))
+        return func(id)
+    return decorator
+
 
 def create_tags(tag_names):
     tag_names = [name.strip() for name in tag_names.split(',')]
