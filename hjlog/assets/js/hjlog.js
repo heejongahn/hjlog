@@ -1,4 +1,5 @@
 import figureExtension from "./figure"
+import latexExtension from "./latex"
 import asyncPhotoUpload from "./photoAjax"
 
 require('../css/hjlog.scss');
@@ -9,10 +10,11 @@ require('script!./highlight');
 // Markdown rendering
 const postBody = document.getElementsByClassName("markdown")[0];
 if (postBody) {
+  latexExtension(showdown);
   figureExtension(showdown);
   const md = postBody.innerText;
   const converter = new showdown.Converter({
-    'extensions': ['figure'],
+    'extensions': ['figure', 'latex'],
     'strikethrough': true,
     'tables': true,
     'noHeaderId': true,
