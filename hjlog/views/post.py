@@ -38,10 +38,6 @@ def register(app):
     def post(id):
         post = Post.query.get_or_404(id)
 
-        if post.is_invisible_by(current_user):
-            flash(MSG_UNAUTHORIZED, 'warning')
-            return redirect(url_for('about'))
-
         base = get_visible_posts(current_user)\
             .filter_by(category=post.category)
 
@@ -87,10 +83,6 @@ def register(app):
     @check_private
     def post_edit(id):
         post = Post.query.get_or_404(id)
-
-        if post.is_invisible_by(current_user):
-            flash(MSG_UNAUTHORIZED, 'warning')
-            return redirect(url_for('about'))
 
         tags_str = ", ".join([tag.tag_name for tag in post.tags])
         form = PostForm(
