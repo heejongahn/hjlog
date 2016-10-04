@@ -29,6 +29,17 @@ section {
       color: #663300;
     }
   }
+
+  ul {
+    li {
+      list-style-type: none;
+      &:before {
+        content: "\00BB";
+        margin-left: -18px;
+        padding-right: 10px;
+      }
+    }
+  }
 }
 .wireframe {
   margin-top: 2em;
@@ -80,17 +91,6 @@ figure {
     color: grey;
     text-align: center;
     font-weight: bold;
-  }
-}
-
-ul {
-  li {
-    list-style-type: none;
-    &:before {
-      content: "\00BB";
-      margin-left: -18px;
-      padding-right: 10px;
-    }
   }
 }
 
