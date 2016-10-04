@@ -83,6 +83,17 @@ figure {
   }
 }
 
+ul {
+  li {
+    list-style-type: none;
+    &:before {
+      content: "\00BB";
+      margin-left: -18px;
+      padding-right: 10px;
+    }
+  }
+}
+
 /* Posts & Search page */
 
 h2.title, div.post-content {
