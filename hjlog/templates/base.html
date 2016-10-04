@@ -52,8 +52,7 @@
   </header>
 
   <!-- Main Section -->
-  <section>
-  <div class="ui main text container">
+  <section class="ui main text container">
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -67,7 +66,6 @@
 
     <!-- Main Contents -->
     {% block content %}{% endblock %}
-  </div>
   </section>
 
   <!-- Footer -->
