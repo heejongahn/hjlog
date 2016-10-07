@@ -4,7 +4,7 @@ import asyncPhotoUpload from "./photoAjax"
 
 require('../css/hjlog.scss');
 require('script!showdown');
-require('script!katex');
+require('script!katex/dist/katex.min.js');
 require('script!./highlight');
 
 
