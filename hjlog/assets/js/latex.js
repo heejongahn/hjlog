@@ -25,7 +25,3 @@ const latexExtension = (showdown) => {
 }
 
 export default latexExtension
-
-
-
-
