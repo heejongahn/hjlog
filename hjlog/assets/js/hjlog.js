@@ -27,6 +27,16 @@ if (postBody) {
 
   const dimmer = document.getElementsByClassName("dimmer")[0];
   dimmer.style.display = "none";
+
+  const latex = document.getElementsByClassName("latex")
+  for (let l of latex) {
+    katex.render(l.innerHTML, l);
+  }
+
+  const latexDisplay = document.getElementsByClassName("latex-display")
+  for (let ld of latexDisplay) {
+    katex.render(ld.innerHTML, ld, {displayMode: true});
+  }
 }
 
 // Syntax highlighting
