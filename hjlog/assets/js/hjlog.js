@@ -2,11 +2,11 @@ import figureExtension from "./figure"
 import latexExtension from "./latex"
 import asyncPhotoUpload from "./photoAjax"
 
-require('../css/hjlog.scss');
-require('script!showdown');
-require('script!katex/dist/katex.min.js');
-require('script!./highlight');
+import showdown from 'script!showdown'
+import katex from 'script!katex/dist/katex.min.js'
+import highlight from 'script!./highlight'
 
+import styles from '../css/hjlog.scss'
 
 // Markdown rendering
 const postBody = document.getElementsByClassName("markdown")[0];
