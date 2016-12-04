@@ -2,7 +2,7 @@ import figureExtension from "./figure"
 import latexExtension from "./latex"
 import asyncPhotoUpload from "./photoAjax"
 
-import showdown from 'script!showdown'
+import notUsed from 'script!showdown'
 import katex from 'script!katex/dist/katex.min.js'
 import highlight from 'script!./highlight'
 
