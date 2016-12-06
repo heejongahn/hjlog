@@ -36,22 +36,22 @@
   <header>
   <!-- Navbar -->
     <div class="navbar-header">
-      <a href='/' class='logo item'>
-        <img class="ui logo" src="{{url_for('static', filename='image/icon/logo.png')}}" alt="hjlog">
+      <a id="hjlog-logo-anchor" href='/' class='logo item'>
+        <img id="hjlog-logo-img" class="ui logo" src="{{url_for('static', filename='image/icon/logo.png')}}" alt="hjlog">
       </a>
-      <a class="trigger"><i class="sidebar icon"></i></a>
+      <a id="nav-toggle"><i class="sidebar icon"></i></a>
     </div>
-    <nav>
-      <ul class="menu">
-        <li><a href='/posts/everyday' class='item'>EVERYDAY</a></li>
-        <li><a href='/posts/idea' class='item'>IDEA</a></li>
-        <li><a href='/posts/study' class='item'>STUDY</a></li>
-        <li><a href='/posts/world' class='item'>WORLD</a></li>
-        <li class="login">
+    <nav id="nav">
+      <ul id="nav-menu" class="menu">
+        <li class="nav-item"><a href='/posts/everyday' class='nav-item-anchor item'>EVERYDAY</a></li>
+        <li class="nav-item"><a href='/posts/idea' class='nav-item-anchor item'>IDEA</a></li>
+        <li class="nav-item"><a href='/posts/study' class='nav-item-anchor item'>STUDY</a></li>
+        <li class="nav-item"><a href='/posts/world' class='nav-item-anchor item'>WORLD</a></li>
+        <li class="nav-item login">
           {% if current_user.username %}
-          <a href='/logout' class='item'>Logout</a>
+          <a href='/logout' class='nav-item-anchor item'>Logout</a>
           {% else %}
-          <a href='/login' class='item'>Login</a>
+          <a href='/login' class='nav-item-anchor item'>Login</a>
           {% endif %}
         </li>
       </ul>

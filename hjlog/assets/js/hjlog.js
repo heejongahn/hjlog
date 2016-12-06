@@ -43,9 +43,9 @@ if (postBody) {
 hljs.initHighlightingOnLoad();
 
 // Responsive navbar
-const trigger = document.getElementsByClassName('trigger')[0];
+const trigger = document.getElementById('nav-toggle');
 trigger.addEventListener("click", () => {
-  const nav = document.getElementsByTagName('nav')[0];
+  const nav = document.getElementById('nav');
 
   if (nav.style.visibility === 'visible') {
     nav.style.visibility = 'hidden';

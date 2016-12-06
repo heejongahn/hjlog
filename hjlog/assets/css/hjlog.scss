@@ -10,18 +10,14 @@ body {
   background-size: 100% 2em;
 }
 
-section.main {
+.main {
   min-height: calc(100% - 7em);
   height: auto;
   margin: 5em auto 3em;
 
-  * {
-    word-break: keep-all;
-  }
+  word-break: keep-all;
 
-  div, a, p {
-    line-height: 1.8em;
-  }
+  line-height: 1.8em;
 
   a {
     color: #800000;
@@ -31,58 +27,61 @@ section.main {
     }
   }
 
-  ul {
-    li {
-      list-style-type: none;
-      &:before {
-        content: "\00BB";
-        margin-left: -18px;
-        padding-right: 10px;
-      }
-      p {
-        display: inline;
-      }
+  li {
+    list-style-type: none;
+    &:before {
+      content: "\00BB";
+      margin-left: -18px;
+      padding-right: 10px;
+    }
+    p {
+      display: inline;
     }
   }
+
+  div, p, span {
+    line-height: 1.8em;
+  }
 }
+
 .wireframe {
   margin-top: 2em;
 }
 
 /* About Page */
-div#greeting code {
+#greeting code {
   font-size: 1em;
 }
 
-div#intro {
+#intro {
   margin: 1em 0 0 0;
   padding: 0 0 1em 0;
 }
 
-div#greeting, div#intro {
+#greeting, #intro {
   font-size: 1.14285714rem;
 }
 
-#heejong a {
+.about-external-link {
   margin: 0 1em;
 }
 
 /* Post page */
 
-h1.post-title {
+.post-title {
   font-size: 2.5em;
 }
 
-a.mini {
+.mini {
   font-size: 0.6rem !important;
   padding: 0.785714em 1em !important;
 }
 
-a.button {
+.button {
   color: black;
 }
 
-a.tag {
+.tag {
   margin-right: 0.3em;
 }
 
@@ -100,43 +99,43 @@ figure {
 
 /* Posts & Search page */
 
-h2.title, div.post-content {
+.title, .post-content {
   display: inline;
   vertical-align: middle;
 }
 
-h2.title {
+.title {
   margin-right: 0.3em;
 }
 
-div.post-content a {
+.post-content a {
   color: black;
 }
 
-a.disqus-comments {
+.disqus-comments {
   font-size: 0.8em;
 }
 
-div#quote {
+#posts-header {
   position: relative;
 
-  h1 {
+  #posts-quote {
     display: inline-block;
   }
 
-  a {
+  #posts-write {
     position: absolute;
     right: 2em;
   }
 }
 
-div#prev-and-next {
+#prev-and-next {
   display: flex;
   flex-wrap: wrap;
   padding: 2em 0;
 }
 
-div#prev, div#next {
+#prev, #next {
   overflow: hidden;
   width: 50%;
   height: 4em;
@@ -147,7 +146,7 @@ div#prev, div#next {
 }
 
 @media (max-width: 480px) {
-  div#prev, div#next {
+  #prev, #next {
     width: 100%;
   }
 }
@@ -156,7 +155,8 @@ div#prev, div#next {
 .ui.footer.segment {
   padding: 5em 0em;
 }
-a.license {
+
+.license {
   color: white;
 }
 
