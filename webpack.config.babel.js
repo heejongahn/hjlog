@@ -1,19 +1,19 @@
-const path = require('path');
-const webpack = require('webpack');
+import path from 'path'
+import webpack from 'webpack'
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import autoprefixer from 'autoprefixer'
 
 const rootAssetPath = './hjlog/assets';
 const absRootAssetPath = path.resolve(rootAssetPath);
 
 const plugins = [
-  new ExtractTextPlugin('style.css'),
+  new ExtractTextPlugin('style.css')
 ];
 
-module.exports = {
+export default {
   entry: {
-    bundle: rootAssetPath + '/js/hjlog.js',
+    bundle: `${rootAssetPath}/js/hjlog.js`,
   },
   output: {
     path: 'hjlog/static/build',
@@ -43,5 +43,5 @@ module.exports = {
     ]
   },
   plugins: plugins,
-  postcss: () => { [ autoprefixer ] }
+  postcss: [ autoprefixer() ]
 };
