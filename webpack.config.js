@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const rootAssetPath = './hjlog/assets';
 const absRootAssetPath = path.resolve(rootAssetPath);
@@ -34,12 +35,13 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'stylus-loader'])
+        loader: ExtractTextPlugin.extract('style-loader', ['css!postcss!stylus'])
       },
       /* Font-Awesome */
       { test: /\.(woff2?|svg|jpe?g|png|gif|ico)$/, loader: 'url?limit=10000' },
       { test: /\.(ttf|eot)$/, loader: 'file' }
     ]
   },
-  plugins: plugins
+  plugins: plugins,
+  postcss: () => { [ autoprefixer ] }
 };
