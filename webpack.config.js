@@ -20,7 +20,7 @@ module.exports = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['', '.js', '.css']
+    extensions: ['', '.js', '.css', 'styl']
   },
   module: {
     loaders: [
@@ -33,8 +33,8 @@ module.exports = {
         query: { presets: ['es2015'] }
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'sass-loader?outputStyle=nested'])
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'stylus-loader'])
       },
       /* Font-Awesome */
       { test: /\.(woff2?|svg|jpe?g|png|gif|ico)$/, loader: 'url?limit=10000' },

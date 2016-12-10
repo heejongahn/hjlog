@@ -6,7 +6,7 @@ import notUsed from 'script!showdown'
 import katex from 'script!katex/dist/katex.min.js'
 import highlight from 'script!./highlight'
 
-import styles from '../css/hjlog.scss'
+import styles from '../stylesheet/hjlog.styl'
 
 // Markdown rendering
 const postBody = document.getElementsByClassName("markdown")[0];
