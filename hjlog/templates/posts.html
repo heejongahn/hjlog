@@ -2,22 +2,26 @@
 {% block title %}{{c}}{% endblock %}
 {% block content %}
 <div class="ui grid">
-    <div id="posts-header" class="ui sixteen wide column">
+  <div id="posts-header" class="ui sixteen wide column">
+    <h1 id="posts-quote">
       {% if c == 'everyday' %}
-      <h1 id="posts-quote">"매일을 삶의 마지막 날인듯이 살라"</h1>
+      "매일을 삶의 마지막 날인듯이 살라"
       {% elif c == 'study' %}
-      <h1 id="posts-quote">"공부가 제일 쉬웠어요"</h1>
+      "공부가 제일 쉬웠어요"
       {% elif c == 'world' %}
-      <h1 id="posts-quote">"우린 우주의 작은 별 안의 작은 점"</h1>
+      "우린 우주의 작은 별 안의 작은 점"
       {% elif c == 'idea' %}
-      <h1 id="posts-quote">"상상력은 지식보다 중요하다"</h1>
+      "상상력은 지식보다 중요하다"
+      {% elif c == 'review' %}
+      "거인의 어깨 위에 올라선 난쟁이는 거인보다 더 멀리 본다."
       {% endif %}
-      {% if current_user.username %}
-      <a id="posts-write" href="/posts/{{c}}/new" class="ui icon button basic">
-          <i class="write icon"></i>
-      </a>
-      {% endif %}
-    </div>
+    </h1>
+    {% if current_user.username %}
+    <a id="posts-write" href="/posts/{{c}}/new" class="ui icon button basic">
+        <i class="write icon"></i>
+    </a>
+    {% endif %}
+  </div>
 </div>
 <div class="ui divider"></div>
 <div class="ui middle aligned relaxed selection list" id="post-list">

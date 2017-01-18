@@ -14,7 +14,7 @@ MSG_INVALID_INPUT = '이런, 뭔가 빼먹으신 모양인데요?'
 MSG_DELETE_SUCCESS = '성공적으로 삭제되었습니다 :)'
 MSG_UNAUTHORIZED = '이 글에 접근할 권한이 없습니다.'
 
-ALLOWED_CATEGORIES = ['everyday', 'idea', 'study', 'world']
+ALLOWED_CATEGORIES = ['everyday', 'idea', 'study', 'world', 'review']
 
 
 def register(app):

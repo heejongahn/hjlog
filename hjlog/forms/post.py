@@ -15,4 +15,6 @@ class PostForm(Form):
                 ('everyday', 'EVERYDAY'),
                 ('study', 'STUDY'),
                 ('idea', 'IDEA'),
-                ('world', 'WORLD')])
+                ('world', 'WORLD'),
+                ('review', 'REVIEW'),
+                ])
