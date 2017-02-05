@@ -5,6 +5,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 BCRYPT_LOG_ROUNDS = 12
 
+S3_BASE_URL = 'https://s3.ap-northeast-2.amazonaws.com/hjlog-photos/'
+S3_BUCKET_NAME = 'hjlog-photos'
+
 # Form
 with open('SECRET_KEY') as secret_key:
     SECRET_KEY = secret_key.read().strip()
