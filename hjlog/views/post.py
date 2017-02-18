@@ -1,6 +1,7 @@
 import os
 from functools import wraps
 
+from boto3 import client
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_required
 from sqlalchemy import desc, or_
@@ -8,6 +9,8 @@ from sqlalchemy import desc, or_
 from hjlog import db
 from hjlog.models import Post, Photo, Tag
 from hjlog.forms import PostForm
+
+s3_client = client('s3')
 
 MSG_INVALID_CATEGORY = '존재하지 않는 카테고리입니다!'
 MSG_INVALID_INPUT = '이런, 뭔가 빼먹으신 모양인데요?'
@@ -124,7 +127,7 @@ def register(app):
         post = Post.query.get_or_404(id)
 
         photos = Photo.query.filter_by(original_id=id).all()
-        delete_photos(photos, app.config['UPLOAD_FOLDER'])
+        delete_photos(photos, app.config['S3_BUCKET_NAME'], app.config['UPLOAD_FOLDER'])
 
         tags = post.tags
 
@@ -195,9 +198,12 @@ def create_photos(photo_names, original):
     db.session.commit()
 
 
-def delete_photos(photos, upload_folder):
+def delete_photos(photos, bucket_name, upload_folder):
     for photo in photos:
-        os.remove(os.path.join(upload_folder, photo.filename))
+        if bucket_name is not None:
+            s3_client.delete_object(Bucket=bucket_name, Key=photo.filename)
+        else:
+            os.remove(os.path.join(upload_folder, photo.filename))
         db.session.delete(photo)
 
 
