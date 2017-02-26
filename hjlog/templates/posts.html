@@ -24,27 +24,33 @@
   </div>
 </div>
 <div class="ui divider"></div>
-<div class="ui middle aligned relaxed selection list" id="post-list">
-  {% for post in posts %}
-  <div class="item">
-    <div>
-      {% if post.author.username == 'heejongahn' %}
-      <img class="ui avatar image" src="/static/image/icon/hj-08.png">
-      {% else %}
-      <img class="ui avatar image" src="/static/image/icon/hj-07.png">
-      {% endif %}
-      <div class="post-content">
-        <a href="/post/{{post.id}}">
-          <h2 class="title">{{post.title}}</h2>
-          <a class="disqus-comments" href="/post/{{post.id}}#disqus_thread"></a>
-        </a>
+  {% if posts %}
+    <div class="ui middle aligned relaxed selection list" id="post-list">
+      {% for post in posts %}
+      <div class="item">
+        <div>
+          {% if post.author.username == 'heejongahn' %}
+          <img class="ui avatar image" src="/static/image/icon/hj-08.png">
+          {% else %}
+          <img class="ui avatar image" src="/static/image/icon/hj-07.png">
+          {% endif %}
+          <div class="post-content">
+            <a href="/post/{{post.id}}">
+              <h2 class="title">{{post.title}}</h2>
+              <a class="disqus-comments" href="/post/{{post.id}}#disqus_thread"></a>
+            </a>
+          </div>
+        </div>
+        <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
       </div>
+      {% endfor %}
     </div>
-    <p>{{post.datetime.strftime('%Y %m %d %H:%M')}}</p>
+    {{ semantic.pagination(pgn, 'posts', c) }}
+  {% else %}
+  <div>
+    현재 이 카테고리로 올라온 글이 없습니다.
   </div>
-  {% endfor %}
-</div>
-{{ semantic.pagination(pgn, 'posts', c) }}
+  {% endif %}
 {% endblock %}
 
 {% block script %}
