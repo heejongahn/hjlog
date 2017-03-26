@@ -43,16 +43,26 @@
     </div>
     <nav id="nav">
       <ul id="nav-menu" class="menu">
-        <li class="nav-item"><a href='/posts/everyday' class='nav-item-anchor item'>EVERYDAY</a></li>
-        <li class="nav-item"><a href='/posts/idea' class='nav-item-anchor item'>IDEA</a></li>
-        <li class="nav-item"><a href='/posts/study' class='nav-item-anchor item'>STUDY</a></li>
-        <li class="nav-item"><a href='/posts/world' class='nav-item-anchor item'>WORLD</a></li>
-        <li class="nav-item"><a href='/posts/review' class='nav-item-anchor item'>REVIEW</a></li>
+        <li class='nav-item'>
+          <a href='/posts/everyday' class='{{ "nav-anchor active" if "everyday" in request.path else "nav-anchor" }}'>EVERYDAY</a>
+        </li>
+        <li class='nav-item'>
+          <a href='/posts/idea' class='{{ "nav-anchor active" if "idea" in request.path else "nav-anchor" }}'>IDEA</a>
+        </li>
+        <li class='nav-item'>
+          <a href='/posts/study' class='{{ "nav-anchor active" if "study" in request.path else "nav-anchor" }}'>STUDY</a>
+        </li>
+        <li class='nav-item'>
+          <a href='/posts/world' class='{{ "nav-anchor active" if "world" in request.path else "nav-anchor" }}'>WORLD</a>
+        </li>
+        <li class='nav-item'>
+          <a href='/posts/review' class='{{ "nav-anchor active" if "review" in request.path else "nav-anchor" }}'>REVIEW</a>
+        </li>
         <li class="nav-item login">
           {% if current_user.username %}
-          <a href='/logout' class='nav-item-anchor item'>Logout</a>
+          <a href='/logout' class='nav-anchor'>Logout</a>
           {% else %}
-          <a href='/login' class='nav-item-anchor item'>Login</a>
+          <a href='/login' class='nav-anchor'>Login</a>
           {% endif %}
         </li>
       </ul>

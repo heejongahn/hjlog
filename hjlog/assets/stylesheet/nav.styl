@@ -1,4 +1,6 @@
-/* Responsive Navbar */
+@import 'variables'
+
+/* Responsive header */
 header
   top: 0
   left: 0
@@ -8,7 +10,7 @@ header
   background: #fff
   z-index: 101
   position: fixed
-  height: 3em
+  height: $header-height
 
 
 header, .navbar-header
@@ -17,93 +19,126 @@ header, .navbar-header
   flex-wrap: wrap
   align-items: center
 
+@media (max-width: 480px)
+  .navbar-header
+    height: $header-height
+    width: 100%
+    justify-content: space-between
 
-#nav
-  display: inline-block
-
-
-#nav-menu
-  list-style: none
-  display: inline-block
-  padding: 0
-  margin: 0.75em 0
-  line-height: 1em
-
-
-
-.nav-item
-  display: inline
-  width: 100%
-  margin: auto 1em
-  text-align: center
-
-
-.nav-item-anchor
-  color: black
-
-
-#nav-toggle
-  display: none
-
+/* Logo */
 
 #hjlog-logo-anchor
   padding: 0 !important
   margin-left: 1em
   display: inline-block
 
-
-
 #hjlog-logo-img
   width: 100px
   display: inline-block
   vertical-align: middle
 
-
+/* Actual navbar */
 @media (max-width: 480px)
-  .navbar-header
-    height: 3em
-    width: 100%
-
-
   #nav, #nav-menu, .nav-item
     width: 100%
 
+#nav
+  display: inline-block
 
-  #nav
-    visibility: hidden
-    padding: 0
+  height: 100%
 
+  @media (max-width: 480px)
+      visibility: hidden
+      padding: 0
+      height: auto
 
-  #nav-menu
+/* Nav menu and items */
+#nav-menu
+  display: inline-flex
+  flex-wrap: wrap
+
+  height: 100%
+
+  padding: 0
+  margin: 0
+
+  list-style: none
+
+  @media (max-width: 480px)
     margin: 0
+    height: auto
 
+.nav-item
+  display: inline-flex
+  align-items: center
 
-  .nav-item
-    display: block
-    text-align: center
+  line-height: 100%
+  text-align: center
+
+  @media (max-width: 480px)
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 100%
+
     padding: 0.5em 0
     margin: 0
+
+    line-height: 1.6em
+
+    border-bottom: none
     background: rgb(84, 84, 84)
 
+/* Overriding anchor style */
+.nav-anchor
+  padding: 0 1em
+  line-height: $header-height
 
-  .nav-item-anchor
+  color: $text-color
+  font-weight: bold
+
+  &.active
+    color: $main-color
+
+  &:after
+    display: block
+    content: ''
+
+    margin: 0 -1em
+
+    border-bottom: solid 2px $main-color
+    transform: scaleX(0)
+    transition: transform 250ms ease-in-out
+
+  &:hover
+    color: $main-color
+
+    &:after
+      transform: scaleX(1)
+
+
+  @media (max-width: 480px)
     color: white
-    font-style: bold
+    font-weight: normal
+    line-height: 1.6em
 
+    &:after
+      border: none
 
-  #nav-toggle
+    &:hover
+      color: white
+
+/* Nav toggle button */
+#nav-toggle
+  display: none
+
+  @media (max-width: 480px)
     display: inline-flex
 
     color: black
-    position: absolute
-    right: 0.5em
-    top: 0
-    bottom: 0
+    margin-right: 12px
 
     align-items: center
 
     i
       margin: 0
-
-
-
