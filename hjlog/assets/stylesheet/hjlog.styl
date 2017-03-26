@@ -1,3 +1,4 @@
+@import 'variables'
 @import 'nav'
 @import 'github_markdown'
 @import 'highlight'
@@ -20,12 +21,10 @@ body
   line-height: 1.8em
 
   a
-    color: #800000
+    color: $main-color
 
     & :hover, :active
-      color: #663300
-
-
+      color: $main-color-dark
 
   li
     list-style-type: none
