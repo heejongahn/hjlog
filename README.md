@@ -1,11 +1,9 @@
 # hjlog
 **HJ**s' lifelog
 
-## Basic dependency
-- Python 3.4 or higher
-- node 5.x & npm
+## Setting up the project
+See [SETUP.md](SETUP.md)
 
-## Setup & Start
-
+## Start
 - `./run` (Production)
 - `./dev_run` (Development)
